@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+*
+{
+  margin: 0;
+  padding: 0;
+}
+
+.webgl
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
