@@ -1,14 +1,40 @@
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
+const BACK_API = import.meta.env.VITE_BACKEND_API;
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
+  const { login: loginUser } = useAuth();
+  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email =>", email);
-    console.log("Password =>", password);
+    try {
+      const results = await fetch(`${BACK_API}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      const data = await results.json();
+
+      if (!results.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+      loginUser();
+      console.log("DATA", data)
+      navigate("/home");
+    } catch (err: any) {
+      console.error("Error", err);
+      setError(err.message || "Something went wrong");
+    }
   };
   return (
     <div>

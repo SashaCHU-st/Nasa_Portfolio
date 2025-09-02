@@ -4,7 +4,7 @@ import Users from "../pages/Users";
 import Auth from "../pages/Auth";
 import Search from "../pages/Search";
 import Navbar from "../components/Navbar";
-// import Footer from "../components/Footer";
+import Favorites from "../pages/Favorites";
 
 const AppRouter = () => {
   return (
@@ -16,8 +16,8 @@ const AppRouter = () => {
         <Route path="/users" element={<Users />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
-      {/* <Footer/> */}
     </BrowserRouter>
   );
 };

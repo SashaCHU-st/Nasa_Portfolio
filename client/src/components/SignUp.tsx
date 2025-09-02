@@ -1,16 +1,42 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
+const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const SignUp = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
+  const { login: loginUser } = useAuth();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Name =>", name);
-    console.log("Email =>", email);
-    console.log("Password =>", password);
+    try {
+      const results = await fetch(`${BACK_API}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+      const data = await results.json();
+
+      if (!results.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+      loginUser()
+      navigate("/home");
+    } catch (err: any) {
+      console.error("Error", err);
+      setError(err.message || "Something went wrong");
+    }
   };
   return (
     <div>
@@ -35,7 +61,7 @@ const SignUp = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-         <div className="relative w-96 my-8">
+        <div className="relative w-96 my-8">
           <input
             className="font-orbitron uppercase border-4 border-gray-500 rounded p-4 w-full text-gray-200"
             type={showPassword ? "text" : "password"}
