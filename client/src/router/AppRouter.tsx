@@ -4,7 +4,7 @@ import Users from "../pages/Users";
 import Auth from "../pages/Auth";
 import Search from "../pages/Search";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 
 const AppRouter = () => {
   return (
