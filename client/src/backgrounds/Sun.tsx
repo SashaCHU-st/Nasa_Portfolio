@@ -55,7 +55,7 @@ const Moon = () => {
       shininess: 15,
     });
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = -2.4;
+    earth.position.x = -2.6;// or a bit to the right...? will decide later
     earth.position.y = 0.7;
     scene.add(earth);
 

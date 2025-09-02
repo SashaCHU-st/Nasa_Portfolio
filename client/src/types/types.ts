@@ -8,3 +8,14 @@ export type Item = {
   data: Desciption[];
   links?: { href: string }[];
 };
+
+export interface CardProps {
+  paginatedItems: Item[];
+pages:PageScrollerProps
+}
+
+export interface PageScrollerProps {
+  totalPages: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}
