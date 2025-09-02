@@ -3,6 +3,7 @@ import cors from "@fastify/cors";
 import fastifyCookie from "@fastify/cookie";
 import fastifyJwt from "@fastify/jwt";
 import { AuthRoutes } from "./routes/AuthRoutes";
+import { UsersRoutes } from "./routes/UsersRoutes";
 import "dotenv/config";
 
 const fastify = Fastify({
@@ -37,6 +38,10 @@ fastify.register(fastifyJwt, {
 // });
 
 fastify.register(AuthRoutes);
+fastify.register(async(instance)=>
+{
+  instance.register(UsersRoutes)
+})
 
 const start = async () => {
   try {

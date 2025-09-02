@@ -66,13 +66,17 @@ const Navbar = () => {
       {isAuthorized && (
         <div className="ml-auto w-16 h-full text-white font-orbitron uppercase hover:bg-gray-700 rounded flex items-center justify-center transition-colors duration-300">
           <NavLink
+          onClick={logout}
             to="/home"
             className={({ isActive }) =>
               `flex-1 h-full flex items-center justify-center text-white font-orbitron uppercase rounded transition-colors duration-300
       ${isActive ? "bg-gray-800" : "hover:bg-gray-800"}`
             }
           >
-            <FontAwesomeIcon icon={faArrowRightFromBracket} className="text-xl md:text-2xl" />
+            <FontAwesomeIcon
+              icon={faArrowRightFromBracket}
+              className="text-xl md:text-2xl"
+            />
           </NavLink>
         </div>
       )}
