@@ -8,7 +8,7 @@ const Cards = ({paginatedItems, pages} : CardProps) => {
         {paginatedItems.map((item, index) => (
           <div
             key={index}
-            className="text-white border-2 border-white p-4 flex flex-col items-center rounded-xl w-full h-[400px]"
+            className="text-white border-4 border-gray-500 p-4 flex flex-col items-center rounded-xl w-full h-[400px]"
           >
             <h2 className="mb-2 font-bold text-center text-sm sm:text-base md:text-lg">
               {item.data[0].title}

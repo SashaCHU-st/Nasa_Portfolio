@@ -33,14 +33,14 @@ const SearchInput = () => {
         onSubmit={handleSearchNasaAPI}
       >
         <input
-          className="border-2 border-white w-full md:w-96 h-16 text-white px-4 text-xl rounded-xl bg-transparent"
+          className="font-orbitron uppercase border-4 border-gray-500 w-full md:w-96 h-16 text-white px-4 text-xl rounded-xl bg-transparent"
           placeholder="Start typing something"
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          className="border-2 border-blue-800 bg-blue-800 text-white text-2xl rounded-xl px-8 py-4 h-16"
+          className="font-orbitron uppercase border-2 border-blue-800 bg-blue-800 hover:bg-blue-600 text-white text-2xl rounded-xl px-8 py-4 h-16"
           type="submit"
         >
           Search

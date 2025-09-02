@@ -55,8 +55,8 @@ const Moon = () => {
       shininess: 15,
     });
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = -1.4;
-    earth.position.y = 0.7;
+    earth.position.x = 1.4;
+    earth.position.y = -0.7;
     scene.add(earth);
 
     ///stars

@@ -9,7 +9,7 @@ const Home = () => {
         <h1 className="font-orbitron uppercase text-white text-2xl mb-4 text-center">
           Picture of the Day
         </h1>
-        <div className="border-4 border-white rounded-4xl p-6">
+        <div className="border-8 border-gray-500 rounded-4xl p-6">
           <PictOfTheDay />
         </div>
       </div>
