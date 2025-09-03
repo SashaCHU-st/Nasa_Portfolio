@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
-import type { Users } from '../types/types';
+import type { UsersType } from '../types/types';
 import PageScroller from './PageScroller';
 import SearchUsers from './SearchUsers';
+import { useNavigate } from "react-router-dom";
+
+
 const ITEMS_PER_PAGE = 6;
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
 const [currentPage, setCurrentPage] = useState<number>(1);
-// const [searchUsers, setSearchUsers] = useState<string>("")
-const [users, setUsers] = useState<Users[]>([])
-const [allUsers, setAllUsers] = useState<Users[]>([]) 
-
+const [users, setUsers] = useState<UsersType[]>([])
+const [allUsers, setAllUsers] = useState<UsersType[]>([]) 
+const navigate = useNavigate();
+    
 useEffect (() =>
 {
     const fetchUsers =  async ()=>
@@ -38,9 +41,9 @@ const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
 
-const handleViewProfile =  () =>
+const handleViewProfile =  (id:number) =>
 {
-  
+  navigate(`/profile/${id}`)
 }
 
   return (
@@ -71,7 +74,7 @@ const handleViewProfile =  () =>
               </h2>
               <button className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
                                  rounded-xl px-4 py-2 mt-auto w-full z-10 
-                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition" onClick={handleViewProfile}>
+                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition" onClick={()=>handleViewProfile(item.id)}>
                 View Profile
               </button>
             </div>

@@ -5,6 +5,7 @@ import Auth from "../pages/Auth";
 import Search from "../pages/Search";
 import Navbar from "../components/Navbar";
 import Favorites from "../pages/Favorites";
+import Profile from "../pages/Profile";
 
 const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ const AppRouter = () => {
         <Route path="/auth" element={<Auth />} />
         <Route path="/search" element={<Search />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

@@ -20,12 +20,18 @@ export interface PageScrollerProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export type Users = {
+export type UsersType = {
+  id:number;
   name:string;
   email:string;
 };
 export type SearchUserProps = 
 {
-  setUsers: (users: Users[]) => void;
-  allUsers: Users[];
+  setUsers: (users: UsersType[]) => void;
+  allUsers: UsersType[];
+}
+
+export type ProfileProps = 
+{
+  id:string;
 }

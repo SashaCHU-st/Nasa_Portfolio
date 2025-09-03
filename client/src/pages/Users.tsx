@@ -1,6 +1,5 @@
 import Moon from "../backgrounds/Moon"
 import UsersCard from "../components/UsersCard"
-import type { Users } from '../types/types';
 
 const Users = () => {
 

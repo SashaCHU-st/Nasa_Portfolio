@@ -20,6 +20,3 @@ const Home = () => {
 };
 
 export default Home;
-// relative flex flex-col items-center justify-between rounded-2xl p-6 h-[420px] 
-//                          bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
-//                          hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300
