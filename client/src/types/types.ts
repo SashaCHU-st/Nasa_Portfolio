@@ -24,3 +24,8 @@ export type Users = {
   name:string;
   email:string;
 };
+export type SearchUserProps = 
+{
+  setUsers: (users: Users[]) => void;
+  allUsers: Users[];
+}

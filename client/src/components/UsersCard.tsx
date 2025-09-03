@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import type { Users } from '../types/types';
 import PageScroller from './PageScroller';
+import SearchUsers from './SearchUsers';
 const ITEMS_PER_PAGE = 6;
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
 const [currentPage, setCurrentPage] = useState<number>(1);
-const [searchUsers, setSearchUsers] = useState<string>("")
+// const [searchUsers, setSearchUsers] = useState<string>("")
 const [users, setUsers] = useState<Users[]>([])
-const [allUsers, setAllUsers] = useState<Users[]>([]) // keep original list
+const [allUsers, setAllUsers] = useState<Users[]>([]) 
 
 useEffect (() =>
 {
@@ -35,37 +36,19 @@ fetchUsers()
 },[])
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
 const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
-const searchUser = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-  e.preventDefault()
 
-  if(searchUsers === "") {
-    setUsers(allUsers)
-  } else {
-    const filtered = allUsers.filter((user) =>
-      user.name.toLowerCase().includes(searchUsers.toLowerCase())
-    )
-    setUsers(filtered)
-  }
+const handleViewProfile =  () =>
+{
+  
 }
 
   return (
     <div>
-      <form onSubmit={searchUser} className="flex justify-center my-6 gap-2">
-        <input
-          type="text"
-          className="font-orbitron uppercase w-96 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
-          placeholder="...Search"
-          value={searchUsers}
-          onChange={(e) => setSearchUsers(e.target.value)}
-        />
-        <button type="submit" className="font-orbitron uppercase w-32 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center">
-          Search
-        </button>
-      </form>
+      <SearchUsers 
+      setUsers={setUsers}
+      allUsers={allUsers}
+      />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
           {paginatedItems.map((item, index) => (
             <div
@@ -88,18 +71,18 @@ const searchUser = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLB
               </h2>
               <button className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
                                  rounded-xl px-4 py-2 mt-auto w-full z-10 
-                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition">
+                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition" onClick={handleViewProfile}>
                 View Profile
               </button>
             </div>
-          ))}
-        </div>
+            ))}
+            </div>
               <PageScroller
-        totalPages={totalPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
-    </div>
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+      </div>
   )
 }
 
