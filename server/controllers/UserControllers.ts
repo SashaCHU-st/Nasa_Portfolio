@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { authorisation } from "../utils/authorisation";
+import { UserBody } from "../types/types";
 import { pool } from "../db/db";
 
 export async function me(req: FastifyRequest, reply: FastifyReply) {
@@ -23,7 +24,7 @@ export async function users(req: FastifyRequest, reply: FastifyReply) {
   {
     const userId = await authorisation(req);
     
-    const allUsers = await pool.query(`SELECT name, email FROM users WHERE id != $1`,[userId])
+    const allUsers = await pool.query(`SELECT id, name, email FROM users WHERE id != $1`,[userId])
     
     console.log("USERS=>", allUsers.rows)
 
@@ -34,4 +35,19 @@ export async function users(req: FastifyRequest, reply: FastifyReply) {
   }
 
 
+}
+
+export async function user(req: FastifyRequest<{Body: UserBody}>, reply: FastifyReply) {
+  
+    const {id} =req.body
+
+    try
+    {
+      const userProfile = await pool.query(`SELECT name, email FROM users WHERE id = $1`, [id])
+
+      return reply.code(200).send({userProfile:userProfile.rows[0]})
+    }catch (err: any) {
+    console.error("Database error:", err.message);
+    return reply.code(500).send({ message: "Something went wrong" });
+  }
 }
