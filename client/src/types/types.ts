@@ -19,3 +19,8 @@ export interface PageScrollerProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
+
+export type Users = {
+  name:string;
+  email:string;
+};

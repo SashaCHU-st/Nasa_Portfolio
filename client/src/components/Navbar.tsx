@@ -52,7 +52,10 @@ const Navbar = () => {
           SEARCH
         </NavLink>
       </div>
-      <div className="ml-auto w-16 h-full text-white font-orbitron uppercase hover:bg-gray-700 rounded flex items-center justify-center transition-colors duration-300">
+
+
+          {!isAuthorized && (
+        <div className="ml-auto w-16 h-full text-white font-orbitron uppercase hover:bg-gray-700 rounded flex items-center justify-center transition-colors duration-300">
         <NavLink
           to="/auth"
           className={({ isActive }) =>
@@ -63,6 +66,7 @@ const Navbar = () => {
           <FontAwesomeIcon icon={faUser} className="text-xl md:text-2xl" />
         </NavLink>
       </div>
+      )}
       {isAuthorized && (
         <div className="ml-auto w-16 h-full text-white font-orbitron uppercase hover:bg-gray-700 rounded flex items-center justify-center transition-colors duration-300">
           <NavLink

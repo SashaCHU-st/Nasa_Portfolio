@@ -1,4 +1,4 @@
-import GalaxyScene from "../backgrounds/GAlaxy"
+import GalaxyScene from "../backgrounds/Galaxy"
 
 const Favorites = () => {
   return (

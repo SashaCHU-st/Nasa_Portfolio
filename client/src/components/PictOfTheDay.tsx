@@ -42,7 +42,7 @@ const PictOfTheDay = () => {
         <img
           src={picture}
           alt="NASA Picture of the Day"
-          className="w-96 md:w-[28rem] lg:w-[36rem] h-auto rounded shadow-lg mb-6"
+          className="w-46 md:w-[28rem] lg:w-[36rem] h-46 rounded shadow-lg mb-6"
         />
       ) : (
         <p className="text-white">Uploading...</p>
