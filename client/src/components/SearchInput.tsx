@@ -3,7 +3,7 @@ import type { Item } from "../types/types";
 import Cards from "./Cards";
 const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 6;
 
 const SearchInput = () => {
   const [search, setSearch] = useState<string>("");
@@ -33,14 +33,16 @@ const SearchInput = () => {
         onSubmit={handleSearchNasaAPI}
       >
         <input
-          className="font-orbitron uppercase border-4 border-gray-500 w-full md:w-96 h-16 text-white px-4 text-xl rounded-xl bg-transparent"
+          className="font-orbitron uppercase w-96 rounded-2xl p-4
+                    bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           placeholder="Start typing something"
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          className="font-orbitron uppercase border-2 border-blue-800 bg-blue-800 hover:bg-blue-600 text-white text-2xl rounded-xl px-8 py-4 h-16"
+          className="font-orbitron uppercase w-32 rounded-2xl p-4
+                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           type="submit"
         >
           Search

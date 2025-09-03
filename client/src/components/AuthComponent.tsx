@@ -6,12 +6,14 @@ const AuthComponent = () => {
   const [switcher, setSwitcher] = useState(false);
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="text-white border-8 border-gray-500 rounded-xl p-8 w-156 h-156 flex flex-col items-center">
+      <div className="relative flex flex-col items-center justify-between rounded-2xl p-6 
+                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
+                         ">
         {switcher ? (
           <>
             <SignUp />
             <button
-              className="font-orbitron uppercase underline py-8"
+              className="font-orbitron uppercase underline py-8 text-white"
               onClick={() => setSwitcher(false)}
             >
               Have an account? Login
@@ -21,7 +23,7 @@ const AuthComponent = () => {
           <>
             <Login />
             <button
-              className="font-orbitron uppercase underline py-8"
+              className="font-orbitron uppercase underline py-8 text-white"
               onClick={() => setSwitcher(true)}
             >
               Don't have an account? Register

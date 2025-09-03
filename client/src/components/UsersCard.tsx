@@ -1,11 +1,15 @@
-import React, { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Users } from '../types/types';
-
+import PageScroller from './PageScroller';
+const ITEMS_PER_PAGE = 6;
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
+const [currentPage, setCurrentPage] = useState<number>(1);
+const [searchUsers, setSearchUsers] = useState<string>("")
 const [users, setUsers] = useState<Users[]>([])
+const [allUsers, setAllUsers] = useState<Users[]>([]) // keep original list
 
 useEffect (() =>
 {
@@ -20,35 +24,81 @@ useEffect (() =>
         const data = await results.json();
         console.log("YYYY=>", data.allUsers)
         setUsers(data.allUsers)
+        setAllUsers(data.allUsers)
+        setCurrentPage(1);
         }
     catch (error) {
     console.error(error);
     }
-    }
-    fetchUsers()
+}
+fetchUsers()
 },[])
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+const searchUser = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault()
+
+  if(searchUsers === "") {
+    setUsers(allUsers)
+  } else {
+    const filtered = allUsers.filter((user) =>
+      user.name.toLowerCase().includes(searchUsers.toLowerCase())
+    )
+    setUsers(filtered)
+  }
+}
+
   return (
     <div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-12">
-        {users.map((item, index) => (
-          <div
-            key={index}
-            className="text-white border-4 border-gray-500 p-4 flex flex-col items-center rounded-xl w-full h-[400px]"
-          >
-            <h2 className="mb-2 font-bold text-center text-sm sm:text-base md:text-lg">
-              {item.name}
-            </h2>
-            <h2 className="mb-2 font-bold text-center text-sm sm:text-base md:text-lg">
-              {item.email}
-            </h2>
-           
-            <button className="border-2 border-blue-500 bg-blue-500 text-white rounded-xl px-4 py-2 mt-auto w-full">
-              View Profile
-            </button>
-          </div>
-        ))}
-      </div>
-        
+      <form onSubmit={searchUser} className="flex justify-center my-6 gap-2">
+        <input
+          type="text"
+          className="font-orbitron uppercase w-96 rounded-2xl p-4
+                    bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
+          placeholder="...Search"
+          value={searchUsers}
+          onChange={(e) => setSearchUsers(e.target.value)}
+        />
+        <button type="submit" className="font-orbitron uppercase w-32 rounded-2xl p-4
+                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center">
+          Search
+        </button>
+      </form>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
+          {paginatedItems.map((item, index) => (
+            <div
+              key={index}
+              className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
+                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
+                         hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+            >
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
+              <div className="font-orbitron uppercase w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 
+                              flex items-center justify-center text-xl font-bold 
+                              shadow-[0_0_20px_#0ff] mb-4 z-10">
+                {item.name.charAt(0)}
+              </div>
+              <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
+                {item.name}
+              </h2>
+              <h2 className="font-orbitron uppercase mb-4 font-medium text-center text-sm text-gray-300 z-10">
+                {item.email}
+              </h2>
+              <button className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
+                                 rounded-xl px-4 py-2 mt-auto w-full z-10 
+                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition">
+                View Profile
+              </button>
+            </div>
+          ))}
+        </div>
+              <PageScroller
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   )
 }

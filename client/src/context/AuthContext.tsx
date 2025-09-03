@@ -4,7 +4,7 @@ const AuthContext = createContext<any>(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  if (!context) throw new Error("AuthProvider");
   return context;
 };
 
@@ -28,6 +28,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const res = await fetch(`${BACK_API}/me`, {
           credentials: "include",
         });
+
+        const data = await res.json()
+
+        console.log("MEEE=>", data)
         if (res.ok) {
           setIsAuthorized(true);
         } else {

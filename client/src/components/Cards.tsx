@@ -4,11 +4,13 @@ const Cards = ({paginatedItems, pages} : CardProps) => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-12">
         {paginatedItems.map((item, index) => (
           <div
             key={index}
-            className="text-white border-4 border-gray-500 p-4 flex flex-col items-center rounded-xl w-full h-[400px]"
+            className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[420px] 
+                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
+                         hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
           >
             <h2 className="mb-2 font-bold text-center text-sm sm:text-base md:text-lg">
               {item.data[0].title}

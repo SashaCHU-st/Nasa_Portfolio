@@ -8,7 +8,8 @@ const PageScroller = ({totalPages, currentPage, setCurrentPage}:PageScrollerProp
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p) => p - 1)}
-            className="border px-4 py-2 rounded disabled:opacity-50 text-white"
+            className="relative flex flex-col items-center justify-between rounded-2xl p-2
+                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white"
           >
             Prev
           </button>
@@ -18,7 +19,8 @@ const PageScroller = ({totalPages, currentPage, setCurrentPage}:PageScrollerProp
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => p + 1)}
-            className="border px-4 py-2 rounded disabled:opacity-50 text-white"
+            className="relative flex flex-col items-center justify-between rounded-2xl p-2
+                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white"
           >
             Next
           </button>
