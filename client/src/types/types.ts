@@ -34,3 +34,10 @@ export type SearchUserProps = {
 export type ProfileProps = {
   id: string;
 };
+
+export type MyFav = {
+  nasa_id:string;
+  title:string;
+  description:string;
+  image:string;
+};

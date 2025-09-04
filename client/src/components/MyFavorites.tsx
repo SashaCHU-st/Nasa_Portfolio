@@ -1,48 +1,52 @@
 import { useEffect, useState } from "react";
-import type { UsersType } from "../types/types";
-import PageScroller from "./PageScroller";
-import SearchUsers from "./SearchUsers";
-import { useNavigate } from "react-router-dom";
+import type { MyFav } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
-
-
-const ITEMS_PER_PAGE = 6;
+import PageScroller from "./PageScroller";
+import { useNavigate } from "react-router-dom";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
+const ITEMS_PER_PAGE = 6;
 
-const UsersCard = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [users, setUsers] = useState<UsersType[]>([]);
-  const [allUsers, setAllUsers] = useState<UsersType[]>([]);
+const MyFavorites = () => {
+  const [myFav, setMyFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchFav = async () => {
       try {
-        const results = await fetch(`${BACK_API}/users`, {
+        const res = await fetch(`${BACK_API}/myFavorites`, {
           credentials: "include",
         });
-        const data = await results.json();
-        setUsers(data.allUsers);
-        setAllUsers(data.allUsers);
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || "Something went wrong");
+        }
+        console.log("GGGGGG=>", data.fav);
+        setMyFav(data.fav);
         setCurrentPage(1);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchUsers();
+    fetchFav();
   }, []);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+  const paginatedItems = myFav.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(myFav.length / ITEMS_PER_PAGE);
 
-  const handleViewProfile = (id: number) => {
-    navigate(`/profile/${id}`);
+  const handleMoreDetails = (item: any) => {
+    navigate(`/moreDetails/${item.nasa_id}`, {
+      state: {
+        title: item.title,
+        description: item.description,
+        image: item.image,
+      },
+    });
   };
 
   return (
     <div>
-      <SearchUsers setUsers={setUsers} allUsers={allUsers} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
         {paginatedItems.map((item, index) => (
           <div
@@ -53,38 +57,34 @@ const UsersCard = () => {
           >
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
             <div
-              className="font-orbitron uppercase w-36 h-36 rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 
+              className="font-orbitron uppercase w-36 h-36  bg-gradient-to-tr from-cyan-500 to-purple-600 
                               flex items-center justify-center text-xl font-bold 
                               shadow-[0_0_5px_#0ff] mb-4 z-10"
             >
-              {!item.image ? 
-              (
+              {!item.image ? (
                 <img
-              src={cosmon}
-              alt="Profile Preview"
-              className="w-32 h-32 object-cover rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
-            />
+                  src={cosmon}
+                  alt="Profile Preview"
+                  className="w-32 h-32 object-cover  border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
+                />
               ) : (
-               <img
-              src={item.image}
-              alt="Profile Preview"
-              className="w-32 h-32 object-cover rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
-            />
+                <img
+                  src={item.image}
+                  alt="Profile Preview"
+                  className="w-32 h-32 object-cover  border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
+                />
               )}
             </div>
             <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
-              {item.name}
+              {item.title}
             </h2>
-            {/* <h2 className="font-orbitron uppercase mb-4 font-medium text-center text-sm text-gray-300 z-10">
-              {item.email}
-            </h2> */}
             <button
               className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
                                  rounded-xl px-4 py-2 mt-auto w-full z-10 
                                  hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-              onClick={() => handleViewProfile(item.id)}
+              onClick={() => handleMoreDetails(item)}
             >
-              View Profile
+              description
             </button>
           </div>
         ))}
@@ -98,4 +98,4 @@ const UsersCard = () => {
   );
 };
 
-export default UsersCard;
+export default MyFavorites;
