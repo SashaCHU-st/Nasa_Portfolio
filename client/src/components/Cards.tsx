@@ -1,7 +1,6 @@
-import type{ CardProps } from "../types/types";
+import type { CardProps } from "../types/types";
 import PageScroller from "./PageScroller";
-const Cards = ({paginatedItems, pages} : CardProps) => {
-
+const Cards = ({ paginatedItems, pages }: CardProps) => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-12">
@@ -30,7 +29,7 @@ const Cards = ({paginatedItems, pages} : CardProps) => {
           </div>
         ))}
       </div>
-      <PageScroller {...pages}/>
+      <PageScroller {...pages} />
     </div>
   );
 };

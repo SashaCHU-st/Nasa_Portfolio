@@ -29,7 +29,7 @@ const Login = () => {
         throw new Error(data.message || "Something went wrong");
       }
       loginUser();
-      console.log("DATA", data)
+      console.log("DATA", data);
       navigate("/home");
     } catch (err: any) {
       console.error("Error", err);
@@ -39,8 +39,12 @@ const Login = () => {
   return (
     <div>
       <div className="flex justify-center items-center">
-        <h2 className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 
-             [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]">Welcome back</h2>
+        <h2
+          className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 
+             [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]"
+        >
+          Welcome back
+        </h2>
       </div>
       <form
         onSubmit={handleLogin}
@@ -72,7 +76,8 @@ const Login = () => {
 
         <button
           type="submit"
-          className="font-orbitron uppercase mt-6 border-2 border-blue-800 bg-blue-800 hover:bg-blue-600 px-8 py-4 rounded-lg uppercase font-bold"
+          className="font-orbitron uppercase w-32 rounded-2xl p-4
+                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
         >
           Login
         </button>

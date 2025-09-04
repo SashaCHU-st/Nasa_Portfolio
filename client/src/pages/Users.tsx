@@ -1,9 +1,7 @@
-import Moon from "../backgrounds/Moon"
-import UsersCard from "../components/UsersCard"
+import Moon from "../backgrounds/Moon";
+import UsersCard from "../components/UsersCard";
 
 const Users = () => {
-
-
   return (
     <div className="relative min-h-screen w-full flex justify-center items-start overflow-x-hidden">
       <Moon />
@@ -14,7 +12,7 @@ const Users = () => {
         >
           Users
         </h1>
-        <UsersCard/>
+        <UsersCard />
       </div>
     </div>
   );

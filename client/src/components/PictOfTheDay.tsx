@@ -13,9 +13,7 @@ const PictOfTheDay = () => {
   useEffect(() => {
     const fetchPicture = async () => {
       try {
-        const res = await fetch(
-          `${NASA_API}${API_KEY}`
-        );
+        const res = await fetch(`${NASA_API}${API_KEY}`);
         const data = await res.json();
         if (data.url) {
           setPicture(data.url);

@@ -1,6 +1,10 @@
 import type { PageScrollerProps } from "../types/types";
 
-const PageScroller = ({totalPages, currentPage, setCurrentPage}:PageScrollerProps) => {
+const PageScroller = ({
+  totalPages,
+  currentPage,
+  setCurrentPage,
+}: PageScrollerProps) => {
   return (
     <div>
       {totalPages > 1 && (

@@ -80,7 +80,8 @@ const SignUp = () => {
         </div>
         <button
           type="submit"
-          className="font-orbitron uppercase mt-6 border-2 border-blue-800 bg-blue-800 hover:bg-blue-600 px-8 py-4 rounded-lg uppercase font-bold"
+          className="font-orbitron uppercase w-32 rounded-2xl p-4
+                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
         >
           SignUp
         </button>

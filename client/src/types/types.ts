@@ -11,7 +11,7 @@ export type Item = {
 
 export interface CardProps {
   paginatedItems: Item[];
-pages:PageScrollerProps
+  pages: PageScrollerProps;
 }
 
 export interface PageScrollerProps {
@@ -21,17 +21,16 @@ export interface PageScrollerProps {
 }
 
 export type UsersType = {
-  id:number;
-  name:string;
-  email:string;
+  id: number;
+  name: string;
+  email: string;
+  image: string;
 };
-export type SearchUserProps = 
-{
+export type SearchUserProps = {
   setUsers: (users: UsersType[]) => void;
   allUsers: UsersType[];
-}
+};
 
-export type ProfileProps = 
-{
-  id:string;
-}
+export type ProfileProps = {
+  id: string;
+};

@@ -53,7 +53,7 @@ const SearchInput = () => {
         pages={{
           totalPages,
           currentPage,
-          setCurrentPage
+          setCurrentPage,
         }}
       />
     </div>

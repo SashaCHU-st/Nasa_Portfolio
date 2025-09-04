@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-const AuthContext = createContext<any>(null);
+export const AuthContext = createContext<any>(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("AuthProvider");
+  if (!context) throw new Error("AuthProvider missing");
   return context;
 };
 
@@ -14,30 +14,30 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const login = async () => {
-    setIsAuthorized(true);
-  };
+  const login = () => setIsAuthorized(true);
 
   const logout = async () => {
-    setIsAuthorized(false);
+    try {
+      await fetch(`${BACK_API}/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+      setIsAuthorized(false);
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
   };
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await fetch(`${BACK_API}/me`, {
-          credentials: "include",
+          credentials: "include"
         });
 
-        const data = await res.json()
-
-        console.log("MEEE=>", data)
-        if (res.ok) {
-          setIsAuthorized(true);
-        } else {
-          setIsAuthorized(false);
-        }
+        setIsAuthorized(res.ok); 
       } catch (err) {
+        console.error("Auth check failed", err);
         setIsAuthorized(false);
       } finally {
         setLoading(false);

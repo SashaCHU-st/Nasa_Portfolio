@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import Users from "../pages/Users";
 import Auth from "../pages/Auth";
@@ -6,8 +6,14 @@ import Search from "../pages/Search";
 import Navbar from "../components/Navbar";
 import Favorites from "../pages/Favorites";
 import Profile from "../pages/Profile";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import PrivateRoute from "./PrivateRoute";
+import MyProfile from "../pages/MyProfile";
 
 const AppRouter = () => {
+  const auth = useContext(AuthContext);
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -15,10 +21,31 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/users" element={<Users />} />
-        <Route path="/auth" element={<Auth />} />
+      
+        <Route
+          path="/auth"
+          element={!auth.isAuthorized ? <Auth /> : <Navigate to="/home" />}
+        />
+
         <Route path="/search" element={<Search />} />
-        <Route path="/favorites" element={<Favorites />} />
         <Route path="/profile/:id" element={<Profile />} />
+
+        <Route
+          path="/favorites"
+          element={
+            <PrivateRoute>
+              <Favorites />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/myProfile"
+          element={
+            <PrivateRoute>
+              <MyProfile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
