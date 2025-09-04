@@ -9,8 +9,13 @@ export type LoginBody = {
   password: string;
 };
 
+export type UserEditProfileBody = {
+  name: string;
+  password: string;
+  image?: string | null;
+};
 
-export type UserBody =
-{
-  id:number
-}
+export type UserBody = {
+  id: number;
+};
+

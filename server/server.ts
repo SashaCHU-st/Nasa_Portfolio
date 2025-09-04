@@ -1,51 +1,73 @@
-import Fastify from "fastify";
+import Fastify, { FastifyRequest, FastifyReply } from "fastify";
 import cors from "@fastify/cors";
-import fastifyCookie from "@fastify/cookie";
-import fastifyJwt from "@fastify/jwt";
-import { AuthRoutes } from "./routes/AuthRoutes";
-import { UsersRoutes } from "./routes/UsersRoutes";
+import jwt from "@fastify/jwt";
+import cookie from '@fastify/cookie';
 import "dotenv/config";
+
+import { AuthRoutes } from "./routes/AuthRoutes";
+import { ProfileRoutes } from "./routes/ProfileRoutes";
+import { AllUsersRoutes } from "./routes/AllUsersRoutes";
 
 const fastify = Fastify({
   // logger: true
 });
 
-fastify.register(cors, {
-  origin: "http://localhost:5173",
-  credentials: true,
+if (!process.env.COOKIE_SECRET) throw new Error("NO COOKIE_SECRET");
+
+fastify.register(cookie, {
+  secret: process.env.COOKIE_SECRET,
+  parseOptions: {}
 });
 
-fastify.register(fastifyCookie);
+if (!process.env.JWT_KEY) throw new Error("NO JWT_SECRET_KEY");
 
-if (!process.env.JWT_KEY) {
-  throw new Error("NO JWT_KEY");
-}
-
-fastify.register(fastifyJwt, {
+fastify.register(jwt, {
   secret: process.env.JWT_KEY,
   cookie: {
-    cookieName: "token",
+    cookieName: "auth_token",
     signed: false,
   },
 });
 
-// fastify.decorate("authenticate", async (request, reply) => {
-//   try {
-//     await request.jwtVerify();
-//   } catch (err) {
-//     reply.send(err);
-//   }
-// });
+fastify.register(cors, {
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+  credentials: true,
+});
+
+fastify.decorate(
+  "authenticate",
+  async (req: FastifyRequest, reply: FastifyReply) => {
+    try {
+      await req.jwtVerify();
+    } catch (err) {
+      reply.code(401).send({ message: "Invalid token" });
+    }
+  }
+);
 
 fastify.register(AuthRoutes);
-fastify.register(async(instance)=>
-{
-  instance.register(UsersRoutes)
-})
+fastify.register(AllUsersRoutes);
+fastify.register(async (instance) => {
+  async function verifyJWT(req: FastifyRequest, reply: FastifyReply) {
+    try {
+      await req.jwtVerify();
+      return true;
+    } catch {
+      reply.code(401).send({ message: "Invalid token" });
+      return false;
+    }
+  }
+
+  instance.register(ProfileRoutes, { 
+    preHandler: verifyJWT 
+  });
+});
 
 const start = async () => {
   try {
-    await fastify.listen({ port: Number(process.env.PORT) });
+    await fastify.listen({ port: Number(process.env.PORT) || 3000 });
+    console.log("Server running on port", process.env.PORT || 3000);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

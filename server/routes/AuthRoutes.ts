@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { SignUpSchema, LoginSchema } from "../schema/AuthSchema";
-import { signUp, login } from "../controllers/AuthControllers";
+import { signUp, login, logout } from "../controllers/AuthControllers";
 
 export async function AuthRoutes(app: FastifyInstance) {
   app.post("/signup", async (req, reply) => {
@@ -21,4 +21,5 @@ export async function AuthRoutes(app: FastifyInstance) {
     }
     return login({ ...req, body: validated.data }, reply);
   });
+  app.post("/logout", logout)
 }

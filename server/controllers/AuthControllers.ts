@@ -23,10 +23,10 @@ export async function signUp(
         maxAge: 24 * 60 * 60,
       })
       .code(201)
-      .send({ message: "All good", newUser: newUser.rows[0], token: token });
+      .send({ message: "User created", user });
   } catch (err: any) {
-    console.error("Database error:", err.message);
-    return reply.code(500).send({ message: "Something went wrong" });
+    console.error(err.message);
+    reply.code(500).send({ message: "Something went wrong" });
   }
 }
 
@@ -36,19 +36,22 @@ export async function login(
 ) {
   const { email, password } = req.body;
   try {
-    const userExists = await pool.query(`SELECT FROM users WHERE email = $1`, [
-      email,
-    ]);
+    const userExists = await pool.query(
+      `SELECT * FROM users WHERE email = $1`,
+      [email]
+    );
 
     if (userExists.rowCount !== 0) {
       const userLogin = await pool.query(
-        `SELECT FROM users WHERE email = $1 AND password = $2`,
+        `SELECT * FROM users WHERE email = $1 AND password = $2`,
         [email, password]
       );
       if (userLogin.rowCount !== 0) {
         const user = userLogin.rows[0];
-        const token = reply.server.jwt.sign({ id: user.id });
+        if (!user)
+          return reply.code(401).send({ message: "Invalid credentials" });
 
+        const token = reply.server.jwt.sign({ id: user.id });
         reply
           .setCookie("auth_token", token, {
             httpOnly: true,
@@ -56,10 +59,8 @@ export async function login(
             path: "/",
             maxAge: 24 * 60 * 60,
           })
-          .code(201)
-          .send({
-            message: "logged in",
-          });
+          .code(200)
+          .send({ message: "Logged in", user });
       } else {
         return reply.code(400).send({ message: "Wrong password" });
       }
@@ -70,4 +71,15 @@ export async function login(
     console.error("Database error:", err.message);
     return reply.code(500).send({ message: "Something went wrong" });
   }
+}
+
+export async function logout(req: FastifyRequest, reply: FastifyReply) {
+  reply
+    .clearCookie("auth_token", {
+      path: "/",
+      httpOnly: true,
+      secure: false,
+    })
+    .code(200)
+    .send({ message: "Logged out" });
 }
