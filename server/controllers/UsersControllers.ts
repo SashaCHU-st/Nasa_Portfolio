@@ -44,7 +44,7 @@ export async function user(
   const { id } = req.body;
   try {
     const userProfile = await pool.query(
-      `SELECT name, email FROM users WHERE id = $1`,
+      `SELECT name, email, image FROM users WHERE id = $1`,
       [id]
     );
     return reply.code(200).send({ userProfile: userProfile.rows[0] });

@@ -7,6 +7,7 @@ import "dotenv/config";
 import { AuthRoutes } from "./routes/AuthRoutes";
 import { ProfileRoutes } from "./routes/ProfileRoutes";
 import { AllUsersRoutes } from "./routes/AllUsersRoutes";
+import {FavoriteRoutes} from "./routes/FavoriteRoutes"
 
 const fastify = Fastify({
   // logger: true
@@ -60,6 +61,9 @@ fastify.register(async (instance) => {
   }
 
   instance.register(ProfileRoutes, { 
+    preHandler: verifyJWT 
+  });
+    instance.register(FavoriteRoutes, { 
     preHandler: verifyJWT 
   });
 });
