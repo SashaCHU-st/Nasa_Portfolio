@@ -3,6 +3,8 @@ import type { MyFav } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import PageScroller from "./PageScroller";
 import { useNavigate } from "react-router-dom";
+import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const ITEMS_PER_PAGE = 6;
@@ -78,14 +80,26 @@ const MyFavorites = () => {
             <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
               {item.title}
             </h2>
-            <button
-              className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-                                 rounded-xl px-4 py-2 mt-auto w-full z-10 
+            <div className="flex justify-between items-center w-full">
+              <button
+                className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
+                                 rounded-xl px-4 py-3 mt-auto w-5/6 z-10 
                                  hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-              onClick={() => handleMoreDetails(item)}
-            >
-              description
-            </button>
+                onClick={() => handleMoreDetails(item)}
+              >
+                description
+              </button>
+
+              <button
+                className="font-orbitron uppercase w-20 p-3 rounded-2xl
+     shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+              >
+                <FontAwesomeIcon
+                  icon={faHeartBroken}
+                  className="text-xl md:text-2xl"
+                />
+              </button>
+            </div>
           </div>
         ))}
       </div>
