@@ -30,15 +30,18 @@ export async function addFavorite(
   }
 }
 
-// export async function myFavorite(req: FastifyRequest, reply: FastifyReply) {
-  
-//   try {
-//     const userId = await authorisation(req, reply);
+export async function myFavorite(req: FastifyRequest, reply: FastifyReply) {
+  try {
+    const userId = await authorisation(req, reply);
 
-//     const 
-
-//   } catch (err: any) {
-//     console.error(err.message);
-//     reply.code(500).send({ message: "Something went wrong" });
-//   }
-// }
+    const myFav = await pool.query(
+      `SELECT * FROM favorites WHERE user_id = $1`,
+      [userId]
+    );
+    
+    return reply.code(200).send({ fav: myFav.rows });
+  } catch (err: any) {
+    console.error(err.message);
+    reply.code(500).send({ message: "Something went wrong" });
+  }
+}
