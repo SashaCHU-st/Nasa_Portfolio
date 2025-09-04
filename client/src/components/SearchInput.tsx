@@ -16,6 +16,8 @@ const SearchInput = () => {
       const res = await fetch(`${NASA_API}${search}`);
       const data = await res.json();
       setItems(data.collection.items);
+      // console.log(data.collection.items[0].data[0].description)
+      console.log("jjjjj",data.collection.items)
       setCurrentPage(1);
     } catch (error) {
       console.error(error);

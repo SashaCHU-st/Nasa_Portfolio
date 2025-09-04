@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import MyProfile from "../pages/MyProfile";
+import MoreDetails from "../pages/MoreDetails";
 
 const AppRouter = () => {
   const auth = useContext(AuthContext);
@@ -29,6 +30,7 @@ const AppRouter = () => {
 
         <Route path="/search" element={<Search />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/moreDetails/:id" element={<MoreDetails />} />
 
         <Route
           path="/favorites"
