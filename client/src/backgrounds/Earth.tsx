@@ -44,7 +44,7 @@ const Earth = () => {
     ///Textures
     const loader = new THREE.TextureLoader();
     const earthTex = loader.load("/textures/earth.jpg");
-    const bump = loader.load("/textures/earth_bump.jpg");
+    const bump = loader.load("/textures/earth_bump.png");
 
     const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
     const earthMaterial = new THREE.MeshPhongMaterial({
