@@ -31,8 +31,11 @@ fastify.register(jwt, {
 });
 
 fastify.register(cors, {
-  origin: ["https://nasa-portfolio.vercel.app", "http://localhost:5173"],
-  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+  origin: [
+    "https://nasa-portfolio.vercel.app",
+    "http://localhost:5173",
+  ],
+  methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
   credentials: true,
 });
 
