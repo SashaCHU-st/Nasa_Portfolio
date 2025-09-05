@@ -6,8 +6,6 @@ import { verifyJWT } from "../utils/verifyJWT";
 export async function FavoriteRoutes(fastify: FastifyInstance) {
   fastify.post("/addFavorites", async (req, reply) => {
     if (!(await verifyJWT(req, reply))) return;
-
-    console.log("Received body:", req.body);
     const validated = FavoriteSchema.safeParse(req.body);
     if (!validated.success) {
       const message = validated.error.issues[0]?.message || "Validation failed";
@@ -25,7 +23,9 @@ export async function FavoriteRoutes(fastify: FastifyInstance) {
     return addFavorite(data, req, reply);
   });
   fastify.get("/myFavorites", async (req, reply) => {
-      if (!(await verifyJWT(req, reply))) return;
-      return myFavorite(req, reply);
-    })
+    if (!(await verifyJWT(req, reply))) return;
+    return myFavorite(req, reply);
+  });
+
+  
 }

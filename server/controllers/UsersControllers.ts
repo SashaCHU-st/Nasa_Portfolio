@@ -54,6 +54,25 @@ export async function user(
   }
 }
 
+export async function userFavorites(
+  req: FastifyRequest<{ Body: { id: number } }>,
+  reply: FastifyReply
+) {
+
+  console.log("OOOOOOO")
+  const { id } = req.body;
+  try {
+    const userFav = await pool.query(
+      `SELECT nasa_id, title, description, image FROM favorites WHERE user_id = $1`,
+      [id]
+    );
+    return reply.code(200).send({ userFav: userFav.rows });
+  } catch (err: any) {
+    console.error("Database error:", err.message);
+    return reply.code(500).send({ message: "Something went wrong" });
+  }
+}
+
 export async function editProfile(
   data: { name?: string; password?: string; image?: string },
   req: FastifyRequest,
