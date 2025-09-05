@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { pool } from "../db/db";
+import { hashedPass } from "../utils/hashedPass";
 
 export async function authorisation(req: FastifyRequest, reply: FastifyReply) {
   try {
@@ -94,7 +95,7 @@ export async function editProfile(
     }
 
     if (password) {
-      await pool.query(`UPDATE users SET password = $1 WHERE id = $2`, [password, userId]);
+      await pool.query(`UPDATE users SET password = $1 WHERE id = $2`, [await hashedPass(password), userId]);
     }
 
     if (image) {

@@ -1,6 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { pool } from "../db/db";
 import { SignUpBody, LoginBody } from "../types/types";
+import { hashedPass } from "../utils/hashedPass";
+import bcrypt from "bcrypt";
 
 export async function signUp(
   req: FastifyRequest<{ Body: SignUpBody }>,
@@ -10,7 +12,7 @@ export async function signUp(
   try {
     const newUser = await pool.query(
       `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`,
-      [name, email, password]
+      [name, email, await hashedPass(password)]
     );
     const user = newUser.rows[0];
     const token = reply.server.jwt.sign({ id: user.id });
@@ -43,10 +45,17 @@ export async function login(
 
     if (userExists.rowCount !== 0) {
       const userLogin = await pool.query(
-        `SELECT * FROM users WHERE email = $1 AND password = $2`,
-        [email, password]
+        `SELECT * FROM users WHERE email = $1`,
+        [email]
       );
       if (userLogin.rowCount !== 0) {
+        const checkPass = await bcrypt.compare(
+          password,
+          userLogin.rows[0].password
+        );
+        if (!checkPass) {
+          return reply.code(400).send({ message: "Wrong password" });
+        }
         const user = userLogin.rows[0];
         if (!user)
           return reply.code(401).send({ message: "Invalid credentials" });
