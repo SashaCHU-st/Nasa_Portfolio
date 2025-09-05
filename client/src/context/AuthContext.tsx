@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, } from "react";
 
 export const AuthContext = createContext<any>(null);
 
@@ -12,7 +12,7 @@ const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const login = () => setIsAuthorized(true);
 
@@ -51,7 +51,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthorized, login, logout, loading }}>
+    <AuthContext.Provider value={{ isAuthorized, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
