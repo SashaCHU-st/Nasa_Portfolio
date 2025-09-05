@@ -6,3 +6,7 @@ export const FavoriteSchema = z.object({
   description: z.string().optional(),
   image: z.string().optional(),
 });
+
+export const DeleteFavSchema = z.object({
+  nasa_id: z.string()
+});

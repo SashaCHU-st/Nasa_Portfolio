@@ -20,9 +20,12 @@ export type UserBody = {
 };
 
 export type FavoriteBody = {
-    nasa_id: string;
+  nasa_id: string;
   title?: string;
   description?: string;
   image?: string;
-}
+};
 
+export type DeleteFavBody = {
+  nasa_id: string;
+};
