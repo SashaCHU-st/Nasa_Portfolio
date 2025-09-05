@@ -7,7 +7,6 @@ const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const ProfileComponent = ({ id }: ProfileProps) => {
   const [name, setName] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
   const [image, setImage] = useState<string>("");
 
   useEffect(() => {
@@ -22,14 +21,11 @@ const ProfileComponent = ({ id }: ProfileProps) => {
           }),
         });
         const data = await res.json();
-
-        console.log("RRRRRR=>", data.userProfile);
         if (!res.ok) {
           throw new Error(data.message || "Something went wrong");
         }
 
         setName(data.userProfile.name);
-        // setEmail(data.userProfile.email);
         setImage(data.userProfile.image);
       } catch (error) {
         console.error(error);

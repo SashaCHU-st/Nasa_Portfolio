@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addToMyFavorite } from "../api/api";
+import { useAuth } from "../context/AuthContext";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const ITEMS_PER_PAGE = 6;
 const UserFavorites = ({ id }: ProfileProps) => {
+  const { isAuthorized } = useAuth();
   const [fav, setFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -49,6 +51,16 @@ const UserFavorites = ({ id }: ProfileProps) => {
       },
     });
   };
+
+  const handleFavoriteClick = (item: MyFav) => {
+  if (!isAuthorized) {
+    navigate("/auth"); 
+    return;
+  }
+
+  addToMyFavorite(item);
+};
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
@@ -92,13 +104,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
                 description
               </button>
               <button
-                onClick={() =>
-                  addToMyFavorite({
-                    nasa_id: item.nasa_id,
-                    title: item.title,
-                    description: item.description,
-                    image: item.image,
-                  })
+                onClick={() => handleFavoriteClick(item)
                 }
                 className="font-orbitron uppercase w-20 p-3 rounded-2xl
                           shadow-[0_0_15px_#0ff] text-white text-center z-20
