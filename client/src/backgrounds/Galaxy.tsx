@@ -9,7 +9,7 @@ import {
   PointsMaterial,
   Points,
   AdditiveBlending,
-  Clock,
+  // Clock,
 } from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 
@@ -33,9 +33,10 @@ const GalaxyScene: React.FC = () => {
       outsideColor: "#000099",
     }
 
-    let geo: BufferGeometry | null = null
-    let material: PointsMaterial | null = null
-    let points: Points | null = null
+    let geo: InstanceType<typeof BufferGeometry> | null = null
+
+    let material: InstanceType<typeof PointsMaterial> | null = null
+    let points: InstanceType<typeof Points> | null = null
 
     const generateGalaxy = () => {
       if (points !== null) {

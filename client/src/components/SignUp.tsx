@@ -33,6 +33,7 @@ const SignUp = () => {
       }
       loginUser()
       navigate("/home");
+      console.log(error)
     } catch (err: any) {
       console.error("Error", err);
       setError(err.message || "Something went wrong");
