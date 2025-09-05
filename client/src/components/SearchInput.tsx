@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { Item } from "../types/types";
 import Cards from "./Cards";
 const NASA_API = import.meta.env.VITE_NASA_IMAGES;
@@ -6,9 +6,27 @@ const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 const ITEMS_PER_PAGE = 6;
 
 const SearchInput = () => {
-  const [search, setSearch] = useState<string>("");
-  const [items, setItems] = useState<Item[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [search, setSearch] = useState<string>(() => {
+    return localStorage.getItem("searchQuery") || "";
+  });
+  const [items, setItems] = useState<Item[]>(() => {
+    const saved = localStorage.getItem("searchResults");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [currentPage, setCurrentPage] = useState<number>(() => {
+    return Number(localStorage.getItem("currentPage")) || 1;
+  });
+  useEffect(() => {
+    localStorage.setItem("searchQuery", search);
+  }, [search]);
+
+  useEffect(() => {
+    localStorage.setItem("searchResults", JSON.stringify(items));
+  }, [items]);
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", String(currentPage));
+  }, [currentPage]);
 
   const handleSearchNasaAPI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,8 +34,6 @@ const SearchInput = () => {
       const res = await fetch(`${NASA_API}${search}`);
       const data = await res.json();
       setItems(data.collection.items);
-      // console.log(data.collection.items[0].data[0].description)
-      console.log("jjjjj",data.collection.items)
       setCurrentPage(1);
     } catch (error) {
       console.error(error);
@@ -40,7 +56,18 @@ const SearchInput = () => {
           placeholder="Start typing something"
           type="text"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            setSearch(value);
+
+            if (value.trim() === "") {
+              setItems([]);
+              setCurrentPage(1);
+              localStorage.removeItem("searchQuery");
+              localStorage.removeItem("searchResults");
+              localStorage.removeItem("currentPage");
+            }
+          }}
         />
         <button
           className="font-orbitron uppercase w-32 rounded-2xl p-4
