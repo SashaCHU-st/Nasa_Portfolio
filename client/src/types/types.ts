@@ -36,8 +36,8 @@ export type ProfileProps = {
 };
 
 export type MyFav = {
-  nasa_id:string;
-  title:string;
-  description:string;
-  image:string;
+  nasa_id: string;
+  title: string;
+  description?: string;
+  image?: string;
 };

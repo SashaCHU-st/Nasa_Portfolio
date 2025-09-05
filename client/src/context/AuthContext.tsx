@@ -23,6 +23,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         credentials: "include",
       });
       setIsAuthorized(false);
+      localStorage.removeItem("searchQuery");
+      localStorage.removeItem("searchResults");
+      localStorage.removeItem("currentPage");
     } catch (err) {
       console.error("Logout failed", err);
     }
@@ -32,10 +35,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const checkAuth = async () => {
       try {
         const res = await fetch(`${BACK_API}/me`, {
-          credentials: "include"
+          credentials: "include",
         });
 
-        setIsAuthorized(res.ok); 
+        setIsAuthorized(res.ok);
       } catch (err) {
         console.error("Auth check failed", err);
         setIsAuthorized(false);

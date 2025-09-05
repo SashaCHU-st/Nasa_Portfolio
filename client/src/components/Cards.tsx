@@ -3,19 +3,20 @@ import PageScroller from "./PageScroller";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { addToMyFavorite } from "../api/api";
 
 const Cards = ({ paginatedItems, pages }: CardProps) => {
   const navigate = useNavigate();
 
- const handleMoreDetails = (item: any) => {
-  navigate(`/moreDetails/${item.data[0].nasa_id}`, {
-    state: {
-      title: item.data[0].title,
-      description: item.data[0].description,
-      image: item.links?.[0]?.href,
-    },
-  });
-};
+  const handleMoreDetails = (item: any) => {
+    navigate(`/moreDetails/${item.data[0].nasa_id}`, {
+      state: {
+        title: item.data[0].title,
+        description: item.data[0].description,
+        image: item.links?.[0]?.href,
+      },
+    });
+  };
 
   return (
     <div>
@@ -41,7 +42,7 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
             )}
             <div className="flex justify-between items-center w-full">
               <button
-                onClick={()=>handleMoreDetails(item)}
+                onClick={() => handleMoreDetails(item)}
                 className="font-orbitron uppercase w-42 rounded-2xl p-3
      bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 
      shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
@@ -50,6 +51,14 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
               </button>
 
               <button
+                onClick={() =>
+                  addToMyFavorite({
+                    nasa_id: item.data[0].nasa_id, 
+                    title: item.data[0].title,
+                    description: item.data[0].description,
+                    image: item.links?.[0]?.href,
+                  })
+                }
                 className="font-orbitron uppercase w-20 p-3 rounded-2xl
      shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
