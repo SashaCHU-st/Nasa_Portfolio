@@ -31,24 +31,24 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch(`${BACK_API}/me`, {
-          credentials: "include",
-        });
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const res = await fetch(`${BACK_API}/me`, {
+  //         credentials: "include",
+  //       });
 
-        setIsAuthorized(res.ok);
-      } catch (err) {
-        console.error("Auth check failed", err);
-        setIsAuthorized(false);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       setIsAuthorized(res.ok);
+  //     } catch (err) {
+  //       console.error("Auth check failed", err);
+  //       setIsAuthorized(false);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    checkAuth();
-  }, []);
+  //   checkAuth();
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthorized, login, logout, loading }}>
