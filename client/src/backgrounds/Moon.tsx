@@ -44,12 +44,12 @@ const Moon = () => {
     ///Textures
     const loader = new THREE.TextureLoader();
     const earthTex = loader.load("/textures/moon.jpg");
-    const bump = loader.load("/textures/earth_bump.jpg");
+    // const bump = loader.load("/textures/earth_bump.jpg");
 
     const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
     const earthMaterial = new THREE.MeshPhongMaterial({
       map: earthTex,
-      bumpMap: bump,
+      // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
