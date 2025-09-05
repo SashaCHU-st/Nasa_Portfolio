@@ -2,14 +2,22 @@ import { useLocation, useParams } from "react-router-dom";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addToMyFavorite } from "../api/api";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Details = () => {
   const { id } = useParams();
   const location = useLocation();
+    const navigate = useNavigate();
+    const { isAuthorized } = useAuth();
   const { title, description, image } = location.state || {};
 
   const handleAddToFavorites = () => {
-    if (!id ) return;
+    if (!id) return;
+    if (!isAuthorized) {
+      navigate("/auth");
+      return;
+    }
 
     addToMyFavorite({
       nasa_id: id,

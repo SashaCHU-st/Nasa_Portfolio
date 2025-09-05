@@ -4,9 +4,12 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { addToMyFavorite } from "../api/api";
+import { useAuth } from "../context/AuthContext";
+import type { MyFav } from "../types/types";
 
 const Cards = ({ paginatedItems, pages }: CardProps) => {
   const navigate = useNavigate();
+  const { isAuthorized } = useAuth();
 
   const handleMoreDetails = (item: any) => {
     navigate(`/moreDetails/${item.data[0].nasa_id}`, {
@@ -16,6 +19,22 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
         image: item.links?.[0]?.href,
       },
     });
+  };
+
+  const handleFavoriteClick = (item: (typeof paginatedItems)[number]) => {
+    if (!isAuthorized) {
+      navigate("/auth");
+      return;
+    }
+
+    const favItem: MyFav = {
+      nasa_id: item.data[0].nasa_id,
+      title: item.data[0].title,
+      description: item.data[0].description,
+      image: item.links?.[0]?.href,
+    };
+
+    addToMyFavorite(favItem);
   };
 
   return (
@@ -51,14 +70,7 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
               </button>
 
               <button
-                onClick={() =>
-                  addToMyFavorite({
-                    nasa_id: item.data[0].nasa_id, 
-                    title: item.data[0].title,
-                    description: item.data[0].description,
-                    image: item.links?.[0]?.href,
-                  })
-                }
+                onClick={() => handleFavoriteClick(item)}
                 className="font-orbitron uppercase w-20 p-3 rounded-2xl
      shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
