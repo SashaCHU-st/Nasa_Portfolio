@@ -31,7 +31,7 @@ fastify.register(jwt, {
 });
 
 fastify.register(cors, {
-  origin: "http://localhost:5173",
+  origin: true,
   methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   credentials: true,
 });
