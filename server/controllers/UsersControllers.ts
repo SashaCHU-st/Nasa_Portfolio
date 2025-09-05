@@ -83,29 +83,30 @@ export async function editProfile(
     if (!userId) return;
 
     const { name, password, image } = data;
-    if (name)
-    {
-    const nameUpdate =  await pool.query(`UPDATE users SET name=$1 WHERE id=$2`, [name, userId]);
-    return reply.send({ message: "Profile updated", userName: nameUpdate  });
-    }
-    if (password)
-    {
-     const passUpdate= await pool.query(`UPDATE users SET password=$1 WHERE id=$2`, [
-        password,
-        userId,
-      ]);
-    return reply.send({ message: "Profile updated", userPass: passUpdate  });
-    }
-    if (image)
-    {
-      const imageUpdated = await pool.query(`UPDATE users SET image=$1 WHERE id=$2`, [
-         image,
-         userId,
-       ]);
-    return reply.send({ message: "Profile updated", userImage: imageUpdated  });
+   if (!name && !password && !image) {
+    return reply.code(400).send({
+      message: "At least one field must be provided",
+    });
+  }
+
+    if (name) {
+      await pool.query(`UPDATE users SET name = $1 WHERE id = $2`, [name, userId]);
     }
 
-    return reply.send({ message: "Profile updated"  });
+    if (password) {
+      await pool.query(`UPDATE users SET password = $1 WHERE id = $2`, [password, userId]);
+    }
+
+    if (image) {
+      await pool.query(`UPDATE users SET image = $1 WHERE id = $2`, [image, userId]);
+    }
+
+    const updatedUser = await pool.query(`SELECT name, image FROM users WHERE id = $1`, [userId]);
+
+    return reply.code(200).send({
+      message: "Profile updated",
+      user: updatedUser.rows[0],
+    });
   } catch (err: any) {
     console.error(err.message);
     reply.code(500).send({ message: "Something went wrong" });
