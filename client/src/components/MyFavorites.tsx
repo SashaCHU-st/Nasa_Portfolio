@@ -47,6 +47,27 @@ const MyFavorites = () => {
     });
   };
 
+  const handleDeleteFav = async (id: string) => {
+    const res = await fetch(`${BACK_API}/deleteFavorites`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        nasa_id: id,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Something went wrong");
+    }
+
+    setMyFav((prev) => prev.filter((item) => item.nasa_id !== id));
+
+    const newTotalPages = Math.ceil((myFav.length - 1) / ITEMS_PER_PAGE);
+    if (currentPage > newTotalPages) {
+      setCurrentPage(newTotalPages > 0 ? newTotalPages : 1);
+    }
+  };
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
@@ -91,8 +112,10 @@ const MyFavorites = () => {
               </button>
 
               <button
+                onClick={() => handleDeleteFav(item.nasa_id)}
                 className="font-orbitron uppercase w-20 p-3 rounded-2xl
-     shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                                        shadow-[0_0_15px_#0ff] text-white text-center z-20
+                                        hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
                 <FontAwesomeIcon
                   icon={faHeartBroken}
