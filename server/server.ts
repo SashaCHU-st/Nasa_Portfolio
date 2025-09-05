@@ -3,6 +3,7 @@ import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
 import cookie from '@fastify/cookie';
 import "dotenv/config";
+import { pool } from './db/db'; 
 
 import { AuthRoutes } from "./routes/AuthRoutes";
 import { ProfileRoutes } from "./routes/ProfileRoutes";
@@ -70,10 +71,13 @@ fastify.register(async (instance) => {
 
 const start = async () => {
   try {
-    await fastify.listen({ port: Number(process.env.PORT) || 3000 });
+    await pool.connect();
+    console.log("✅ DB connected");
+
+    await fastify.listen({ port: Number(process.env.PORT) || 3000, host: '0.0.0.0' });
     console.log("Server running on port", process.env.PORT || 3000);
   } catch (err) {
-    fastify.log.error(err);
+    console.error('❌ Server start error:', err);
     process.exit(1);
   }
 };
