@@ -3,25 +3,26 @@ import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
 import cookie from '@fastify/cookie';
 import "dotenv/config";
-import { pool } from './db/db'; 
+import { pool } from './db/db';
 
 import { AuthRoutes } from "./routes/AuthRoutes";
 import { ProfileRoutes } from "./routes/ProfileRoutes";
 import { AllUsersRoutes } from "./routes/AllUsersRoutes";
-import {FavoriteRoutes} from "./routes/FavoriteRoutes"
+import { FavoriteRoutes } from "./routes/FavoriteRoutes";
 
 const fastify = Fastify({
   // logger: true
 });
 
+
 if (!process.env.COOKIE_SECRET) throw new Error("NO COOKIE_SECRET");
+if (!process.env.JWT_KEY) throw new Error("NO JWT_SECRET_KEY");
+
 
 fastify.register(cookie, {
   secret: process.env.COOKIE_SECRET,
   parseOptions: {}
 });
-
-if (!process.env.JWT_KEY) throw new Error("NO JWT_SECRET_KEY");
 
 fastify.register(jwt, {
   secret: process.env.JWT_KEY,
@@ -32,7 +33,10 @@ fastify.register(jwt, {
 });
 
 fastify.register(cors, {
-  origin: true,
+  origin: [
+    "https://nasa-portfolio.vercel.app",
+    "http://localhost:5173"
+  ],
   methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   credentials: true,
 });
@@ -64,7 +68,7 @@ fastify.register(async (instance) => {
   instance.register(ProfileRoutes, { 
     preHandler: verifyJWT 
   });
-    instance.register(FavoriteRoutes, { 
+  instance.register(FavoriteRoutes, { 
     preHandler: verifyJWT 
   });
 });
