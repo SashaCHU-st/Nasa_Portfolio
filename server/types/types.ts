@@ -19,3 +19,10 @@ export type UserBody = {
   id: number;
 };
 
+export type FavoriteBody = {
+    nasa_id: string;
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
