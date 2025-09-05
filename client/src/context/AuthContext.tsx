@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext<any>(null);
 
@@ -12,7 +12,7 @@ const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const login = () => setIsAuthorized(true);
 
@@ -31,27 +31,27 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const res = await fetch(`${BACK_API}/me`, {
-  //         credentials: "include",
-  //       });
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch(`${BACK_API}/me`, {
+          credentials: "include",
+        });
 
-  //       setIsAuthorized(res.ok);
-  //     } catch (err) {
-  //       console.error("Auth check failed", err);
-  //       setIsAuthorized(false);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+        setIsAuthorized(res.ok);
+      } catch (err) {
+        console.error("Auth check failed", err);
+        setIsAuthorized(false);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   checkAuth();
-  // }, []);
+    checkAuth();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthorized, login, logout }}>
+    <AuthContext.Provider value={{ isAuthorized, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
