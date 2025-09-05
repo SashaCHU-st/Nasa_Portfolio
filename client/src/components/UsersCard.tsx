@@ -75,9 +75,6 @@ const UsersCard = () => {
             <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
               {item.name}
             </h2>
-            {/* <h2 className="font-orbitron uppercase mb-4 font-medium text-center text-sm text-gray-300 z-10">
-              {item.email}
-            </h2> */}
             <button
               className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
                                  rounded-xl px-4 py-2 mt-auto w-full z-10 

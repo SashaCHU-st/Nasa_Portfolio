@@ -28,8 +28,6 @@ const ProfileComponent = ({ id }: ProfileProps) => {
           throw new Error(data.message || "Something went wrong");
         }
 
-        console.log("NAAAAME", data.userProfile.name);
-        console.log("NAAAAME", data.userProfile.email);
         setName(data.userProfile.name);
         setEmail(data.userProfile.email);
         setImage(data.userProfile.image);
@@ -77,7 +75,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
       >
         Favorites's of {name}:
       </h1>
-      <UserFavorites/>
+      <UserFavorites id={id}/>
     </div>
   );
 };

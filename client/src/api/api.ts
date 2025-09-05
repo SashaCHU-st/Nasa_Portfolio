@@ -3,6 +3,7 @@ import type { MyFav } from "../types/types";
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 export const addToMyFavorite = async ({ nasa_id, title, description, image } : MyFav ) => {
+  console.log("KUKU")
   try {
     const res = await fetch(`${BACK_API}/addFavorites`, {
       method: "POST",
