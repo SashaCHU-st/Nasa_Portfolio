@@ -9,7 +9,11 @@ export async function verifyJWT(req: JwtRequest, reply: FastifyReply) {
     await req.jwtVerify();
     return true;
   } catch {
-    reply.code(401).send({ message: "Invalid token" });
+    reply
+      .code(401)
+      .header("Access-Control-Allow-Origin", req.headers.origin || "*")
+      .header("Access-Control-Allow-Credentials", "true")
+      .send({ message: "Invalid token" });
     return false;
   }
 }
