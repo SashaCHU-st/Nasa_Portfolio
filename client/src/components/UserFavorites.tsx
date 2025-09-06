@@ -74,7 +74,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
           {message}
         </h2>
       ) : null}
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-6">
         {paginatedItems.map((item, index) => (
           <div
@@ -103,27 +103,29 @@ const UserFavorites = ({ id }: ProfileProps) => {
                 />
               )}
             </div>
-            <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
+            <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg sm:text-xl md:text-2xl text-cyan-300 z-10">
               {item.title}
             </h2>
+
             <div className="flex justify-between items-center w-full">
               <button
                 className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-                                 rounded-xl px-4 py-3 mt-auto w-5/6 z-10 
-                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
+               rounded-xl px-3 sm:px-4 py-2 sm:py-3 mt-auto w-5/6 z-10 
+               text-sm sm:text-base md:text-lg
+               hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
                 onClick={() => handleMoreDetails(item)}
               >
                 details
               </button>
               <button
                 onClick={() => handleFavoriteClick(item)}
-                className="font-orbitron uppercase w-20 p-3 rounded-2xl
-                          shadow-[0_0_15px_#0ff] text-white text-center z-20
-                          hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                className="font-orbitron uppercase w-16 sm:w-20 p-2 sm:p-3 rounded-2xl
+               shadow-[0_0_15px_#0ff] text-white text-center z-20
+               hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
                 <FontAwesomeIcon
                   icon={faHeart}
-                  className="text-xl md:text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
               </button>
             </div>

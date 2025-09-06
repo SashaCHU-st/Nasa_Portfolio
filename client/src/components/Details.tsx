@@ -34,8 +34,10 @@ const Details = () => {
   return (
     <div className="flex flex-col items-center min-h-screen px-4 py-10 justify-center">
       {message && (
-        <h2 className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
-               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center">
+        <h2
+          className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
+        >
           {message}
         </h2>
       )}
@@ -48,11 +50,12 @@ const Details = () => {
           <img
             src={image}
             alt={title}
-            className="w-50 max-w-2xl rounded-xl shadow-lg mb-6 object-cover"
+            className="w-full max-w-2xl sm:max-w-xl md:max-w-lg lg:max-w-2xl rounded-xl shadow-lg mb-6 object-cover"
           />
         ) : (
           <p className="text-gray-400 italic mb-6">Image loading...</p>
         )}
+
         <p className="font-sans text-white text-center max-w-3xl leading-relaxed break-words">
           {description}
         </p>
