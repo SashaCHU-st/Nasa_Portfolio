@@ -11,8 +11,12 @@ const EditProfile = () => {
   const [image, setImage] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
+  const [profileUpdatedMessage, setProfileUpdatedMessage] =
+    useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileUpdatedMessage("");
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -42,23 +46,31 @@ const EditProfile = () => {
 
   const handleEditProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch(`${BACK_API}/editProfile`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        image: imageBase64,
-        password,
-        name,
-      }),
-    });
-    const data = await res.json();
-    if (name !== "") {
-      setName(data.user.name);
-    }
-    setImage(data.user.image);
-    if (!res.ok) {
-      throw new Error(data.message || "Something went wrong");
+
+    try {
+      const res = await fetch(`${BACK_API}/editProfile`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          image: imageBase64,
+          password,
+          name,
+        }),
+      });
+      const data = await res.json();
+      if (name !== "" && image !== "") {
+        setName(data.user.name);
+        setImage(data.user.image);
+      }
+      // console.log("data=>", data.message);
+      setProfileUpdatedMessage(data.message);
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+    } catch (err: any) {
+      console.error("Error", err);
+      setError(err.message || "Something went wrong");
     }
   };
 
@@ -104,7 +116,9 @@ const EditProfile = () => {
             type="text"
             placeholder={oldName}
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value), setProfileUpdatedMessage("");
+            }}
           />
 
           <div className="relative w-96 my-8">
@@ -113,7 +127,7 @@ const EditProfile = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Please write your new password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {setPassword(e.target.value),setProfileUpdatedMessage("")}}
             />
             <button
               type="button"
@@ -123,6 +137,11 @@ const EditProfile = () => {
               {showPassword ? "🙈" : "👁️"}
             </button>
           </div>
+          {profileUpdatedMessage ? (
+            <h3 className="font-orbitron uppercase text-white p-2">
+              {profileUpdatedMessage}
+            </h3>
+          ) : null}
           <button
             type="submit"
             className="font-orbitron uppercase w-52 rounded-2xl p-4

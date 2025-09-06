@@ -17,6 +17,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
   const [fav, setFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const handleUserFavorites = async () => {
@@ -52,17 +53,27 @@ const UserFavorites = ({ id }: ProfileProps) => {
     });
   };
 
-  const handleFavoriteClick = (item: MyFav) => {
-  if (!isAuthorized) {
-    navigate("/auth"); 
-    return;
-  }
+  const handleFavoriteClick = async (item: MyFav) => {
+    if (!isAuthorized) {
+      navigate("/auth");
+      return;
+    }
 
-  addToMyFavorite(item);
-};
+    const error = await addToMyFavorite(item);
+    // console.log("nnnn=>", error);
+    setError(error);
+  };
 
   return (
     <div>
+      {error ? (
+        <h2
+          className="font-orbitron uppercase text-2xl sm:text-m md:text-m font-bold text-white tracking-widest
+         [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-2 text-center"
+        >
+          {error}
+        </h2>
+      ) : null}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-6">
         {paginatedItems.map((item, index) => (
           <div
@@ -104,8 +115,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
                 description
               </button>
               <button
-                onClick={() => handleFavoriteClick(item)
-                }
+                onClick={() => handleFavoriteClick(item)}
                 className="font-orbitron uppercase w-20 p-3 rounded-2xl
                           shadow-[0_0_15px_#0ff] text-white text-center z-20
                           hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
