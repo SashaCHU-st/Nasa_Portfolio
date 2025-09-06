@@ -88,13 +88,13 @@ const MyFavorites = () => {
           paginatedItems.map((item, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
+              className="relative flex flex-col items-center justify-between rounded-2xl p-6 w-full h-[340px] sm:h-[360px] 
                              bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                              hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
             >
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
               <div
-                className="font-orbitron uppercase w-full h-[340px] sm:h-[360px]  bg-gradient-to-tr from-cyan-500 to-purple-600 
+                className="font-orbitron uppercase w-36 h-36  bg-gradient-to-tr from-cyan-500 to-purple-600 
                                   flex items-center justify-center text-xl font-bold 
                                   shadow-[0_0_5px_#0ff] mb-4 z-10"
               >
