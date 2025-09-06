@@ -39,7 +39,7 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mt-6">
         {paginatedItems.map((item, index) => (
           <div
             key={index}
@@ -59,24 +59,24 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
                 />
               </div>
             )}
-            <div className="flex justify-between items-center w-full">
+            <div className="flex justify-between items-center w-full gap-2">
               <button
                 onClick={() => handleMoreDetails(item)}
-                className="font-orbitron uppercase w-42 rounded-2xl p-3
-     bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 
-     shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                className="font-orbitron uppercase flex-1 min-w-[120px] rounded-2xl p-3
+    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 
+    shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
                 More details
               </button>
 
               <button
                 onClick={() => handleFavoriteClick(item)}
-                className="font-orbitron uppercase w-20 p-3 rounded-2xl
-     shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                className="font-orbitron uppercase flex-none w-12 sm:w-16 md:w-20 p-3 rounded-2xl
+    shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
                 <FontAwesomeIcon
                   icon={faHeart}
-                  className="text-xl md:text-2xl"
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
               </button>
             </div>

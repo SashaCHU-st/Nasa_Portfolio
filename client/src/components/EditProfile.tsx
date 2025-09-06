@@ -33,6 +33,7 @@ const EditProfile = () => {
         console.log("HHH=>", data.user.image);
         setImage(data.user.image)
         setOldName(data.user.name)
+        console.log(data.user.image)
 
       } catch (err) {
         console.error("Auth check failed", err);

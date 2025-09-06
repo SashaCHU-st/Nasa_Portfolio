@@ -4,12 +4,10 @@ import ProfileComponent from "../components/ProfileComponent";
 
 const Profile = () => {
   const { id } = useParams<{ id: string }>();
-
-
   return (
     <div className="relative min-h-screen w-full flex justify-center items-start overflow-x-hidden">
       <Neptune/>
-      <div className="absolute top-1/3 transform -translate-y-1/2 w-11/12 max-w-[95%] px-4">
+      <div className="absolute top-1/25 w-11/12 max-w-[95%] px-4">
           <ProfileComponent
           id={id!}/>
       </div>

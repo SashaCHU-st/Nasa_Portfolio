@@ -5,7 +5,8 @@ const Auth = () => {
   return (
     <div className="relative min-h-screen w-full flex justify-center items-start overflow-x-hidden">
       <Mars />
-      <div className="absolute top-2/5 right-[50%] transform -translate-y-1/2 w-11/12 md:w-[36rem] lg:w-[44rem] xl:w-[52rem] max-w-[90vw]">
+      <div className="absolute top-1/2 sm:left-[40%] -translate-x-1/4 -translate-y-1/2 w-11/12 max-w-[80%] px-4">
+
         <AuthComponent/>
       </div>
     </div>

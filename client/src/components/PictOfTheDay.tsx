@@ -30,10 +30,10 @@ const PictOfTheDay = () => {
 
   return (
     <div className="flex flex-col justify-center items-center text-center px-4 md:px-0">
-      <h2 className="font-orbitron uppercase text-white text-xl mb-4">
+      <h2 className="font-orbitron uppercase text-white text-lg sm:text-l md:text-l mb-4">
         {title}
       </h2>
-      <p className="font-orbitron uppercase text-white mb-2 text-right w-full">
+      <p className="font-orbitron uppercase text-white text-lg sm:text-l md:text-l mb-4 text-right w-full">
         {date}
       </p>
       {picture ? (

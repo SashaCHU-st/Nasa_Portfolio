@@ -3,7 +3,7 @@ import type { Item } from "../types/types";
 import Cards from "./Cards";
 const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 4;
 
 const SearchInput = () => {
   const [search, setSearch] = useState<string>(() => {
@@ -45,14 +45,14 @@ const SearchInput = () => {
   const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
 
   return (
-    <div className="w-full pb-4">
+    <div >
       <form
-        className="flex gap-4 items-center justify-center mb-8"
+        className="flex flex-col sm:flex-row justify-center items-center my-6 gap-4"
         onSubmit={handleSearchNasaAPI}
       >
         <input
-          className="font-orbitron uppercase w-96 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
+          className="font-orbitron uppercase w-full max-w-sm sm:max-w-[384px] rounded-2xl p-3
+               bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           placeholder="Start typing something"
           type="text"
           value={search}
@@ -70,8 +70,8 @@ const SearchInput = () => {
           }}
         />
         <button
-          className="font-orbitron uppercase w-32 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
+          className="font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
+               bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           type="submit"
         >
           Search

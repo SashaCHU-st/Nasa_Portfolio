@@ -19,19 +19,19 @@ const SearchUsers = ({ setUsers, allUsers }: SearchUserProps) => {
   };
   return (
     <div>
-      <div className="flex justify-center my-6 gap-2">
+      <div className="flex flex-col sm:flex-row justify-center items-center my-6 gap-4">
         <input
           type="text"
-          className="font-orbitron uppercase w-96 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
+          className="font-orbitron uppercase w-full max-w-sm sm:max-w-[384px] rounded-2xl p-3
+               bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           placeholder="...Search"
           value={searchUsers}
           onChange={handleChange}
         />
         <button
           type="submit"
-          className="font-orbitron uppercase w-32 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
+          className="font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
+               bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
         >
           Search
         </button>

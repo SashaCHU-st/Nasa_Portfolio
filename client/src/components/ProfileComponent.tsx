@@ -57,17 +57,17 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         >
           {name}
         </h1>
-        <button
+        {/* <button
           className="font-orbitron uppercase w-65 h-20 rounded-2xl p-3
                    bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                    text-white text-center hover:bg-cyan-600 transition"
         >
           Follow
-        </button>
+        </button> */}
       </div>
       <h1
         className="font-orbitron uppercase text-4xl font-bold text-start text-cyan-400 tracking-widest 
-                    [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] py-36"
+                    [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] py-12"
       >
         Favorites's of {name}:
       </h1>
