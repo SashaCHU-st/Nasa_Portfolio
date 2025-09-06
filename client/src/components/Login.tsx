@@ -29,7 +29,7 @@ const Login = () => {
         throw new Error(data.message || "Something went wrong");
       }
       loginUser();
-      console.log("DATA", data);
+      // console.log("DATA", data);
       navigate("/home");
       console.log(error);
     } catch (err: any) {

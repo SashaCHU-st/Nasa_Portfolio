@@ -8,7 +8,7 @@ const EditProfile = () => {
   const [name, setName] = useState<string>("");
   const [oldName, setOldName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [image, setImage] = useState<string>("")
+  const [image, setImage] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
 
@@ -30,11 +30,8 @@ const EditProfile = () => {
           credentials: "include",
         });
         const data = await res.json();
-        console.log("HHH=>", data.user.image);
-        setImage(data.user.image)
-        setOldName(data.user.name)
-        console.log(data.user.image)
-
+        setImage(data.user.image);
+        setOldName(data.user.name);
       } catch (err) {
         console.error("Auth check failed", err);
       }
@@ -56,8 +53,10 @@ const EditProfile = () => {
       }),
     });
     const data = await res.json();
-    console.log("DATAaaa=>", data);
-
+    if (name !== "") {
+      setName(data.user.name);
+    }
+    setImage(data.user.image);
     if (!res.ok) {
       throw new Error(data.message || "Something went wrong");
     }
@@ -80,15 +79,15 @@ const EditProfile = () => {
           onSubmit={handleEditProfile}
           className="flex flex-col items-center w-full"
         >
-          {image ? (
+          {imageBase64 ? (
             <img
-              src={image}
+              src={imageBase64}
               alt="Profile Preview"
               className="w-32 h-32 object-cover rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
             />
           ) : (
             <img
-              src={cosmon}
+              src={image ? image : cosmon}
               alt="Profile Preview"
               className="w-32 h-32 object-cover rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
             />
@@ -97,7 +96,8 @@ const EditProfile = () => {
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="my-4 text-gray-200"
+            className="font-orbitron uppercase w-52 rounded-2xl p-4
+              bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           />
           <input
             className="font-orbitron uppercase border-4 border-gray-500 rounded my-8 p-4 w-96 text-gray-200"

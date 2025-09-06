@@ -22,13 +22,13 @@ const GalaxyScene: React.FC = () => {
     const scene = new Scene()
 
     const parameters = {
-      count: 100000,
+      count: 10000,
       size: 0.01,
-      radius: 5,
+      radius: 10,
       branches: 3,
       spin: 1,
-      randomness: 0.2,
-      randomnessPower: 3,
+      randomness: 0.3,
+      randomnessPower: 5,
       insideColor: "#ffffff",
       outsideColor: "#000099",
     }

@@ -10,6 +10,8 @@ export type Item = {
 };
 
 export interface CardProps {
+  searchPressed: boolean;
+  search: string;
   paginatedItems: Item[];
   pages: PageScrollerProps;
 }

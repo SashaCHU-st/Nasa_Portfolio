@@ -7,7 +7,7 @@ import { addToMyFavorite } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import type { MyFav } from "../types/types";
 
-const Cards = ({ paginatedItems, pages }: CardProps) => {
+const Cards = ({ search, searchPressed, paginatedItems, pages }: CardProps) => {
   const navigate = useNavigate();
   const { isAuthorized } = useAuth();
 
@@ -36,52 +36,74 @@ const Cards = ({ paginatedItems, pages }: CardProps) => {
 
     addToMyFavorite(favItem);
   };
-
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mt-6">
-        {paginatedItems.map((item, index) => (
-          <div
-            key={index}
-            className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[420px] 
+        {search !== "" && searchPressed ? (
+          paginatedItems.length > 0 ? (
+            paginatedItems.map((item, index) => (
+              <div
+                key={index}
+                className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[420px] 
                          bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                          hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
-          >
-            <h2 className="mb-2 font-bold text-center text-sm sm:text-base md:text-lg text-white">
-              {item.data[0].title}
-            </h2>
-            {item.links?.[0]?.href && (
-              <div className="w-full h-60 mb-2">
-                <img
-                  src={item.links[0].href}
-                  alt={item.data[0].title}
-                  className="w-full h-full object-cover rounded-md"
-                />
-              </div>
-            )}
-            <div className="flex justify-between items-center w-full gap-2">
-              <button
-                onClick={() => handleMoreDetails(item)}
-                className="font-orbitron uppercase flex-1 min-w-[120px] rounded-2xl p-3
-    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 
-    shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
-                More details
-              </button>
+                <h2 className="mb-2 font-bold text-center text-sm sm:text-base md:text-lg text-white">
+                  {item.data[0].title}
+                </h2>
+                {item.links?.[0]?.href && (
+                  <div className="w-full h-60 mb-2">
+                    <img
+                      src={item.links[0].href}
+                      alt={item.data[0].title}
+                      className="w-full h-full object-cover rounded-md"
+                    />
+                  </div>
+                )}
+                <div className="flex justify-between items-center w-full gap-2">
+                  <button
+                    onClick={() => handleMoreDetails(item)}
+                    className="font-orbitron uppercase flex-1 min-w-[120px] rounded-2xl p-3
+        bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 
+        shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                  >
+                    More details
+                  </button>
 
-              <button
-                onClick={() => handleFavoriteClick(item)}
-                className="font-orbitron uppercase flex-none w-12 sm:w-16 md:w-20 p-3 rounded-2xl
-    shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                  <button
+                    onClick={() => handleFavoriteClick(item)}
+                    className="font-orbitron uppercase flex-none w-12 sm:w-16 md:w-20 p-3 rounded-2xl
+        shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                  >
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className="text-lg sm:text-xl md:text-2xl"
+                    />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="flex justify-center col-span-full">
+              <h2
+                className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
               >
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="text-lg sm:text-xl md:text-2xl"
-                />
-              </button>
+                Nothing found yet, change your search
+              </h2>
             </div>
+          )
+        ) : null}
+        {search === "" && searchPressed ? (
+          <div className="flex justify-center col-span-full">
+            <h2
+              className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
+            >
+              Cannot be empty request
+            </h2>
           </div>
-        ))}
+        ) : null}
       </div>
       <PageScroller {...pages} />
     </div>

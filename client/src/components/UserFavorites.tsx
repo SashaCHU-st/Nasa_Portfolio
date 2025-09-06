@@ -30,7 +30,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
           }),
         });
         const data = await res.json();
-        console.log("UUUU=>", data.userFav);
+        // console.log("UUUU=>", data.userFav);
         setFav(data.userFav);
       } catch (err: any) {
         console.error(err);

@@ -6,6 +6,7 @@ const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 const ITEMS_PER_PAGE = 4;
 
 const SearchInput = () => {
+  const [searchPressed, setSearchPressed] = useState(false);
   const [search, setSearch] = useState<string>(() => {
     return localStorage.getItem("searchQuery") || "";
   });
@@ -33,6 +34,10 @@ const SearchInput = () => {
     try {
       const res = await fetch(`${NASA_API}${search}`);
       const data = await res.json();
+      if(!res.ok)
+      {
+        throw new Error ("Nothing found")
+      }
       setItems(data.collection.items);
       setCurrentPage(1);
     } catch (error) {
@@ -45,7 +50,7 @@ const SearchInput = () => {
   const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
 
   return (
-    <div >
+    <div>
       <form
         className="flex flex-col sm:flex-row justify-center items-center my-6 gap-4"
         onSubmit={handleSearchNasaAPI}
@@ -59,6 +64,7 @@ const SearchInput = () => {
           onChange={(e) => {
             const value = e.target.value;
             setSearch(value);
+            setSearchPressed(false)
 
             if (value.trim() === "") {
               setItems([]);
@@ -70,6 +76,7 @@ const SearchInput = () => {
           }}
         />
         <button
+          onClick={()=>setSearchPressed(true)}
           className="font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
                bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           type="submit"
@@ -78,6 +85,8 @@ const SearchInput = () => {
         </button>
       </form>
       <Cards
+        search={search}
+        searchPressed ={searchPressed}
         paginatedItems={paginatedItems}
         pages={{
           totalPages,

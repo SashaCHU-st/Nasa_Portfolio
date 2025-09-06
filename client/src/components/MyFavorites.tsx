@@ -24,7 +24,7 @@ const MyFavorites = () => {
         if (!res.ok) {
           throw new Error(data.message || "Something went wrong");
         }
-        console.log("GGGGGG=>", data.fav);
+        // console.log("GGGGGG=>", data.fav);
         setMyFav(data.fav);
         setCurrentPage(1);
       } catch (error) {
@@ -71,60 +71,71 @@ const MyFavorites = () => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
-        {paginatedItems.map((item, index) => (
-          <div
-            key={index}
-            className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
-                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
-                         hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
-          >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
+        {myFav && paginatedItems.length > 0 ? (
+          paginatedItems.map((item, index) => (
             <div
-              className="font-orbitron uppercase w-36 h-36  bg-gradient-to-tr from-cyan-500 to-purple-600 
-                              flex items-center justify-center text-xl font-bold 
-                              shadow-[0_0_5px_#0ff] mb-4 z-10"
+              key={index}
+              className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
+                             bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
+                             hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
             >
-              {!item.image ? (
-                <img
-                  src={cosmon}
-                  alt="Profile Preview"
-                  className="w-32 h-32 object-cover  border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
-                />
-              ) : (
-                <img
-                  src={item.image}
-                  alt="Profile Preview"
-                  className="w-32 h-32 object-cover  border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
-                />
-              )}
-            </div>
-            <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
-              {item.title}
-            </h2>
-            <div className="flex justify-between items-center w-full">
-              <button
-                className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-                                 rounded-xl px-4 py-3 mt-auto w-5/6 z-10 
-                                 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-                onClick={() => handleMoreDetails(item)}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
+              <div
+                className="font-orbitron uppercase w-36 h-36  bg-gradient-to-tr from-cyan-500 to-purple-600 
+                                  flex items-center justify-center text-xl font-bold 
+                                  shadow-[0_0_5px_#0ff] mb-4 z-10"
               >
-                description
-              </button>
+                {!item.image ? (
+                  <img
+                    src={cosmon}
+                    alt="Profile Preview"
+                    className="w-32 h-32 object-cover  border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
+                  />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt="Profile Preview"
+                    className="w-32 h-32 object-cover  border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
+                  />
+                )}
+              </div>
+              <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
+                {item.title}
+              </h2>
+              <div className="flex justify-between items-center w-full">
+                <button
+                  className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
+                                     rounded-xl px-4 py-3 mt-auto w-5/6 z-10 
+                                     hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
+                  onClick={() => handleMoreDetails(item)}
+                >
+                  description
+                </button>
 
-              <button
-                onClick={() => handleDeleteFav(item.nasa_id)}
-                className="font-orbitron uppercase w-20 p-3 rounded-2xl
-                                        shadow-[0_0_15px_#0ff] text-white text-center z-20
-                                        hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
-              >
-                <FontAwesomeIcon
-                  icon={faHeartBroken}
-                  className="text-xl md:text-2xl"
-                />
-              </button>
+                <button
+                  onClick={() => handleDeleteFav(item.nasa_id)}
+                  className="font-orbitron uppercase w-20 p-3 rounded-2xl
+                                            shadow-[0_0_15px_#0ff] text-white text-center z-20
+                                            hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                >
+                  <FontAwesomeIcon
+                    icon={faHeartBroken}
+                    className="text-xl md:text-2xl"
+                  />
+                </button>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="flex justify-center col-span-full">
+            <h2
+              className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
+            >
+              Nothing in Favorites
+            </h2>
           </div>
-        ))}
+        )}
       </div>
       <PageScroller
         totalPages={totalPages}
