@@ -41,7 +41,7 @@ const Details = () => {
           {message}
         </h2>
       )}
-      <div className="max-w-4xl w-full bg-[#0d1b2a]/90 border border-cyan-500 rounded-2xl shadow-[0_0_25px_#0ff] p-6 flex flex-col items-center">
+      <div className="max-w-4xl w-full bg-[#0d1b2a]/90  text-sm sm:text-sm md:text-sm border border-cyan-500 rounded-2xl shadow-[0_0_25px_#0ff] p-6 flex flex-col items-center">
         <h2 className="font-orbitron uppercase text-white text-2xl md:text-3xl mb-6 text-center">
           {title}
         </h2>
