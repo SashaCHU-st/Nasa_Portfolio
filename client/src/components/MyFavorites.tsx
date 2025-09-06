@@ -94,7 +94,7 @@ const MyFavorites = () => {
             >
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
               <div
-                className="font-orbitron uppercase w-36 h-36  bg-gradient-to-tr from-cyan-500 to-purple-600 
+                className="font-orbitron uppercase w-full h-[340px] sm:h-[360px]  bg-gradient-to-tr from-cyan-500 to-purple-600 
                                   flex items-center justify-center text-xl font-bold 
                                   shadow-[0_0_5px_#0ff] mb-4 z-10"
               >
