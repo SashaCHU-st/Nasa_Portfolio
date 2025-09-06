@@ -103,7 +103,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
                 />
               )}
             </div>
-            <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg sm:text-xl md:text-2xl text-cyan-300 z-10">
+            <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-sm sm:text-xl md:text-2xl text-cyan-300 z-10">
               {item.title}
             </h2>
 
