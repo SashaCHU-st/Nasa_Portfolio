@@ -112,13 +112,13 @@ const MyFavorites = () => {
                   />
                 )}
               </div>
-              <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-lg text-cyan-300 z-10">
+              <h2 className="font-orbitron uppercase mb-2 font-bold text-center  text-sm sm:text-sm md:text-sm text-cyan-300 z-10">
                 {item.title}
               </h2>
               <div className="flex justify-between items-center w-full">
                 <button
                   className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-                                     rounded-xl px-2 py-3 mt-auto w-4/7 z-10 
+                                     rounded-xl px-2 py-3 mt-auto w-4/7 z-10  text-sm sm:text-sm md:text-sm
                                      hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
                   onClick={() => handleMoreDetails(item)}
                 >
