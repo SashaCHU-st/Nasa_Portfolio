@@ -122,7 +122,7 @@ const MyFavorites = () => {
                                      hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
                   onClick={() => handleMoreDetails(item)}
                 >
-                  description
+                  details
                 </button>
 
                 <button
