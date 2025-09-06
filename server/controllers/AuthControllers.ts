@@ -10,22 +10,31 @@ export async function signUp(
 ) {
   const { name, email, password } = req.body;
   try {
-    const newUser = await pool.query(
-      `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`,
-      [name, email, await hashedPass(password)]
+    const checkUser = await pool.query(
+      `SELECT email FROM users WHERE email = $1`,
+      [email]
     );
-    const user = newUser.rows[0];
-    const token = reply.server.jwt.sign({ id: user.id });
 
-    reply
-      .setCookie("auth_token", token, {
-        httpOnly: true,
-        secure: false,
-        path: "/",
-        maxAge: 24 * 60 * 60,
-      })
-      .code(201)
-      .send({ message: "User created", user });
+    if (checkUser.rowCount === 0) {
+      const newUser = await pool.query(
+        `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`,
+        [name, email, await hashedPass(password)]
+      );
+      const user = newUser.rows[0];
+      const token = reply.server.jwt.sign({ id: user.id });
+
+      reply
+        .setCookie("auth_token", token, {
+          httpOnly: true,
+          secure: false,
+          path: "/",
+          maxAge: 24 * 60 * 60,
+        })
+        .code(201)
+        .send({ message: "User created", user });
+    } else {
+      reply.code(400).send({ message: "User already exists with this email" });
+    }
   } catch (err: any) {
     console.error(err.message);
     reply.code(500).send({ message: "Something went wrong" });

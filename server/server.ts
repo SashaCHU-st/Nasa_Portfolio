@@ -55,18 +55,16 @@ fastify.decorate(
 fastify.register(AuthRoutes);
 fastify.register(AllUsersRoutes);
 fastify.register(async (instance) => {
-  async function verifyJWT(req: FastifyRequest, reply: FastifyReply) {
+  instance.addHook("preHandler", async (req, reply) => {
     try {
       await req.jwtVerify();
-      return true;
     } catch {
       reply.code(401).send({ message: "Invalid token" });
-      return false;
     }
-  }
+  });
 
-  instance.register(ProfileRoutes, { preHandler: verifyJWT });
-  instance.register(FavoriteRoutes, { preHandler: verifyJWT });
+  instance.register(ProfileRoutes);
+  instance.register(FavoriteRoutes);
 });
 
 const start = async () => {

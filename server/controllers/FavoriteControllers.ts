@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { pool } from "../db/db";
-import { authorisation } from "./UsersControllers";
+import { authorisation } from "./../utils/authorisation";
 import { FavoriteBody, DeleteFavBody } from "../types/types";
-import { da } from "zod/v4/locales/index.cjs";
 
 export async function addFavorite(
   data: FavoriteBody,
@@ -24,7 +23,7 @@ export async function addFavorite(
         [nasa_id, title, description, image, userId]
       );
 
-      return reply.code(201).send({ fav: addFav.rows });
+      return reply.code(201).send({ message: "Added to favorites", fav: addFav.rows });
     } else {
       return reply.code(400).send({ message: "Alredy in your favorites" });
     }

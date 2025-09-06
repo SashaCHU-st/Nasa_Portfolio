@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { me,  editProfile } from "../controllers/UsersControllers";
+import { me,  editProfile } from "../controllers/ProfileControllers";
 import {  UserEditProfileSchema } from "../schema/UsersSchema";
 import { verifyJWT } from "../utils/verifyJWT";
 
