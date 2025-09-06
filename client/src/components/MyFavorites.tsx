@@ -3,7 +3,7 @@ import type { MyFav } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import PageScroller from "./PageScroller";
 import { useNavigate } from "react-router-dom";
-import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { faHeartBroken, faL } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
@@ -12,6 +12,7 @@ const ITEMS_PER_PAGE = 6;
 const MyFavorites = () => {
   const [myFav, setMyFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
@@ -29,6 +30,9 @@ const MyFavorites = () => {
         setCurrentPage(1);
       } catch (error) {
         console.error(error);
+      }
+      finally{
+        setLoading(false)
       }
     };
     fetchFav();
@@ -71,7 +75,16 @@ const MyFavorites = () => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-12">
-        {myFav && paginatedItems.length > 0 ? (
+        {loading ? (
+          <h2
+            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
+                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
+          >
+            ...Loading
+          </h2>
+        ) : (
+
+          myFav && paginatedItems.length > 0 ? (
           paginatedItems.map((item, index) => (
             <div
               key={index}
@@ -135,7 +148,9 @@ const MyFavorites = () => {
               Nothing in Favorites
             </h2>
           </div>
+        )
         )}
+      
       </div>
       <PageScroller
         totalPages={totalPages}

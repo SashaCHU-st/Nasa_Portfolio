@@ -10,6 +10,7 @@ export type Item = {
 };
 
 export interface CardProps {
+  loading: boolean;
   searchPressed: boolean;
   search: string;
   paginatedItems: Item[];

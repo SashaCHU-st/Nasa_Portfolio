@@ -13,7 +13,7 @@ const EditProfile = () => {
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [profileUpdatedMessage, setProfileUpdatedMessage] =
     useState<string>("");
-  const [error, setError] = useState<string>("");
+  // const [error, setError] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileUpdatedMessage("");
@@ -70,7 +70,7 @@ const EditProfile = () => {
       }
     } catch (err: any) {
       console.error("Error", err);
-      setError(err.message || "Something went wrong");
+      // setError(err.message || "Something went wrong");
     }
   };
 

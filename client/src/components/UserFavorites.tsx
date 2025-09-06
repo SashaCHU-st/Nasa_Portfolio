@@ -17,7 +17,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
   const [fav, setFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [error, setError] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     const handleUserFavorites = async () => {
@@ -59,21 +59,22 @@ const UserFavorites = ({ id }: ProfileProps) => {
       return;
     }
 
-    const error = await addToMyFavorite(item);
+    const message = await addToMyFavorite(item);
     // console.log("nnnn=>", error);
-    setError(error);
+    setMessage(message);
   };
 
   return (
     <div>
-      {error ? (
+      {message ? (
         <h2
           className="font-orbitron uppercase text-2xl sm:text-m md:text-m font-bold text-white tracking-widest
          [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-2 text-center"
         >
-          {error}
+          {message}
         </h2>
       ) : null}
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-6">
         {paginatedItems.map((item, index) => (
           <div

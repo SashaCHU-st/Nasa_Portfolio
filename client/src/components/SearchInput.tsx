@@ -7,6 +7,7 @@ const ITEMS_PER_PAGE = 4;
 
 const SearchInput = () => {
   const [searchPressed, setSearchPressed] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true)
   const [search, setSearch] = useState<string>(() => {
     return localStorage.getItem("searchQuery") || "";
   });
@@ -43,6 +44,9 @@ const SearchInput = () => {
     } catch (error) {
       console.error(error);
     }
+    finally{
+      setLoading(false)
+    }
   };
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -65,6 +69,7 @@ const SearchInput = () => {
             const value = e.target.value;
             setSearch(value);
             setSearchPressed(false)
+            setLoading(true)
 
             if (value.trim() === "") {
               setItems([]);
@@ -85,6 +90,7 @@ const SearchInput = () => {
         </button>
       </form>
       <Cards
+      loading = {loading}
         search={search}
         searchPressed ={searchPressed}
         paginatedItems={paginatedItems}

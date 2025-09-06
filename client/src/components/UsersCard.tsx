@@ -13,6 +13,7 @@ const UsersCard = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [users, setUsers] = useState<UsersType[]>([]);
   const [allUsers, setAllUsers] = useState<UsersType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,8 @@ const UsersCard = () => {
         setCurrentPage(1);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUsers();
@@ -43,7 +46,14 @@ const UsersCard = () => {
     <div>
       <SearchUsers setUsers={setUsers} allUsers={allUsers} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-        {allUsers && paginatedItems.length > 0 ? (
+        {loading ? (
+          <h2
+            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
+                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
+          >
+            ...Loading
+          </h2>
+        ) : paginatedItems.length > 0 ? (
           paginatedItems.map((item, index) => (
             <div
               key={index}
@@ -80,12 +90,12 @@ const UsersCard = () => {
             </div>
           ))
         ) : (
-          <h1
+          <h2
             className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
                      [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
           >
             Not yet Users
-          </h1>
+          </h2>
         )}
       </div>
       <PageScroller

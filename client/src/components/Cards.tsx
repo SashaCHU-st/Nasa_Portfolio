@@ -6,10 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { addToMyFavorite } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import type { MyFav } from "../types/types";
+import { useState } from "react";
 
-const Cards = ({ search, searchPressed, paginatedItems, pages }: CardProps) => {
+const Cards = ({
+  search,
+  searchPressed,
+  loading,
+  paginatedItems,
+  pages,
+}: CardProps) => {
   const navigate = useNavigate();
   const { isAuthorized } = useAuth();
+  const [message, setMessage] = useState<string>("");
 
   const handleMoreDetails = (item: any) => {
     navigate(`/moreDetails/${item.data[0].nasa_id}`, {
@@ -21,7 +29,7 @@ const Cards = ({ search, searchPressed, paginatedItems, pages }: CardProps) => {
     });
   };
 
-  const handleFavoriteClick = (item: (typeof paginatedItems)[number]) => {
+  const handleFavoriteClick = async (item: (typeof paginatedItems)[number]) => {
     if (!isAuthorized) {
       navigate("/auth");
       return;
@@ -34,12 +42,28 @@ const Cards = ({ search, searchPressed, paginatedItems, pages }: CardProps) => {
       image: item.links?.[0]?.href,
     };
 
-    addToMyFavorite(favItem);
+    const message = await addToMyFavorite(favItem);
+    setMessage(message);
   };
   return (
     <div>
+      {message ? (
+        <h2
+          className="font-orbitron uppercase text-2xl sm:text-m md:text-m font-bold text-white tracking-widest
+         [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-2 text-center"
+        >
+          {message}
+        </h2>
+      ) : null}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mt-6">
-        {search !== "" && searchPressed ? (
+        {loading && searchPressed ? (
+          <h2
+            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
+                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
+          >
+            ...Loading
+          </h2>
+        ) : search !== "" && searchPressed ? (
           paginatedItems.length > 0 ? (
             paginatedItems.map((item, index) => (
               <div
@@ -105,7 +129,7 @@ const Cards = ({ search, searchPressed, paginatedItems, pages }: CardProps) => {
           </div>
         ) : null}
       </div>
-      <PageScroller {...pages} />
+      {searchPressed ? <PageScroller {...pages} /> : null}
     </div>
   );
 };
