@@ -3,19 +3,19 @@ import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
 import cookie from "@fastify/cookie";
 import "dotenv/config";
-import { pool } from "./db/db";
+import { pool } from "./db/db"; 
 
 import { AuthRoutes } from "./routes/AuthRoutes";
 import { ProfileRoutes } from "./routes/ProfileRoutes";
 import { AllUsersRoutes } from "./routes/AllUsersRoutes";
 import { FavoriteRoutes } from "./routes/FavoriteRoutes";
 
-const fastify = Fastify({
-  // logger: true
-});
+const fastify = Fastify({});
+
 
 if (!process.env.COOKIE_SECRET) throw new Error("NO COOKIE_SECRET");
 if (!process.env.JWT_KEY) throw new Error("NO JWT_SECRET_KEY");
+
 
 fastify.register(cookie, {
   secret: process.env.COOKIE_SECRET,
@@ -44,7 +44,7 @@ fastify.decorate(
   async (req: FastifyRequest, reply: FastifyReply) => {
     try {
       await req.jwtVerify();
-    } catch (err) {
+    } catch {
       reply.code(401).send({ message: "Invalid token" });
     }
   }
@@ -63,22 +63,16 @@ fastify.register(async (instance) => {
     }
   }
 
-  instance.register(ProfileRoutes, {
-    preHandler: verifyJWT,
-  });
-  instance.register(FavoriteRoutes, {
-    preHandler: verifyJWT,
-  });
+  instance.register(ProfileRoutes, { preHandler: verifyJWT });
+  instance.register(FavoriteRoutes, { preHandler: verifyJWT });
 });
+
 
 const start = async () => {
   try {
-    await pool.connect();
-    console.log("✅ DB connected");
-
     const port = Number(process.env.PORT) || 3000;
     await fastify.listen({ port, host: "0.0.0.0" });
-    console.log("Server running on port", port);
+    console.log("🚀 Server running on port", port);
   } catch (err) {
     console.error("❌ Server start error:", err);
     process.exit(1);
