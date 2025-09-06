@@ -60,7 +60,7 @@ export async function userFavorites(
   reply: FastifyReply
 ) {
 
-  console.log("OOOOOOO")
+  // console.log("OOOOOOO")
   const { id } = req.body;
   try {
     const userFav = await pool.query(

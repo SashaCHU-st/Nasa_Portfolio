@@ -26,7 +26,7 @@ export async function addFavorite(
 
       return reply.code(201).send({ fav: addFav.rows });
     } else {
-      return reply.code(201).send({ message: "Alredy in your favorites" });
+      return reply.code(400).send({ message: "Alredy in your favorites" });
     }
   } catch (err: any) {
     console.error(err.message);

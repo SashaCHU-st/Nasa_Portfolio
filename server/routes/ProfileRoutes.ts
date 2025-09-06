@@ -14,7 +14,7 @@ export async function ProfileRoutes(fastify: FastifyInstance) {
 fastify.post("/editProfile", async (req, reply) => {
   if (!(await verifyJWT(req, reply))) return;
 
-  console.log("Received body:", req.body);
+  // console.log("BODY:", req.body);
   const validated = UserEditProfileSchema.safeParse(req.body);
   if (!validated.success) {
     const message = validated.error.issues[0]?.message || "Validation failed";
