@@ -32,6 +32,7 @@ fastify.register(jwt, {
   cookie: {
     cookieName: "auth_token",
     signed: false,
+    
   },
 });
 

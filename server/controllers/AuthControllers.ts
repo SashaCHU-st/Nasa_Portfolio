@@ -26,12 +26,13 @@ export async function signUp(
       reply
         .setCookie("auth_token", token, {
           httpOnly: true,
-          secure: false,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
           path: "/",
           maxAge: 24 * 60 * 60,
         })
-        .code(201)
-        .send({ message: "User created", user });
+        .code(200)
+        .send({ message: "Logged in", user });
     } else {
       reply.code(400).send({ message: "User already exists with this email" });
     }
@@ -73,9 +74,10 @@ export async function login(
         reply
           .setCookie("auth_token", token, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
-            maxAge: 24 * 60 * 60,
+            maxAge: 24 * 60 * 60, // 1 день
           })
           .code(200)
           .send({ message: "Logged in", user });
