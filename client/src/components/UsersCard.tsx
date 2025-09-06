@@ -5,7 +5,7 @@ import SearchUsers from "./SearchUsers";
 import { useNavigate } from "react-router-dom";
 import cosmon from "../../public/avatar/cosmon.png";
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 6;
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
