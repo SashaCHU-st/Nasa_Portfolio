@@ -68,7 +68,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
   </button> */}
       </div>
       <h1
-        className="font-orbitron uppercase text-4xl font-bold text-start text-cyan-400 tracking-widest 
+        className="font-orbitron uppercase text-4xl sm:text-2xl font-bold text-start text-cyan-400 tracking-widest 
                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] py-12"
       >
         Favorites's of {name}:
