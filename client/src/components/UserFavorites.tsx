@@ -110,7 +110,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
             <div className="flex justify-between items-center w-full">
               <button
                 className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-               rounded-xl px-3 sm:px-4 py-2 sm:py-3 mt-auto w-5/6 z-10 
+               rounded-xl px-2 sm:px-2 py-1 sm:py-2 mt-auto w-5/6 z-10 
                text-sm sm:text-sm md:text-sm
                hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
                 onClick={() => handleMoreDetails(item)}
@@ -119,13 +119,19 @@ const UserFavorites = ({ id }: ProfileProps) => {
               </button>
               <button
                 onClick={() => handleFavoriteClick(item)}
-                className="font-orbitron uppercase w-16 sm:w-20 p-2 sm:p-3 rounded-2xl
-               shadow-[0_0_15px_#0ff] text-white text-center z-20
-               hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                className="
+                font-orbitron uppercase 
+                w-12 sm:w-16 md:w-20       /* ширина: маленькая → средняя → большая */
+                p-2 sm:p-3 md:p-4          /* padding: маленький → средний → большой */
+                rounded-2xl
+                shadow-[0_0_10px_#0ff] sm:shadow-[0_0_15px_#0ff] md:shadow-[0_0_20px_#0ff]  /* тени по размерам экрана */
+                text-white text-center z-20
+                hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300
+              "
               >
                 <FontAwesomeIcon
                   icon={faHeart}
-                  className="text-lg sm:text-xl md:text-2xl"
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl" 
                 />
               </button>
             </div>
