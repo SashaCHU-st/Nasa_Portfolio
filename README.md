@@ -19,7 +19,7 @@ A new version of the NASA project is in progress — now with Three.js 3D effect
 This project was created to practice building a full-stack application using PostgreSQL, Node.js (Express), React, TypeScript, and the NASA API.
 
 # Watch Demo
-[![Watch the video](https://i.vimeocdn.com/filter/overlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1979766631-dc12e9bbcf084abbfb80d6d6f0e3f0ae97ff50b5382bfeb39c435850e53b3e2a-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png)]([https://vimeo.com/1054408419/fd1d62809b](https://vimeo.com/1116421740?fl=pl&fe=sh))
+https://vimeo.com/1116421740?fl=pl&fe=sh
 
 
 # What Works Now
