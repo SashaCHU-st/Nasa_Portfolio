@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const Moon = () => {
+const Sun = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!mountRef.current) {
@@ -43,21 +43,21 @@ const Moon = () => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const earthTex = loader.load("/textures/sun.jpg");
-    // const bump = loader.load("/textures/earth_bump.jpg");
+    const sunTex = loader.load("/textures/sun.jpg");
+    // const bump = loader.load("/textures/sun_bump.jpg");
 
-    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthTex,
+    const sunGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const sunMaterial = new THREE.MeshPhongMaterial({
+      map: sunTex,
       // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = -2.6;// or a bit to the right...? will decide later
-    earth.position.y = 0.7;
-    scene.add(earth);
+    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+    sun.position.x = -2.0; // or a bit to the right...? will decide later
+    sun.position.y = 0.7;
+    scene.add(sun);
 
     ///stars
     const starsGeometry = new THREE.BufferGeometry();
@@ -82,10 +82,15 @@ const Moon = () => {
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
+    const clock = new THREE.Clock();
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      earth.rotation.y += 0.001;
+      const elapsedTime = clock.getElapsedTime();
+      // sun.position.y = Math.sin(elapsedTime * 0.2);
+      sun.position.z = Math.cos(elapsedTime * 0.7);
+      sun.position.y = Math.cos(elapsedTime * 0.7);
+      sun.rotation.y += 0.004;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -107,4 +112,4 @@ const Moon = () => {
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 
-export default Moon;
+export default Sun;

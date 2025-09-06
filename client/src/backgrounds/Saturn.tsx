@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const Earth = () => {
+const Saturn = () => {
   const mountRef = useRef<HTMLDivElement>(null);
    useEffect(() => {
     if (!mountRef.current) {
@@ -43,22 +43,22 @@ const Earth = () => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const earthTex = loader.load("/textures/saturn.jpg");
-    // const bump = loader.load("/textures/earth_bump.jpg");
+    const saturnTex = loader.load("/textures/saturn.jpg");
+    // const bump = loader.load("/textures/saturn_bump.jpg");
 
-    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthTex,
+    const saturnGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const saturnMaterial = new THREE.MeshPhongMaterial({
+      map: saturnTex,
       // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = 2;
-    earth.position.y = 0.2;
-    earth.position.z = 0.9;
-    scene.add(earth);
+    const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
+    saturn.position.x = 4;
+    saturn.position.y = 0.2;
+    saturn.position.z = 0.9;
+    scene.add(saturn);
 
     ///stars
     const starsGeometry = new THREE.BufferGeometry();
@@ -83,10 +83,16 @@ const Earth = () => {
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
+
+    const clock = new THREE.Clock()
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      earth.rotation.y += 0.001;
+      const elapsedTime = clock.getElapsedTime()
+
+      saturn.position.y = Math.sin(elapsedTime * 0.2)
+      saturn.position.x = Math.cos(elapsedTime * 0.2)
+      saturn.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -108,4 +114,4 @@ const Earth = () => {
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 
-export default Earth;
+export default Saturn;

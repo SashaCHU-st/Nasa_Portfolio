@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const Earth = () => {
+const Venus = () => {
   const mountRef = useRef<HTMLDivElement>(null);
    useEffect(() => {
     if (!mountRef.current) {
@@ -43,22 +43,22 @@ const Earth = () => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const earthTex = loader.load("/textures/venus.jpg");
-    // const bump = loader.load("/textures/earth_bump.jpg");
+    const venusTex = loader.load("/textures/venus.jpg");
+    // const bump = loader.load("/textures/venus_bump.jpg");
 
-    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthTex,
+    const venusGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const venusMaterial = new THREE.MeshPhongMaterial({
+      map: venusTex,
       // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = 0;
-    earth.position.y = 0.2;
-    earth.position.z = 2;
-    scene.add(earth);
+    const venus = new THREE.Mesh(venusGeometry, venusMaterial);
+    venus.position.x = 0;
+    venus.position.y = 0.2;
+    venus.position.z = 2;
+    scene.add(venus);
 
     ///stars
     const starsGeometry = new THREE.BufferGeometry();
@@ -86,7 +86,7 @@ const Earth = () => {
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      earth.rotation.y += 0.001;
+      venus.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -108,4 +108,4 @@ const Earth = () => {
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 
-export default Earth;
+export default Venus;

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const Moon = () => {
+const Mars = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!mountRef.current) {
@@ -18,9 +18,9 @@ const Moon = () => {
       1000
     );
 
-    camera.position.z = 5;
-    camera.position.y = 1;
-    camera.position.x = 0.7;
+    camera.position.z = 2;
+    camera.position.y = 0;
+    camera.position.x = 1.7;
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
@@ -43,21 +43,21 @@ const Moon = () => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const earthTex = loader.load("/textures/mars.jpg");
-    // const bump = loader.load("/textures/earth_bump.jpg");
+    const marsTex = loader.load("/textures/mars.jpg");
+    // const bump = loader.load("/textures/mars_bump.jpg");
 
-    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthTex,
+    const marsGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const marsMaterial = new THREE.MeshPhongMaterial({
+      map: marsTex,
       // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = 1.4;
-    earth.position.y = -0.7;
-    scene.add(earth);
+    const mars = new THREE.Mesh(marsGeometry, marsMaterial);
+    mars.position.x = 1.4;
+    mars.position.y = -0.7;
+    scene.add(mars);
 
     ///stars
     const starsGeometry = new THREE.BufferGeometry();
@@ -85,7 +85,7 @@ const Moon = () => {
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      earth.rotation.y += 0.001;
+      mars.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -107,4 +107,4 @@ const Moon = () => {
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 
-export default Moon;
+export default Mars;

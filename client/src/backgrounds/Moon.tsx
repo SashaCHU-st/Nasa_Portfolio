@@ -43,21 +43,21 @@ const Moon = () => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const earthTex = loader.load("/textures/moon.jpg");
-    // const bump = loader.load("/textures/earth_bump.jpg");
+    const moonTex = loader.load("/textures/moon.jpg");
+    // const bump = loader.load("/textures/moon_bump.jpg");
 
-    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthTex,
+    const moonGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const moonMaterial = new THREE.MeshPhongMaterial({
+      map: moonTex,
       // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = 1.4;
-    earth.position.y = 0.7;
-    scene.add(earth);
+    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+    moon.position.x = 1.4;
+    moon.position.y = 0.7;
+    scene.add(moon);
 
     ///stars
     const starsGeometry = new THREE.BufferGeometry();
@@ -85,7 +85,7 @@ const Moon = () => {
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      earth.rotation.y += 0.001;
+      moon.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
     };

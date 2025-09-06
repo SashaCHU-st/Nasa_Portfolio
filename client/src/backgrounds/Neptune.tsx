@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const Earth = () => {
+const Neptune = () => {
   const mountRef = useRef<HTMLDivElement>(null);
    useEffect(() => {
     if (!mountRef.current) {
@@ -43,20 +43,20 @@ const Earth = () => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const earthTex = loader.load("/textures/neptune.jpg");
+    const neptuneTex = loader.load("/textures/neptune.jpg");
 
-    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-      map: earthTex,
+    const neptuneGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const neptuneMaterial = new THREE.MeshPhongMaterial({
+      map: neptuneTex,
       // bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.position.x = 1;
-    earth.position.y = -0.7;
-    scene.add(earth);
+    const neptune = new THREE.Mesh(neptuneGeometry, neptuneMaterial);
+    neptune.position.x = 1;
+    neptune.position.y = -0.7;
+    scene.add(neptune);
 
     ///stars
     const starsGeometry = new THREE.BufferGeometry();
@@ -84,7 +84,7 @@ const Earth = () => {
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      earth.rotation.y += 0.001;
+      neptune.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -106,4 +106,4 @@ const Earth = () => {
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 
-export default Earth;
+export default Neptune;
