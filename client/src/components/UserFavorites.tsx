@@ -119,19 +119,13 @@ const UserFavorites = ({ id }: ProfileProps) => {
               </button>
               <button
                 onClick={() => handleFavoriteClick(item)}
-                className="
-                font-orbitron uppercase 
-                w-12 sm:w-16 md:w-20       /* ширина: маленькая → средняя → большая */
-                p-2 sm:p-3 md:p-4          /* padding: маленький → средний → большой */
-                rounded-2xl
-                shadow-[0_0_10px_#0ff] sm:shadow-[0_0_15px_#0ff] md:shadow-[0_0_20px_#0ff]  /* тени по размерам экрана */
-                text-white text-center z-20
-                hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300
-              "
+                className="font-orbitron uppercase w-16 sm:w-20 p-1 sm:p-1 rounded-2xl
+               shadow-[0_0_15px_#0ff] text-white text-center z-20
+               hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >
                 <FontAwesomeIcon
                   icon={faHeart}
-                  className="text-base sm:text-lg md:text-xl lg:text-2xl" 
+                  className="text-lg sm:text-xl md:text-2xl"
                 />
               </button>
             </div>
