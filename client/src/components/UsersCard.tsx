@@ -5,7 +5,7 @@ import SearchUsers from "./SearchUsers";
 import { useNavigate } from "react-router-dom";
 import cosmon from "../../public/avatar/cosmon.png";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 4;
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
@@ -45,7 +45,7 @@ const UsersCard = () => {
   return (
     <div>
       <SearchUsers setUsers={setUsers} allUsers={allUsers} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
         {loading ? (
           <h2
             className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
