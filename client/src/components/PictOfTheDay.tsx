@@ -29,7 +29,7 @@ const PictOfTheDay = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center text-center px-4 md:px-0">
+    <div className="flex flex-col justify-center items-center text-center px-2 md:px-0">
       <h2 className="font-orbitron uppercase text-white text-lg sm:text-l md:text-l mb-4">
         {title}
       </h2>
@@ -57,7 +57,7 @@ const PictOfTheDay = () => {
           showDescription ? "max-h-[500px]" : "max-h-0"
         }`}
       >
-        <p className="font-orbitron text-white text-center">{description}</p>
+        <p className="font-sans text-white text-center">{description}</p>
       </div>
     </div>
   );

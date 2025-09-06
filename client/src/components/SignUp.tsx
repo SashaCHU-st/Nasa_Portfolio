@@ -31,9 +31,8 @@ const SignUp = () => {
       if (!results.ok) {
         throw new Error(data.message || "Something went wrong");
       }
-      loginUser()
+      loginUser();
       navigate("/home");
-      console.log(error)
     } catch (err: any) {
       console.error("Error", err);
       setError(err.message || "Something went wrong");
@@ -41,9 +40,21 @@ const SignUp = () => {
   };
   return (
     <div>
+      {error && (
+        <h2
+          className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-white tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
+        >
+          {error}
+        </h2>
+      )}
       <div className="flex justify-center items-center">
-        <h2 className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 
-             [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]">Register</h2>
+        <h2
+          className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 
+             [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]"
+        >
+          Register
+        </h2>
       </div>
       <form
         onSubmit={handleSignUp}

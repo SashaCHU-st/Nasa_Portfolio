@@ -11,7 +11,7 @@ const Details = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthorized } = useAuth();
-  const [error, setError] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const { title, description, image } = location.state || {};
 
   const handleAddToFavorites = async () => {
@@ -21,22 +21,22 @@ const Details = () => {
       return;
     }
 
-    const error = await addToMyFavorite({
+    const message = await addToMyFavorite({
       nasa_id: id,
       title,
       description,
       image,
     });
 
-    console.log("JJJ=>", error);
-    setError(error);
+    // console.log("JJJ=>", error);
+    setMessage(message);
   };
   return (
     <div className="flex flex-col items-center min-h-screen px-4 py-10 justify-center">
-      {error && (
+      {message && (
         <h2 className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
                [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center">
-          {error}
+          {message}
         </h2>
       )}
       <div className="max-w-4xl w-full bg-[#0d1b2a]/90 border border-cyan-500 rounded-2xl shadow-[0_0_25px_#0ff] p-6 flex flex-col items-center">
@@ -53,7 +53,7 @@ const Details = () => {
         ) : (
           <p className="text-gray-400 italic mb-6">Image loading...</p>
         )}
-        <p className="font-orbitron text-white text-center max-w-3xl leading-relaxed break-words">
+        <p className="font-sans text-white text-center max-w-3xl leading-relaxed break-words">
           {description}
         </p>
 

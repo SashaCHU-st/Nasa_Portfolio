@@ -13,7 +13,7 @@ const AuthComponent = () => {
           <>
             <SignUp />
             <button
-              className="font-orbitron uppercase underline py-8 text-white"
+              className="font-sans text-center underline py-8 text-white"
               onClick={() => setSwitcher(false)}
             >
               Have an account? Login
@@ -23,7 +23,7 @@ const AuthComponent = () => {
           <>
             <Login />
             <button
-              className="font-orbitron uppercase underline py-8 text-white"
+              className="font-sans text-white text-center underline py-8"
               onClick={() => setSwitcher(true)}
             >
               Don't have an account? Register

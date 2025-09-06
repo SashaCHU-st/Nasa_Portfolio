@@ -31,7 +31,6 @@ const Login = () => {
       loginUser();
       // console.log("DATA", data);
       navigate("/home");
-      console.log(error);
     } catch (err: any) {
       console.error("Error", err);
       setError(err.message || "Something went wrong");
@@ -39,6 +38,14 @@ const Login = () => {
   };
   return (
     <div>
+      {error && (
+        <h2
+          className="font-orbitron uppercase text-m sm:text-m md:text-m font-bold text-white tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
+        >
+          {error}
+        </h2>
+      )}
       <div className="flex justify-center items-center">
         <h2
           className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 

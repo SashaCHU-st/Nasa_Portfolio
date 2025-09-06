@@ -37,8 +37,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const res = await fetch(`${BACK_API}/me`, {
           credentials: "include",
         });
-
         setIsAuthorized(res.ok);
+        // console.log("res=>",res)
       } catch (err) {
         console.error("Auth check failed", err);
         setIsAuthorized(false);

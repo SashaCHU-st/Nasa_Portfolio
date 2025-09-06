@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
 import type { Item } from "../types/types";
 import Cards from "./Cards";
-const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 
+const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 const ITEMS_PER_PAGE = 4;
 
 const SearchInput = () => {
-  const [searchPressed, setSearchPressed] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true)
+  const [searchPressed, setSearchPressed] = useState(() => {
+    const savedResults = localStorage.getItem("searchResults");
+    return savedResults ? true : false;
+  });
+
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [search, setSearch] = useState<string>(() => {
     return localStorage.getItem("searchQuery") || "";
   });
+
   const [items, setItems] = useState<Item[]>(() => {
     const saved = localStorage.getItem("searchResults");
     return saved ? JSON.parse(saved) : [];
   });
+
   const [currentPage, setCurrentPage] = useState<number>(() => {
     return Number(localStorage.getItem("currentPage")) || 1;
   });
+
   useEffect(() => {
     localStorage.setItem("searchQuery", search);
   }, [search]);
@@ -32,25 +40,28 @@ const SearchInput = () => {
 
   const handleSearchNasaAPI = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!search.trim()) return;
+
+    setLoading(true);
+    setSearchPressed(true);
+
     try {
       const res = await fetch(`${NASA_API}${search}`);
       const data = await res.json();
-      if(!res.ok)
-      {
-        throw new Error ("Nothing found")
-      }
+      if (!res.ok) throw new Error("Nothing found");
+
       setItems(data.collection.items);
       setCurrentPage(1);
     } catch (error) {
       console.error(error);
-    }
-    finally{
-      setLoading(false)
+      setItems([]);
+    } finally {
+      setLoading(false);
     }
   };
+
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
   const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
 
   return (
@@ -68,8 +79,8 @@ const SearchInput = () => {
           onChange={(e) => {
             const value = e.target.value;
             setSearch(value);
-            setSearchPressed(false)
-            setLoading(true)
+            setSearchPressed(false);
+            setLoading(false);
 
             if (value.trim() === "") {
               setItems([]);
@@ -81,7 +92,6 @@ const SearchInput = () => {
           }}
         />
         <button
-          onClick={()=>setSearchPressed(true)}
           className="font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
                bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
           type="submit"
@@ -89,16 +99,13 @@ const SearchInput = () => {
           Search
         </button>
       </form>
+
       <Cards
-      loading = {loading}
+        loading={loading}
         search={search}
-        searchPressed ={searchPressed}
+        searchPressed={searchPressed}
         paginatedItems={paginatedItems}
-        pages={{
-          totalPages,
-          currentPage,
-          setCurrentPage,
-        }}
+        pages={{ totalPages, currentPage, setCurrentPage }}
       />
     </div>
   );

@@ -45,22 +45,20 @@ const Cards = ({
     const message = await addToMyFavorite(favItem);
     setMessage(message);
   };
+
   return (
     <div>
-      {message ? (
-        <h2
-          className="font-orbitron uppercase text-2xl sm:text-m md:text-m font-bold text-white tracking-widest
-         [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-2 text-center"
-        >
+      {message && (
+        <h2 className="font-orbitron uppercase text-2xl sm:text-m md:text-m font-bold text-white tracking-widest
+         [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-2 text-center">
           {message}
         </h2>
-      ) : null}
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mt-6">
         {loading && searchPressed ? (
-          <h2
-            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
-                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
-          >
+          <h2 className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
+                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6">
             ...Loading
           </h2>
         ) : search !== "" && searchPressed ? (
@@ -109,27 +107,25 @@ const Cards = ({
             ))
           ) : (
             <div className="flex justify-center col-span-full">
-              <h2
-                className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
-               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
-              >
+              <h2 className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center">
                 Nothing found yet, change your search
               </h2>
             </div>
           )
         ) : null}
-        {search === "" && searchPressed ? (
+
+        {search === "" && searchPressed && (
           <div className="flex justify-center col-span-full">
-            <h2
-              className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
-               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
-            >
+            <h2 className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center">
               Cannot be empty request
             </h2>
           </div>
-        ) : null}
+        )}
       </div>
-      {searchPressed ? <PageScroller {...pages} /> : null}
+
+      {searchPressed && <PageScroller {...pages} />}
     </div>
   );
 };

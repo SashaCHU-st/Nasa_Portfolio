@@ -3,7 +3,7 @@ import type { MyFav } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import PageScroller from "./PageScroller";
 import { useNavigate } from "react-router-dom";
-import { faHeartBroken, faL } from "@fortawesome/free-solid-svg-icons";
+import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
