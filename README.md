@@ -106,6 +106,7 @@ the frontend will run http://localhost:5173/
 
 | Feature/Bug | Status |
 |-------------|--------|
+| Tests | in progress |
 | Follow button | Users can follow other users |
 | Chat between friends | Friends can send and receive messages |
 | Add friends | Users can send friend requests and receive notifications |
