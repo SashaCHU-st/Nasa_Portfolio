@@ -76,7 +76,7 @@ For security reasons, the .env file is not included in this repository. Instead,
 ```
 npm run dev
 ```
-the backend will run http://localhost:5000/
+the backend will run http://localhost:3000/
 
  ### 🚀3. For frontend
 3.1 Move to client directory
@@ -97,7 +97,7 @@ For security reasons, the .env file is not included in this repository. Instead,
 ```
 npm run dev
 ```
-the frontend will run http://localhost:3000/
+the frontend will run http://localhost:5173/
 
 
 ### Project is still a work in progress, issues I am working on:
