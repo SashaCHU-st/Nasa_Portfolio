@@ -16,7 +16,7 @@ A new version of the NASA project is in progress — now with Three.js 3D effect
 
 **Live Demo:** [nasa-portfolio.vercel.app](https://nasa-portfolio.vercel.app/)
 
-This project was created to practice building a full-stack application using PostgreSQL, Node.js (Express), React, TypeScript, and the NASA API.
+This project was created to practice building a full-stack application using PostgreSQL, Node.js (Fastify),Three.js React, TypeScript, and the NASA API.
 
 # Watch Demo
 https://vimeo.com/1116421740?fl=pl&fe=sh
