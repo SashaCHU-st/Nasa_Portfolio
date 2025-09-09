@@ -85,7 +85,7 @@ const Cards = ({
                 <div className="flex justify-between items-center w-full gap-2">
                   <button
                     onClick={() => handleMoreDetails(item)}
-                    className="font-orbitron uppercase flex-1 min-w-[100px] rounded-xl p-2
+                    className="cursor-pointer font-orbitron uppercase flex-1 min-w-[100px] rounded-xl p-2
         bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 
         shadow-[0_0_10px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_20px_#0ff] transition-all duration-300"
                   >
@@ -94,7 +94,7 @@ const Cards = ({
 
                   <button
                     onClick={() => handleFavoriteClick(item)}
-                    className="font-orbitron uppercase flex-none w-10 sm:w-12 md:w-16 p-2 rounded-xl
+                    className="cursor-pointer font-orbitron uppercase flex-none w-10 sm:w-12 md:w-16 p-2 rounded-xl
         shadow-[0_0_10px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_20px_#0ff] transition-all duration-300"
                   >
                     <FontAwesomeIcon

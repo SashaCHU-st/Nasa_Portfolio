@@ -109,7 +109,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
 
             <div className="flex justify-between items-center w-full">
               <button
-                className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
+                className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
                rounded-xl px-2 sm:px-2 py-1 sm:py-2 mt-auto w-5/6 z-10 
                text-sm sm:text-sm md:text-sm
                hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
@@ -119,7 +119,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
               </button>
               <button
                 onClick={() => handleFavoriteClick(item)}
-                className="font-orbitron uppercase w-16 sm:w-20 p-1 sm:p-1 rounded-2xl
+                className="cursor-pointer font-orbitron uppercase w-16 sm:w-20 p-1 sm:p-1 rounded-2xl
                shadow-[0_0_15px_#0ff] text-white text-center z-20
                hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >

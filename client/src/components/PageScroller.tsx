@@ -12,7 +12,7 @@ const PageScroller = ({
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p) => p - 1)}
-            className="relative flex flex-col items-center justify-between rounded-2xl p-2
+            className="cursor-pointer relative flex flex-col items-center justify-between rounded-2xl p-2
                          bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white"
           >
             Prev
@@ -23,7 +23,7 @@ const PageScroller = ({
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => p + 1)}
-            className="relative flex flex-col items-center justify-between rounded-2xl p-2
+            className="cursor-pointer relative flex flex-col items-center justify-between rounded-2xl p-2
                          bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white"
           >
             Next

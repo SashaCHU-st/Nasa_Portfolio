@@ -75,7 +75,7 @@ const Login = () => {
           />
           <button
             type="button"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
+            className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? "🙈" : "👁️"}
@@ -84,7 +84,7 @@ const Login = () => {
 
         <button
           type="submit"
-          className="font-orbitron uppercase w-32 rounded-2xl p-4
+          className="cursor-pointer font-orbitron uppercase w-32 rounded-2xl p-4
                     bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
         >
           Login

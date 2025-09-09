@@ -46,7 +46,7 @@ const PictOfTheDay = () => {
         <p className="text-white">Uploading...</p>
       )}
       <button
-        className="font-orbitron text-white underline mb-4"
+        className="cursor-pointer cursor-pointer font-orbitron text-white underline mb-4"
         onClick={() => setShowDescription((prev) => !prev)}
       >
         {showDescription ? "Hide description" : "Show description"}

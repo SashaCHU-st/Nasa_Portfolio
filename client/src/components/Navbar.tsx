@@ -68,7 +68,7 @@ const Navbar = () => {
       <div className="md:hidden ml-auto">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="text-white text-2xl focus:outline-none"
+          className="cursor-pointer text-white text-2xl focus:outline-none"
         >
           <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
         </button>
@@ -110,7 +110,7 @@ const Navbar = () => {
                 logout();
                 setIsOpen(false);
               }}
-              className="w-full text-left px-4 py-2 text-white font-orbitron uppercase hover:bg-gray-800 rounded"
+              className="cursor-pointer w-full text-left px-4 py-2 text-white font-orbitron uppercase hover:bg-gray-800 rounded"
             >
               <FontAwesomeIcon icon={faArrowRightFromBracket} className="mr-2" />
               LOGOUT

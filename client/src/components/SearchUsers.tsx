@@ -30,7 +30,7 @@ const SearchUsers = ({ setUsers, allUsers }: SearchUserProps) => {
         />
         <button
           type="submit"
-          className="font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
+          className="cursor-pointer font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
                bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
         >
           Search
