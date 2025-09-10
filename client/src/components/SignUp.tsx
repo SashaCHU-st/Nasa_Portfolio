@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+// import Spinner from "./Spinner";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -26,6 +27,7 @@ const SignUp = () => {
           password,
         }),
       });
+
       const data = await results.json();
 
       if (!results.ok) {
@@ -40,10 +42,11 @@ const SignUp = () => {
   };
   return (
     <div>
+
       {error && (
         <h2
           className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-white tracking-widest
-               [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
+                   [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
         >
           {error}
         </h2>
@@ -51,7 +54,7 @@ const SignUp = () => {
       <div className="flex justify-center items-center">
         <h2
           className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 
-             [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]"
+                 [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]"
         >
           Register
         </h2>
@@ -93,11 +96,12 @@ const SignUp = () => {
         <button
           type="submit"
           className="cursor-pointer font-orbitron uppercase w-32 rounded-2xl p-4
-                    bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
+                        bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
         >
           SignUp
         </button>
       </form>
+
     </div>
   );
 };

@@ -4,6 +4,7 @@ import PageScroller from "./PageScroller";
 import SearchUsers from "./SearchUsers";
 import { useNavigate } from "react-router-dom";
 import cosmon from "../../public/avatar/cosmon.png";
+import Spinner from "./Spinner";
 
 const ITEMS_PER_PAGE = 6;
 const BACK_API = import.meta.env.VITE_BACKEND_API;
@@ -47,12 +48,9 @@ const UsersCard = () => {
       <SearchUsers setUsers={setUsers} allUsers={allUsers} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {loading ? (
-          <h2
-            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
-                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
-          >
-            ...Loading
-          </h2>
+          <div className="w-full flex justify-center items-center col-span-full h-64">
+            <Spinner />
+          </div>
         ) : paginatedItems.length > 0 ? (
           paginatedItems.map((item, index) => (
             <div

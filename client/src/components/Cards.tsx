@@ -7,6 +7,7 @@ import { addToMyFavorite } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import type { MyFav } from "../types/types";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 const Cards = ({
   search,
@@ -49,18 +50,19 @@ const Cards = ({
   return (
     <div>
       {message && (
-        <h2 className="font-orbitron uppercase text-xl sm:text-base font-bold text-white tracking-widest
-         [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-2 text-center">
+        <h2
+          className="font-orbitron uppercase text-xl sm:text-base font-bold text-white tracking-widest
+         [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-2 text-center"
+        >
           {message}
         </h2>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
         {loading && searchPressed ? (
-          <h2 className="font-orbitron uppercase text-xl sm:text-2xl md:text-3xl font-bold text-center text-cyan-400 tracking-widest
-                     [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-4">
-            ...Loading
-          </h2>
+          <div className="w-full flex justify-center items-center col-span-full h-64">
+            <Spinner />
+          </div>
         ) : search !== "" && searchPressed ? (
           paginatedItems.length > 0 ? (
             paginatedItems.map((item, index) => (
@@ -107,8 +109,10 @@ const Cards = ({
             ))
           ) : (
             <div className="flex justify-center col-span-full">
-              <h2 className="font-orbitron uppercase text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest
-               [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-4 text-center">
+              <h2
+                className="font-orbitron uppercase text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-4 text-center"
+              >
                 Nothing found yet, change your search
               </h2>
             </div>
@@ -117,8 +121,10 @@ const Cards = ({
 
         {search === "" && searchPressed && (
           <div className="flex justify-center col-span-full">
-            <h2 className="font-orbitron uppercase text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest
-               [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-4 text-center">
+            <h2
+              className="font-orbitron uppercase text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest
+               [text-shadow:0_0_3px_#0ff,0_0_3px_#0ff] mb-4 text-center"
+            >
               Cannot be empty request
             </h2>
           </div>

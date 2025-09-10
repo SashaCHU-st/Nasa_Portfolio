@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigationType } from "react-router-dom";
 import type { Item } from "../types/types";
 import Cards from "./Cards";
 
@@ -6,36 +7,56 @@ const NASA_API = import.meta.env.VITE_NASA_IMAGES;
 const ITEMS_PER_PAGE = 4;
 
 const SearchInput = () => {
-  const [searchPressed, setSearchPressed] = useState(() => {
-    const savedResults = localStorage.getItem("searchResults");
-    return savedResults ? true : false;
-  });
+  const location = useLocation();
+  const navigationType = useNavigationType();
 
+  const [searchPressed, setSearchPressed] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const [search, setSearch] = useState<string>(() => {
-    return localStorage.getItem("searchQuery") || "";
-  });
-
-  const [items, setItems] = useState<Item[]>(() => {
-    const saved = localStorage.getItem("searchResults");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const [currentPage, setCurrentPage] = useState<number>(() => {
-    return Number(localStorage.getItem("currentPage")) || 1;
-  });
+  const [search, setSearch] = useState<string>("");
+  const [items, setItems] = useState<Item[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    localStorage.setItem("searchQuery", search);
-  }, [search]);
+    if (navigationType === "POP") {
+      const savedQuery = localStorage.getItem("searchQuery");
+      const savedResults = localStorage.getItem("searchResults");
+      const savedPage = localStorage.getItem("currentPage");
+
+      if (savedQuery) {
+        setSearch(savedQuery);
+      }
+      if (savedResults) {
+        setItems(JSON.parse(savedResults));
+      }
+      if (savedPage) {
+        setCurrentPage(Number(savedPage));
+      }
+      if (savedResults) {
+        setSearchPressed(true);
+      }
+    } else {
+      localStorage.removeItem("searchQuery");
+      localStorage.removeItem("searchResults");
+      localStorage.removeItem("currentPage");
+      setSearch("");
+      setItems([]);
+      setCurrentPage(1);
+      setSearchPressed(false);
+    }
+  }, [location.key, navigationType]);
 
   useEffect(() => {
-    localStorage.setItem("searchResults", JSON.stringify(items));
+    if (items.length)
+      localStorage.setItem("searchResults", JSON.stringify(items));
   }, [items]);
 
   useEffect(() => {
-    localStorage.setItem("currentPage", String(currentPage));
+    if (search) localStorage.setItem("searchQuery", search);
+  }, [search]);
+
+  useEffect(() => {
+    if (currentPage > 1)
+      localStorage.setItem("currentPage", String(currentPage));
   }, [currentPage]);
 
   const handleSearchNasaAPI = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -73,7 +94,7 @@ const SearchInput = () => {
         <input
           className="font-orbitron uppercase w-full max-w-sm sm:max-w-[384px] rounded-2xl p-3
                bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
-          placeholder="start search... etc mars"
+          placeholder="start search... e.g. mars"
           type="text"
           value={search}
           onChange={(e) => {

@@ -5,6 +5,7 @@ import PageScroller from "./PageScroller";
 import { useNavigate } from "react-router-dom";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Spinner from "./Spinner";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const ITEMS_PER_PAGE = 6;
@@ -12,7 +13,7 @@ const ITEMS_PER_PAGE = 6;
 const MyFavorites = () => {
   const [myFav, setMyFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
@@ -25,14 +26,12 @@ const MyFavorites = () => {
         if (!res.ok) {
           throw new Error(data.message || "Something went wrong");
         }
-        // console.log("GGGGGG=>", data.fav);
         setMyFav(data.fav);
         setCurrentPage(1);
       } catch (error) {
         console.error(error);
-      }
-      finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     };
     fetchFav();
@@ -76,15 +75,10 @@ const MyFavorites = () => {
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {loading ? (
-          <h2
-            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
-                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
-          >
-            ...Loading
-          </h2>
-        ) : (
-
-          myFav && paginatedItems.length > 0 ? (
+          <div className="w-full flex justify-center items-center col-span-full h-64">
+            <Spinner />
+          </div>
+        ) : myFav && paginatedItems.length > 0 ? (
           paginatedItems.map((item, index) => (
             <div
               key={index}
@@ -148,9 +142,7 @@ const MyFavorites = () => {
               Nothing in Favorites
             </h2>
           </div>
-        )
         )}
-      
       </div>
       <PageScroller
         totalPages={totalPages}
