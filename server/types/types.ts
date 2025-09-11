@@ -29,3 +29,7 @@ export type FavoriteBody = {
 export type DeleteFavBody = {
   nasa_id: string;
 };
+
+export type FollowBody = {
+  follow_id: number
+}
