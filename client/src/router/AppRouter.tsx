@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import MyProfile from "../pages/MyProfile";
+import Subscriptions from "../pages/Subscriptions"
 import MoreDetails from "../pages/MoreDetails";
 
 const AppRouter = () => {
@@ -45,6 +46,14 @@ const AppRouter = () => {
           element={
             <PrivateRoute>
               <MyProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/subscribtions"
+          element={
+            <PrivateRoute>
+              <Subscriptions />
             </PrivateRoute>
           }
         />
