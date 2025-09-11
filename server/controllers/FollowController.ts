@@ -20,3 +20,25 @@ export async function subscribe(data:FollowBody,req: FastifyRequest, reply:Fasti
         reply.code(500).send({message:"Something went wrong"})
     }
 }
+
+
+export async function  mySubscribtions(req: FastifyRequest, reply:FastifyReply) {
+
+    try
+    {
+        const userId = await authorisation(req, reply);
+
+        const mySubscrib = await pool.query (`
+            SELECT f.follow_id  as id, u.name, u.image
+            FROM follower as f
+            INNER JOIN users u ON f.follow_id = u.id
+            WHERE user_id = $1`,[userId])
+
+        return reply.code(200).send({mySubscrib:mySubscrib.rows})
+    }catch(err:any)
+    {
+        console.error(err.message)
+        reply.code(500).send({message:"Something went wrong"})
+    }
+    
+}

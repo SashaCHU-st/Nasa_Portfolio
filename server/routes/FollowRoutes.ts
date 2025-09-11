@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { verifyJWT } from "../utils/verifyJWT";
 import { SubscribeSchema } from "../schema/FollowSchema";
 import { subscribe } from "../controllers/FollowController";
+import { mySubscribtions } from "../controllers/FollowController";
 
 export async function FollowRoutes(fastify:FastifyInstance) {
 fastify.post("/subscribe", async (req, reply) => {
@@ -19,5 +20,7 @@ fastify.post("/subscribe", async (req, reply) => {
     };
 
     return subscribe(data, req, reply);
-  })
+  }),
+
+  fastify.get("/getMySubscribe", mySubscribtions);
 }
