@@ -5,8 +5,8 @@ import SearchUsers from "./SearchUsers";
 import cosmon from "../../public/avatar/cosmon.png";
 import Spinner from "./Spinner";
 import ViewProfileButton from "./ViewProfileButton";
+import { paginate } from "../utils/paginatedItems";
 
-const ITEMS_PER_PAGE = 6;
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
@@ -34,9 +34,7 @@ const UsersCard = () => {
     fetchUsers();
   }, []);
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+const { items, totalPages } = paginate(users, currentPage);
 
 
   return (
@@ -47,8 +45,8 @@ const UsersCard = () => {
           <div className="w-full flex justify-center items-center col-span-full h-64">
             <Spinner />
           </div>
-        ) : paginatedItems.length > 0 ? (
-          paginatedItems.map((item, index) => (
+        ) : items.length > 0 ? (
+          items.map((item, index) => (
             <div
               key={index}
               className="relative flex flex-col items-center justify-between rounded-2xl p-4 sm:p-6 h-[280px] sm:h-[320px]

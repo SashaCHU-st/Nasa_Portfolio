@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const Follow = ({id}:ProfileProps) => {
     const [alreadySubs, setAlreadySubs] = useState(false)
-      const navigate = useNavigate();
-      const { isAuthorized } = useAuth();
+    const navigate = useNavigate();
+    const { isAuthorized } = useAuth();
+    const [message, setMessage] = useState("")
 
     useEffect (() =>
     {
@@ -25,7 +26,7 @@ const Follow = ({id}:ProfileProps) => {
             {
                 if(data.mySubscrib[i].id === id)
                 {
-                    console.log(data.mySubscrib[i].id)
+                    // console.log(data.mySubscrib[i].id)
                     setAlreadySubs(true)
                 }
             }
@@ -54,7 +55,8 @@ const Follow = ({id}:ProfileProps) => {
       )
       const data = await res.json()
 
-      console.log("KUKU=>", data)
+      // console.log("KUKU=>", data.message)
+            setMessage(data.message)
 
       if(!res.ok)
       {
@@ -83,7 +85,8 @@ const handleUnFollowButton =async (id:number) =>
       )
       const data = await res.json()
 
-      console.log("KUKU=>", data)
+      // console.log("KUKU=>", data.message)
+      setMessage(data.message)
 
       if(!res.ok)
       {
@@ -96,7 +99,16 @@ const handleUnFollowButton =async (id:number) =>
     
   }
   return (
-    <div>{
+    <div>
+          {message ? (
+        <h2
+          className="font-orbitron uppercase text-m sm:text-m md:text-m font-bold text-white tracking-widest
+         [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-2 text-center"
+        >
+          {message}
+        </h2>
+      ) : null}
+      {
                 !alreadySubs ?
              (
                  <button

@@ -44,3 +44,20 @@ export type MyFav = {
   description?: string;
   image?: string;
 };
+
+
+export interface ListMySubscriptionProps {
+  users: UsersType[];
+  setUsers: React.Dispatch<React.SetStateAction<UsersType[]>>
+};
+
+export type FollowersProps = {
+  index:number
+  item: UsersType;
+};
+
+
+export interface SubFollowProps {
+    users:UsersType[];
+    loading:boolean
+}

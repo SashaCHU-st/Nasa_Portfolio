@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Spinner from "./Spinner";
+import { paginate } from "../utils/paginatedItems";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const ITEMS_PER_PAGE = 6;
@@ -36,10 +37,7 @@ const MyFavorites = () => {
     };
     fetchFav();
   }, []);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = myFav.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(myFav.length / ITEMS_PER_PAGE);
-
+const { items, totalPages } = paginate(myFav, currentPage);
   const handleMoreDetails = (item: any) => {
     navigate(`/moreDetails/${item.nasa_id}`, {
       state: {
@@ -78,8 +76,8 @@ const MyFavorites = () => {
           <div className="w-full flex justify-center items-center col-span-full h-64">
             <Spinner />
           </div>
-        ) : myFav && paginatedItems.length > 0 ? (
-          paginatedItems.map((item, index) => (
+        ) : myFav && items.length > 0 ? (
+          items.map((item, index) => (
             <div
               key={index}
               className="relative flex flex-col items-center justify-between rounded-2xl p-6 w-full h-[340px] sm:h-[360px] 

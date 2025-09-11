@@ -28,6 +28,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
 
         setName(data.userProfile.name);
         setImage(data.userProfile.image);
+        // console.log("jjjj")
       } catch (error) {
         console.error(error);
       }

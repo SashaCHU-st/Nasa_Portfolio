@@ -9,9 +9,9 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addToMyFavorite } from "../api/api";
 import { useAuth } from "../context/AuthContext";
-
+import { paginate } from "../utils/paginatedItems";
 const BACK_API = import.meta.env.VITE_BACKEND_API;
-const ITEMS_PER_PAGE = 6;
+
 const UserFavorites = ({ id }: ProfileProps) => {
   const { isAuthorized } = useAuth();
   const [fav, setFav] = useState<MyFav[]>([]);
@@ -39,9 +39,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
     };
     handleUserFavorites();
   }, []);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = fav.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(fav.length / ITEMS_PER_PAGE);
+const { items, totalPages } = paginate(fav, currentPage);
 
   const handleMoreDetails = (item: any) => {
     navigate(`/moreDetails/${item.nasa_id}`, {
@@ -76,7 +74,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
       ) : null}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-6">
-        {paginatedItems.map((item, index) => (
+        {items.map((item, index) => (
           <div
             key={index}
             className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
