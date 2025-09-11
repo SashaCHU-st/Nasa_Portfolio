@@ -15,7 +15,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
     // const navigate = useNavigate();
       const { isAuthorized } = useAuth();
 
-  const handleFollowButton =async (id:string) =>
+  const handleFollowButton =async (id:number) =>
   {
     if(!isAuthorized)
     {

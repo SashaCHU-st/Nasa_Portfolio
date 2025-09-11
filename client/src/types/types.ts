@@ -35,7 +35,7 @@ export type SearchUserProps = {
 };
 
 export type ProfileProps = {
-  id: string;
+  id: number;
 };
 
 export type MyFav = {

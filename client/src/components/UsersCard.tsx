@@ -5,6 +5,7 @@ import SearchUsers from "./SearchUsers";
 import { useNavigate } from "react-router-dom";
 import cosmon from "../../public/avatar/cosmon.png";
 import Spinner from "./Spinner";
+import ViewProfileButton from "./ViewProfileButton";
 
 const ITEMS_PER_PAGE = 6;
 const BACK_API = import.meta.env.VITE_BACKEND_API;
@@ -39,9 +40,9 @@ const UsersCard = () => {
   const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
 
-  const handleViewProfile = (id: number) => {
-    navigate(`/profile/${id}`);
-  };
+  // const handleViewProfile = (id: number) => {
+  //   navigate(`/profile/${id}`);
+  // };
 
   return (
     <div>
@@ -76,7 +77,7 @@ const UsersCard = () => {
               <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-base sm:text-lg text-cyan-300 z-10">
                 {item.name}
               </h2>
-
+{/* 
               <button
                 className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20
                    text-cyan-200 font-semibold rounded-xl px-3 sm:px-4 py-2 w-full mt-auto z-10
@@ -84,7 +85,9 @@ const UsersCard = () => {
                 onClick={() => handleViewProfile(item.id)}
               >
                 View Profile
-              </button>
+              </button> */}
+              <ViewProfileButton
+              id= {item.id}/>
             </div>
           ))
         ) : (
