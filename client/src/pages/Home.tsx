@@ -1,5 +1,7 @@
 import PictOfTheDay from "../components/PictOfTheDay";
 import Earth from "../backgrounds/Earth";
+import github from "../../public/logo/github.png"
+import linkedIn from "../../public/logo/linkedIn.png"
 
 const Home = () => {
   return (
@@ -28,6 +30,15 @@ const Home = () => {
             <span className="text-cyan-400 font-semibold"> Fastify</span>, and
             <span className="text-cyan-400 font-semibold"> PostgreSQL</span>.
           </p>
+          <div className="flex justify-end gap-4 w-full mt-4">
+
+          <a className="cursor-pointer" href="https://github.com/SashaCHU-st/Nasa_Portfolio" target="_blank">
+            <img src={github} alt="github" className="w-10 h-8"/>
+          </a>
+                    <a className="cursor-pointer" href="https://www.linkedin.com/in/aleksandra-heinanen-a63108193/" target="_blank">
+            <img src={linkedIn} alt="linkedIn" className="  w-10 h-8" />
+          </a>
+          </div>
         </div>
         <div className="flex flex-col items-start space-y-6 pt-20">
           <h1
