@@ -8,11 +8,8 @@ export async function subscribe(data:FollowBody,req: FastifyRequest, reply:Fasti
     try{
         const userId = await authorisation(req, reply);
     const {follow_id} = data;
-        console.log("KKKK=>",follow_id)
 
         const checkIfSubscribed  = await pool.query(`SELECT * FROM follower WHERE user_id=$1 AND follow_id = $2 `,[userId, follow_id])
-
-        console.log("UUUUU=>", checkIfSubscribed)
 
         if(checkIfSubscribed.rowCount === 0)
         {
@@ -58,6 +55,27 @@ export async function  mySubscribtions(req: FastifyRequest, reply:FastifyReply) 
             FROM follower as f
             INNER JOIN users u ON f.follow_id = u.id
             WHERE user_id = $1`,[userId])
+
+        return reply.code(200).send({mySubscrib:mySubscrib.rows})
+    }catch(err:any)
+    {
+        console.error(err.message)
+        reply.code(500).send({message:"Something went wrong"})
+    }
+    
+}
+
+export async function  myFollowers(req: FastifyRequest, reply:FastifyReply) {
+
+    try
+    {
+        const userId = await authorisation(req, reply);
+
+        const mySubscrib = await pool.query (`
+            SELECT f.follow_id  as id, u.name, u.image
+            FROM follower as f
+            INNER JOIN users u ON f.follow_id = u.id
+            WHERE follow_id = $1`,[userId])
 
         return reply.code(200).send({mySubscrib:mySubscrib.rows})
     }catch(err:any)

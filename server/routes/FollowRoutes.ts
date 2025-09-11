@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { verifyJWT } from "../utils/verifyJWT";
 import { SubscribeSchema } from "../schema/FollowSchema";
-import { subscribe, unsubscribe } from "../controllers/FollowController";
+import { subscribe, unsubscribe, myFollowers} from "../controllers/FollowController";
 import { mySubscribtions } from "../controllers/FollowController";
 
 export async function FollowRoutes(fastify:FastifyInstance) {
@@ -14,7 +14,7 @@ fastify.post("/subscribe", async (req, reply) => {
       return;
     }
 
-    console.log("mmmm=>",validated.data.follow_id)
+    // console.log("mmmm=>",validated.data.follow_id)
     const data = {
       follow_id: validated.data.follow_id,
     };
@@ -32,7 +32,7 @@ fastify.post("/subscribe", async (req, reply) => {
       return;
     }
 
-    console.log("mmmm=>",validated.data.follow_id)
+    // console.log("mmmm=>",validated.data.follow_id)
     const data = {
       follow_id: validated.data.follow_id,
     };
@@ -41,4 +41,5 @@ fastify.post("/subscribe", async (req, reply) => {
   }),
 
   fastify.get("/getMySubscribe", mySubscribtions);
+    fastify.get("/getMyFollowers", myFollowers);
 }
