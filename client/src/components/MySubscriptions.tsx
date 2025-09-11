@@ -65,7 +65,6 @@ const MySubscriptions = () => {
               </h2>
               <ViewProfileButton id={item.id}/>
                 </div>
-
             )
         )
     ) : (

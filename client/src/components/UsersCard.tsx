@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import type { UsersType } from "../types/types";
 import PageScroller from "./PageScroller";
 import SearchUsers from "./SearchUsers";
-import { useNavigate } from "react-router-dom";
 import cosmon from "../../public/avatar/cosmon.png";
 import Spinner from "./Spinner";
 import ViewProfileButton from "./ViewProfileButton";
@@ -15,7 +14,6 @@ const UsersCard = () => {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [allUsers, setAllUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -40,9 +38,6 @@ const UsersCard = () => {
   const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
 
-  // const handleViewProfile = (id: number) => {
-  //   navigate(`/profile/${id}`);
-  // };
 
   return (
     <div>
@@ -77,15 +72,6 @@ const UsersCard = () => {
               <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-base sm:text-lg text-cyan-300 z-10">
                 {item.name}
               </h2>
-{/* 
-              <button
-                className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20
-                   text-cyan-200 font-semibold rounded-xl px-3 sm:px-4 py-2 w-full mt-auto z-10
-                   hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-                onClick={() => handleViewProfile(item.id)}
-              >
-                View Profile
-              </button> */}
               <ViewProfileButton
               id= {item.id}/>
             </div>

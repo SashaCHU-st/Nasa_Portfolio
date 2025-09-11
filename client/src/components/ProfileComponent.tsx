@@ -2,52 +2,13 @@ import { useEffect, useState } from "react";
 import type { ProfileProps } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import UserFavorites from "./UserFavorites";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import Follow from "./Follow";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const ProfileComponent = ({ id }: ProfileProps) => {
   const [name, setName] = useState<string>("");
   const [image, setImage] = useState<string>("");
-  const navigate = useNavigate();
-    // const navigate = useNavigate();
-      const { isAuthorized } = useAuth();
-
-  const handleFollowButton =async (id:number) =>
-  {
-    if(!isAuthorized)
-    {
-      navigate("/auth")
-      return
-    }
-
-    try
-    {
-      const res  = await fetch(`${BACK_API}/subscribe`,
-        {
-          method:"POST",
-          headers:{"Content-type":"application/json"},
-          credentials:"include",
-          body:JSON.stringify({
-            follow_id: Number(id )
-          })
-        }
-      )
-      const data = await res.json()
-
-      console.log("KUKU=>", data)
-
-      if(!res.ok)
-      {
-        throw new Error (data.message || "Something went wrong")
-      }
-    }catch (err: any) {
-        console.error(err);
-      }
-    
-  }
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -98,15 +59,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         >
           {name}
         </h1>
-
-        <button
-        onClick={()=>handleFollowButton(id)}
-    className="font-orbitron uppercase w-40 sm:w-65 h-12 sm:h-20 rounded-2xl p-3
-               bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] 
-               text-white text-center hover:bg-cyan-600 transition mt-4 sm:mt-0"
-  >
-    Follow
-  </button>
+        <Follow id={id}/>
       </div>
       <h1
         className="font-orbitron uppercase text-4xl sm:text-2xl font-bold text-start text-cyan-400 tracking-widest 
