@@ -9,9 +9,9 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addToMyFavorite } from "../api/api";
 import { useAuth } from "../context/AuthContext";
-
+import { paginate } from "../utils/paginatedItems";
 const BACK_API = import.meta.env.VITE_BACKEND_API;
-const ITEMS_PER_PAGE = 6;
+
 const UserFavorites = ({ id }: ProfileProps) => {
   const { isAuthorized } = useAuth();
   const [fav, setFav] = useState<MyFav[]>([]);
@@ -39,9 +39,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
     };
     handleUserFavorites();
   }, []);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = fav.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(fav.length / ITEMS_PER_PAGE);
+const { items, totalPages } = paginate(fav, currentPage);
 
   const handleMoreDetails = (item: any) => {
     navigate(`/moreDetails/${item.nasa_id}`, {
@@ -76,7 +74,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
       ) : null}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 mt-6">
-        {paginatedItems.map((item, index) => (
+        {items.map((item, index) => (
           <div
             key={index}
             className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
@@ -109,7 +107,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
 
             <div className="flex justify-between items-center w-full">
               <button
-                className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
+                className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
                rounded-xl px-2 sm:px-2 py-1 sm:py-2 mt-auto w-5/6 z-10 
                text-sm sm:text-sm md:text-sm
                hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
@@ -119,7 +117,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
               </button>
               <button
                 onClick={() => handleFavoriteClick(item)}
-                className="font-orbitron uppercase w-16 sm:w-20 p-1 sm:p-1 rounded-2xl
+                className="cursor-pointer font-orbitron uppercase w-16 sm:w-20 p-1 sm:p-1 rounded-2xl
                shadow-[0_0_15px_#0ff] text-white text-center z-20
                hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
               >

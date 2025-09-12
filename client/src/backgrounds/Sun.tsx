@@ -30,7 +30,7 @@ const Sun = () => {
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.enableZoom = true;
-    controls.minDistance = 3;
+    controls.minDistance = 4;
     controls.maxDistance = 10;
 
     //lights

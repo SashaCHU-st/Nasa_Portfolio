@@ -64,7 +64,7 @@ const Details = () => {
         <div className="w-full flex justify-end mb-4">
           <button
             onClick={handleAddToFavorites}
-            className="font-orbitron uppercase w-20 p-3 rounded-2xl
+            className="cursor-pointer font-orbitron uppercase w-20 p-3 rounded-2xl
  shadow-[0_0_15px_#0ff] text-white text-center hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
           >
             <FontAwesomeIcon icon={faHeart} className="text-xl md:text-2xl" />

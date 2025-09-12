@@ -14,7 +14,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const login = () => setIsAuthorized(true);
+  const login = () => {
+    setIsAuthorized(true)
+  };
 
   const logout = async () => {
     try {
@@ -38,9 +40,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           credentials: "include",
         });
         setIsAuthorized(res.ok);
-        // console.log("res=>",res)
       } catch (err) {
-        console.error("Auth check failed", err);
         setIsAuthorized(false);
       } finally {
         setLoading(false);

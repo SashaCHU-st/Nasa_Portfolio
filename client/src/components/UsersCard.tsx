@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import type { UsersType } from "../types/types";
 import PageScroller from "./PageScroller";
 import SearchUsers from "./SearchUsers";
-import { useNavigate } from "react-router-dom";
 import cosmon from "../../public/avatar/cosmon.png";
+import Spinner from "./Spinner";
+import ViewProfileButton from "./ViewProfileButton";
+import { paginate } from "../utils/paginatedItems";
 
-const ITEMS_PER_PAGE = 6;
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UsersCard = () => {
@@ -13,7 +14,6 @@ const UsersCard = () => {
   const [users, setUsers] = useState<UsersType[]>([]);
   const [allUsers, setAllUsers] = useState<UsersType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -34,27 +34,19 @@ const UsersCard = () => {
     fetchUsers();
   }, []);
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedItems = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+const { items, totalPages } = paginate(users, currentPage);
 
-  const handleViewProfile = (id: number) => {
-    navigate(`/profile/${id}`);
-  };
 
   return (
     <div>
       <SearchUsers setUsers={setUsers} allUsers={allUsers} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {loading ? (
-          <h2
-            className="font-orbitron uppercase text-2xl sm:text-3xl md:text-4xl font-bold text-center text-cyan-400 tracking-widest
-                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6"
-          >
-            ...Loading
-          </h2>
-        ) : paginatedItems.length > 0 ? (
-          paginatedItems.map((item, index) => (
+          <div className="w-full flex justify-center items-center col-span-full h-64">
+            <Spinner />
+          </div>
+        ) : items.length > 0 ? (
+          items.map((item, index) => (
             <div
               key={index}
               className="relative flex flex-col items-center justify-between rounded-2xl p-4 sm:p-6 h-[280px] sm:h-[320px]
@@ -78,15 +70,8 @@ const UsersCard = () => {
               <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-base sm:text-lg text-cyan-300 z-10">
                 {item.name}
               </h2>
-
-              <button
-                className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20
-                   text-cyan-200 font-semibold rounded-xl px-3 sm:px-4 py-2 w-full mt-auto z-10
-                   hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-                onClick={() => handleViewProfile(item.id)}
-              >
-                View Profile
-              </button>
+              <ViewProfileButton
+              id= {item.id}/>
             </div>
           ))
         ) : (

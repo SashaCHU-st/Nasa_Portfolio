@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { ProfileProps } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import UserFavorites from "./UserFavorites";
+import Follow from "./Follow";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -27,6 +28,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
 
         setName(data.userProfile.name);
         setImage(data.userProfile.image);
+        // console.log("jjjj")
       } catch (error) {
         console.error(error);
       }
@@ -58,14 +60,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         >
           {name}
         </h1>
-
-        {/* <button
-    className="font-orbitron uppercase w-40 sm:w-65 h-12 sm:h-20 rounded-2xl p-3
-               bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] 
-               text-white text-center hover:bg-cyan-600 transition mt-4 sm:mt-0"
-  >
-    Follow
-  </button> */}
+        <Follow id={id}/>
       </div>
       <h1
         className="font-orbitron uppercase text-4xl sm:text-2xl font-bold text-start text-cyan-400 tracking-widest 

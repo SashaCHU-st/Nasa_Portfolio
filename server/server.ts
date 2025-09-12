@@ -9,6 +9,7 @@ import { AuthRoutes } from "./routes/AuthRoutes";
 import { ProfileRoutes } from "./routes/ProfileRoutes";
 import { AllUsersRoutes } from "./routes/AllUsersRoutes";
 import { FavoriteRoutes } from "./routes/FavoriteRoutes";
+import { FollowRoutes } from "./routes/FollowRoutes";
 
 const fastify = Fastify({
   // logger: true,
@@ -68,6 +69,7 @@ fastify.register(async (instance) => {
 
   instance.register(ProfileRoutes, { preHandler: verifyJWT });
   instance.register(FavoriteRoutes, { preHandler: verifyJWT });
+    instance.register(FollowRoutes, { preHandler: verifyJWT });
 });
 
 const start = async () => {

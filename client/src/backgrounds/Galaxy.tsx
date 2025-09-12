@@ -122,6 +122,8 @@ const GalaxyScene: React.FC = () => {
 
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
+    // controls.minDistance = 10
+
 
 
     const handleResize = () => {

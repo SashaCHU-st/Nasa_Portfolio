@@ -1,5 +1,7 @@
-A new version of the NASA project is in progress — now with Three.js 3D effects and exciting new features
+# NASA project is in progress — now with Three.js 3D effects and exciting new features
 ![Nasa (9)](https://github.com/user-attachments/assets/dfec5262-c366-4532-b14b-21cbe06eabcf)
+
+## Note not yet, ready for Mobile layout
 # Table of Contents
 
 - [About Project](#about-project)
@@ -16,7 +18,7 @@ A new version of the NASA project is in progress — now with Three.js 3D effect
 
 **Live Demo:** [nasa-portfolio.vercel.app](https://nasa-portfolio.vercel.app/)
 
-This project was created to practice building a full-stack application using PostgreSQL, Node.js (Express), React, TypeScript, and the NASA API.
+This project was created to practice building a full-stack application using PostgreSQL, Node.js (Fastify),Three.js React, TypeScript, and the NASA API.
 
 # Watch Demo
 https://vimeo.com/1116421740?fl=pl&fe=sh
@@ -76,7 +78,7 @@ For security reasons, the .env file is not included in this repository. Instead,
 ```
 npm run dev
 ```
-the backend will run http://localhost:5000/
+the backend will run http://localhost:3000/
 
  ### 🚀3. For frontend
 3.1 Move to client directory
@@ -97,7 +99,7 @@ For security reasons, the .env file is not included in this repository. Instead,
 ```
 npm run dev
 ```
-the frontend will run http://localhost:3000/
+the frontend will run http://localhost:5173/
 
 
 ### Project is still a work in progress, issues I am working on:
@@ -106,6 +108,7 @@ the frontend will run http://localhost:3000/
 
 | Feature/Bug | Status |
 |-------------|--------|
+| Tests | in progress |
 | Follow button | Users can follow other users |
 | Chat between friends | Friends can send and receive messages |
 | Add friends | Users can send friend requests and receive notifications |
