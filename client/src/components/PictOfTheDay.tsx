@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { div } from "three/tsl";
-import NotYetItems from "./NotYetItems";
 import Spinner from "./Spinner";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
