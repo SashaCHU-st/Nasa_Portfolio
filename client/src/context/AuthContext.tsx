@@ -36,6 +36,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        // if(!isAuthorized)
+        // {
+        //   return;
+        // }
         const res = await fetch(`${BACK_API}/me`, {
           credentials: "include",
         });

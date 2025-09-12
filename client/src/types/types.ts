@@ -52,12 +52,17 @@ export interface ListMySubscriptionProps {
 };
 
 export type FollowersProps = {
-  index:number
   item: UsersType;
 };
+
 
 
 export interface SubFollowProps {
     users:UsersType[];
     loading:boolean
+}
+
+export type NotYetProps = 
+{
+  item:string
 }

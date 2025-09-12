@@ -22,14 +22,11 @@ export const addToMyFavorite = async ({
     });
 
     const data = await res.json();
-    // console.log(data.message);
     if (!res.ok) {
       throw new Error(data.message || "Something went wrong");
     }
     return data.message;
   } catch (error) {
-    console.error(error);
-    return error instanceof Error ? error.message : "Что-то пошло не так";
-    // throw error;
+    return error instanceof Error ? error.message : "Something went wrong";
   }
 };
