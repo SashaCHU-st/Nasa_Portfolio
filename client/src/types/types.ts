@@ -35,7 +35,7 @@ export type SearchUserProps = {
 };
 
 export type ProfileProps = {
-  id: string;
+  id: number;
 };
 
 export type MyFav = {
@@ -44,3 +44,25 @@ export type MyFav = {
   description?: string;
   image?: string;
 };
+
+
+export interface ListMySubscriptionProps {
+  users: UsersType[];
+  setUsers: React.Dispatch<React.SetStateAction<UsersType[]>>
+};
+
+export type FollowersProps = {
+  item: UsersType;
+};
+
+
+
+export interface SubFollowProps {
+    users:UsersType[];
+    loading:boolean
+}
+
+export type NotYetProps = 
+{
+  item:string
+}

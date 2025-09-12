@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
+  faUserGroup,
   faArrowRightFromBracket,
   faBars,
   faTimes,
@@ -22,7 +23,6 @@ const Navbar = () => {
       <div className="text-white text-2xl md:text-3xl font-orbitron uppercase flex-shrink-0 tracking-widest">
         Space Explorer
       </div>
-
       <div className="hidden md:flex h-full flex-1 ml-8">
         <NavLink to="/home" className={linkClasses}>
           HOME
@@ -39,7 +39,6 @@ const Navbar = () => {
           SEARCH
         </NavLink>
       </div>
-
       <div className="hidden md:flex ml-auto gap-2">
         {!isAuthorized && (
           <NavLink to="/auth" className={linkClasses}>
@@ -51,6 +50,9 @@ const Navbar = () => {
             <NavLink to="/myProfile" className={linkClasses}>
               <FontAwesomeIcon icon={faUser} className="text-xl md:text-2xl" />
             </NavLink>
+            <NavLink to="/subscribtions" className={linkClasses}>
+              <FontAwesomeIcon icon={faUserGroup} className="text-xl md:text-2xl" />
+            </NavLink>
             <NavLink onClick={logout} to="/home" className={linkClasses}>
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
@@ -60,7 +62,6 @@ const Navbar = () => {
           </>
         )}
       </div>
-
       <div className="md:hidden ml-auto">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -96,6 +97,9 @@ const Navbar = () => {
         )}
         {isAuthorized && (
           <>
+            <NavLink to="/subscribtions" className={linkClasses} onClick={() => setIsOpen(false)}>
+              <FontAwesomeIcon icon={faUserGroup} className="text-xl mr-2" /> Subscriptions
+            </NavLink>
             <NavLink to="/myProfile" className={linkClasses} onClick={() => setIsOpen(false)}>
               <FontAwesomeIcon icon={faUser} className="text-xl mr-2" /> PROFILE
             </NavLink>
