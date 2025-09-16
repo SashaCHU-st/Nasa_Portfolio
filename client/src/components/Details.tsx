@@ -3,6 +3,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addToMyFavorite } from "../api/api";
 import { useAuth } from "../context/AuthContext";
+import BackButton from "./BackButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -71,6 +72,7 @@ const Details = () => {
           </button>
         </div>
       </div>
+      <BackButton />
     </div>
   );
 };

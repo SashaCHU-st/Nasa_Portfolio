@@ -38,7 +38,7 @@ const PictOfTheDay = () => {
         <Spinner />
       ) : (
         <div className="flex flex-col justify-center items-center text-center px-2 md:px-0">
-          <h2 className="font-orbitron uppercase text-white text-lg sm:text-l md:text-l mb-4">
+          <h2 className="font-sans uppercase text-white text-lg sm:text-l md:text-l mb-4">
             {title}
           </h2>
           <p className="font-orbitron uppercase text-white text-lg sm:text-l md:text-l mb-4 text-right w-full">
@@ -51,7 +51,7 @@ const PictOfTheDay = () => {
               className="w-46 md:w-[28rem] lg:w-[36rem] h-46 rounded shadow-lg mb-6"
             />
           ) : (
-            <p className="text-white">Uploading...</p>
+            <p className="text-white">Today no picture of the day :(</p>
           )}
           <button
             className="cursor-pointer cursor-pointer font-orbitron text-white underline mb-4"
@@ -65,7 +65,7 @@ const PictOfTheDay = () => {
               showDescription ? "max-h-[500px]" : "max-h-0"
             }`}
           >
-            <p className="font-sans text-white text-center">{description}</p>
+            <p className="font-sans text-white text-xl text-center">{description}</p>
           </div>
         </div>
       )}

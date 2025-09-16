@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import type { ProfileProps } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import UserFavorites from "./UserFavorites";
 import Follow from "./Follow";
+import BackButton from "./BackButton";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const ProfileComponent = ({ id }: ProfileProps) => {
   const [name, setName] = useState<string>("");
   const [image, setImage] = useState<string>("");
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -60,7 +63,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         >
           {name}
         </h1>
-        <Follow id={id}/>
+        <Follow id={id} />
       </div>
       <h1
         className="font-orbitron uppercase text-4xl sm:text-2xl font-bold text-start text-cyan-400 tracking-widest 
@@ -69,6 +72,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         Favorites's of {name}:
       </h1>
       <UserFavorites id={id} />
+      <BackButton />
     </div>
   );
 };
