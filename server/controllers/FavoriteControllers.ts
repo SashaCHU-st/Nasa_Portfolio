@@ -9,9 +9,10 @@ export async function addFavorite(
   reply: FastifyReply
 ) {
   try {
+
     const userId = await authorisation(req, reply);
     const { nasa_id, title, description, image } = data;
-
+    
     const alreadyFav = await pool.query(
       `SELECT nasa_id FROM favorites WHERE nasa_id = $1 AND user_id = $2`,
       [nasa_id, userId]

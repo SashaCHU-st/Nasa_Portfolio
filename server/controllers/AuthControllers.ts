@@ -64,7 +64,9 @@ export async function login(
           userLogin.rows[0].password
         );
         if (!checkPass) {
-          return reply.code(400).send({ message: "Wrong password" });
+          return reply
+            .code(400)
+            .send({ message: "Wrong password", pass: "Wrong password" });
         }
         const user = userLogin.rows[0];
         if (!user)
@@ -77,7 +79,7 @@ export async function login(
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
-            maxAge: 24 * 60 * 60, // 1 день
+            maxAge: 24 * 60 * 60,
           })
           .code(200)
           .send({ message: "Logged in", user });
@@ -85,7 +87,9 @@ export async function login(
         return reply.code(400).send({ message: "Wrong password" });
       }
     } else {
-      return reply.code(400).send({ message: "No such user" });
+      return reply
+        .code(400)
+        .send({ message: "No such user", email: "No such user" });
     }
   } catch (err: any) {
     console.error("Database error:", err.message);
