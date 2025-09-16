@@ -71,3 +71,6 @@ export interface PauseProps {
   setPaused: (value: boolean) => void;
   paused: boolean;
 }
+export interface AnimationProps {
+  paused: boolean;
+}

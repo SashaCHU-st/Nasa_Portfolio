@@ -1,16 +1,17 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import type { AnimationProps } from "../types/types";
 
-const Neptune = () => {
+const Neptune = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
-   useEffect(() => {
+  useEffect(() => {
     if (!mountRef.current) {
       return;
     }
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x00000);//black
+    scene.background = new THREE.Color(0x00000); //black
     const camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -84,7 +85,9 @@ const Neptune = () => {
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      neptune.rotation.y += 0.001;
+      if (!paused) {
+        neptune.rotation.y += 0.001;
+      }
       controls.update();
       renderer.render(scene, camera);
     };
@@ -102,7 +105,7 @@ const Neptune = () => {
       window.removeEventListener("resize", handleResize);
       mountRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [paused]);
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 

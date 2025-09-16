@@ -1,16 +1,17 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import type { AnimationProps } from "../types/types";
 
-const Mercury = () => {
+const Mercury = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
-   useEffect(() => {
+  useEffect(() => {
     if (!mountRef.current) {
       return;
     }
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x00000);//black
+    scene.background = new THREE.Color(0x00000); //black
     const camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -30,7 +31,7 @@ const Mercury = () => {
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.enableZoom = true;
-    controls.minDistance =4;
+    controls.minDistance = 4;
     controls.maxDistance = 10;
 
     //lights
@@ -83,16 +84,18 @@ const Mercury = () => {
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
-        const clock = new THREE.Clock();
+    const clock = new THREE.Clock();
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-            const elapsedTime = clock.getElapsedTime();
-      // sun.position.y = Math.sin(elapsedTime * 0.2);
-      mercury.position.x = Math.cos(elapsedTime * 0.2);
-      // mercury.position.y = Math.sin(elapsedTime * 0.7);
-      mercury.position.y = Math.sin(elapsedTime * 0.2);
-      mercury.rotation.y += 0.001;
+      if (!paused) {
+        const elapsedTime = clock.getElapsedTime();
+        // sun.position.y = Math.sin(elapsedTime * 0.2);
+        mercury.position.x = Math.cos(elapsedTime * 0.2);
+        // mercury.position.y = Math.sin(elapsedTime * 0.7);
+        mercury.position.y = Math.sin(elapsedTime * 0.2);
+        mercury.rotation.y += 0.001;
+      }
       controls.update();
       renderer.render(scene, camera);
     };
@@ -110,7 +113,7 @@ const Mercury = () => {
       window.removeEventListener("resize", handleResize);
       mountRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [paused]);
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 

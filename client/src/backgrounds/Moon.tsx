@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import type { AnimationProps } from "../types/types";
 
-const Moon = () => {
+const Moon = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!mountRef.current) {
@@ -85,7 +86,9 @@ const Moon = () => {
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      moon.rotation.y += 0.001;
+      if (!paused) {
+        moon.rotation.y += 0.001;
+      }
       controls.update();
       renderer.render(scene, camera);
     };
@@ -103,7 +106,7 @@ const Moon = () => {
       window.removeEventListener("resize", handleResize);
       mountRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [paused]);
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 

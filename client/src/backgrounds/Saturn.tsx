@@ -1,16 +1,17 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import type { AnimationProps } from "../types/types";
 
-const Saturn = () => {
+const Saturn = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
-   useEffect(() => {
+  useEffect(() => {
     if (!mountRef.current) {
       return;
     }
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x00000);//black
+    scene.background = new THREE.Color(0x00000); //black
     const camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -55,7 +56,7 @@ const Saturn = () => {
       shininess: 15,
     });
     const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
-    saturn.position.x = 4;
+    saturn.position.x = 2;
     saturn.position.y = 0.2;
     saturn.position.z = 0.9;
     scene.add(saturn);
@@ -83,16 +84,16 @@ const Saturn = () => {
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
-
-    const clock = new THREE.Clock()
+    const clock = new THREE.Clock();
     //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime()
-
-      saturn.position.y = Math.sin(elapsedTime * 0.2)
-      saturn.position.x = Math.cos(elapsedTime * 0.2)
-      saturn.rotation.y += 0.001;
+      if (!paused) {
+        const elapsedTime = clock.getElapsedTime();
+        saturn.position.y = Math.sin(elapsedTime * 0.2);
+        saturn.position.x = Math.cos(elapsedTime * 0.2);
+        saturn.rotation.y += 0.001;
+      }
       controls.update();
       renderer.render(scene, camera);
     };
@@ -110,7 +111,7 @@ const Saturn = () => {
       window.removeEventListener("resize", handleResize);
       mountRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [paused]);
   return <div ref={mountRef} className="w-screen h-screen" />;
 };
 

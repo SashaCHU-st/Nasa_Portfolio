@@ -37,7 +37,7 @@ const MyFavorites = () => {
     };
     fetchFav();
   }, []);
-const { items, totalPages } = paginate(myFav, currentPage);
+  const { items, totalPages } = paginate(myFav, currentPage);
   const handleMoreDetails = (item: any) => {
     navigate(`/moreDetails/${item.nasa_id}`, {
       state: {
@@ -48,7 +48,8 @@ const { items, totalPages } = paginate(myFav, currentPage);
     });
   };
 
-  const handleDeleteFav = async (id: string) => {
+  const handleDeleteFav = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
     const res = await fetch(`${BACK_API}/deleteFavorites`, {
       method: "DELETE",
       credentials: "include",
@@ -80,9 +81,10 @@ const { items, totalPages } = paginate(myFav, currentPage);
           items.map((item, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-between rounded-2xl p-6 w-full h-[340px] sm:h-[360px] 
+              className=" cursor-pointer relative flex flex-col items-center justify-between rounded-2xl p-6 w-full h-[340px] sm:h-[360px] 
                              bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                              hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+              onClick={() => handleMoreDetails(item)}
             >
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
               <div
@@ -109,16 +111,15 @@ const { items, totalPages } = paginate(myFav, currentPage);
               </h2>
               <div className="flex justify-between items-center w-full">
                 <button
-                  className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-                                     rounded-xl px-2 py-3 mt-auto w-4/7 z-10  text-sm sm:text-sm md:text-sm
-                                     hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-                  onClick={() => handleMoreDetails(item)}
+                  className="font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
+                                     rounded-xl px-2 py-3 mt-auto w-4/7 z-10  text-sm sm:text-sm md:text-sm"
+                  // onClick={() => handleMoreDetails(item)}
                 >
                   details
                 </button>
 
                 <button
-                  onClick={() => handleDeleteFav(item.nasa_id)}
+                  onClick={(e) => handleDeleteFav(e, item.nasa_id)}
                   className="cursor-pointer font-orbitron uppercase w-20 p-2 rounded-2xl
                                             shadow-[0_0_15px_#0ff] text-white text-center z-20
                                             hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"

@@ -1,12 +1,9 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import type { AnimationProps } from "../types/types";
 
-interface SunProps {
-  paused: boolean;
-}
-
-const Sun = ({ paused }: SunProps) => {
+const Sun = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

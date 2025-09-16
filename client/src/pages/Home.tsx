@@ -2,11 +2,20 @@ import PictOfTheDay from "../components/PictOfTheDay";
 import Earth from "../backgrounds/Earth";
 import github from "../../public/logo/github.png";
 import linkedIn from "../../public/logo/linkedIn.png";
+import { useState } from "react";
+import PauseAnimation from "../components/PauseAnimation";
 
 const Home = () => {
+  const [paused, setPaused] = useState(false);
   return (
     <div className="relative min-h-screen w-full flex justify-center items-center overflow-x-hidden">
-      <Earth />
+      <Earth paused={paused} />
+      <div
+        className="absolute top-2/11 right-1/8 transform -translate-x-1/2 cursor-pointer font-orbitron uppercase w-full sm:w-32 rounded-2xl p-3
+             bg-cyan-700 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center z-20"
+      >
+        <PauseAnimation setPaused={setPaused} paused={paused} />
+      </div>
       <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 w-10/12 sm:w-8/12 md:w-6/12 max-w-[90%] px-2">
         <div
           className="sm:top-2/3 w-6/12 sm:w-11/12 relative flex flex-col items-center rounded-2xl p-6
