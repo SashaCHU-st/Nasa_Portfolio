@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../utils/InputValidation";
-// import Spinner from "./Spinner";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const Login = () => {
@@ -18,10 +17,8 @@ const Login = () => {
     e.preventDefault();
     const emailErr = validateEmail(email);
     const passwordErr = validatePassword(password);
-    // const nameError = validateName(name);
     setErrorEmail(emailErr);
     setErrorPassword(passwordErr);
-    // setErrorName(nameError);
     if (emailErr || passwordErr) return;
     try {
       const results = await fetch(`${BACK_API}/login`, {

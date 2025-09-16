@@ -66,3 +66,8 @@ export type NotYetProps =
 {
   item:string
 }
+
+export interface PauseProps {
+  setPaused: (value: boolean) => void;
+  paused: boolean;
+}

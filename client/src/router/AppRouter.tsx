@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import MyProfile from "../pages/MyProfile";
 import Subscriptions from "../pages/Subscriptions"
 import MoreDetails from "../pages/MoreDetails";
+import { NotFound } from "../pages/NotFound";
 
 const AppRouter = () => {
   const auth = useContext(AuthContext);
@@ -57,6 +58,7 @@ const AppRouter = () => {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

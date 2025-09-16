@@ -6,7 +6,6 @@ import {
   validateName,
   validatePassword,
 } from "../utils/InputValidation";
-// import Spinner from "./Spinner";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -15,7 +14,6 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
-  // const [error, setError] = useState<string>("");
   const [errorEmail, setErrorEmail] = useState<string | null>(null);
   const [errorPassword, setErrorPassword] = useState<string | null>(null);
   const [errorName, setErrorName] = useState<string | null>(null);

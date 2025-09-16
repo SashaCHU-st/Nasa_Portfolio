@@ -14,14 +14,18 @@ const Navbar = () => {
   const { isAuthorized, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-  const linkClasses = ({ isActive }: { isActive: boolean }) =>
-    `block w-full px-4 py-2 text-white font-orbitron uppercase rounded transition-colors duration-300 
-    ${isActive ? "bg-gray-800" : "hover:bg-gray-800"}`;
+const linkClasses = ({ isActive }: { isActive: boolean }) =>
+  `flex justify-center items-center text-center w-full px-4 py-2 text-white font-orbitron uppercase rounded transition-all duration-300 
+   ${isActive ? "bg-gray-800 shadow-inner" : "hover:bg-gray-700 hover:shadow-md"}`;
+
 
   return (
     <div className="fixed top-0 left-0 w-full bg-black shadow-md min-h-24 flex items-center px-4 md:px-8 z-50">
       <div className="hidden md:flex h-full flex-1 ml-8">
-        <NavLink to="/" className="block w-full px-4 py-2 text-white font-orbitron uppercase rounded transition-colors duration-300 ">
+        <NavLink
+          to="/"
+          className="block w-full px-4 py-2 text-white font-orbitron uppercase rounded transition-colors duration-300 "
+        >
           <div className="text-white text-2xl md:text-3xl font-orbitron uppercase flex-shrink-0 tracking-widest">
             Space Explorer
           </div>

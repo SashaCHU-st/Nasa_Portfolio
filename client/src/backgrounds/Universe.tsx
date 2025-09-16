@@ -2,40 +2,38 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-interface SunProps {
-  paused: boolean;
-}
-
-const Sun = ({ paused }: SunProps) => {
+const Earth = () => {
   const mountRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!mountRef.current) return;
+   useEffect(() => {
+    if (!mountRef.current) {
+      return;
+    }
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
-
+    scene.background = new THREE.Color(0x00000);//black
     const camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.set(0.7, 1, 5);
 
+    camera.position.z = 5;
+    camera.position.y = 1;
+    camera.position.x = 0.7;
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-    // OrbitControls
+    //for moving and zoom
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.enableZoom = true;
-    controls.minDistance = 4;
+    controls.minDistance =4;
     controls.maxDistance = 10;
 
-    // Lights
+    //lights
     const ambient = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambient);
 
@@ -43,23 +41,26 @@ const Sun = ({ paused }: SunProps) => {
     pointLight.position.set(5, 3, 5);
     scene.add(pointLight);
 
-    // Sun texture
+    ///Textures
     const loader = new THREE.TextureLoader();
-    const sunTex = loader.load("/textures/sun.jpg");
+    const earthTex = loader.load("/textures/earth.jpg");
+    const bump = loader.load("/textures/earth_bump.png");
 
-    const sunGeometry = new THREE.SphereGeometry(1, 64, 64);
-    const sunMaterial = new THREE.MeshPhongMaterial({
-      map: sunTex,
+    const earthGeometry = new THREE.SphereGeometry(1, 64, 64);
+    const earthMaterial = new THREE.MeshPhongMaterial({
+      map: earthTex,
+      bumpMap: bump,
       bumpScale: 0.05,
       specular: new THREE.Color(0x555555),
       shininess: 15,
     });
+    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+    earth.position.x = 0;
+    earth.position.y = 0;
+    earth.position.z = 0;
+    scene.add(earth);
 
-    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-    sun.position.set(-2, 0.7, 0);
-    scene.add(sun);
-
-    // Stars
+    ///stars
     const starsGeometry = new THREE.BufferGeometry();
     const starCount = 20000;
     const starVertices: number[] = [];
@@ -74,21 +75,18 @@ const Sun = ({ paused }: SunProps) => {
       "position",
       new THREE.Float32BufferAttribute(starVertices, 3)
     );
-    const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 });
+
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.1,
+    });
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
-    const clock = new THREE.Clock();
-
-    // Animate
+    //animation
     const animate = () => {
       requestAnimationFrame(animate);
-      if (!paused) {
-        const elapsedTime = clock.getElapsedTime();
-        sun.position.z = Math.cos(elapsedTime * 0.7);
-        sun.position.y = Math.cos(elapsedTime * 0.7);
-        sun.rotation.y += 0.004;
-      }
+      earth.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
     };
@@ -106,9 +104,8 @@ const Sun = ({ paused }: SunProps) => {
       window.removeEventListener("resize", handleResize);
       mountRef.current?.removeChild(renderer.domElement);
     };
-  }, [paused]);
-
-  return <div ref={mountRef} className="w-full h-full" />;
+  }, []);
+  return <div ref={mountRef} className="w-screen h-screen" />;
 };
 
-export default Sun;
+export default Earth;
