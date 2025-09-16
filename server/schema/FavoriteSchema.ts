@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const FavoriteSchema = z.object({
   nasa_id: z.string(),
@@ -8,5 +8,5 @@ export const FavoriteSchema = z.object({
 });
 
 export const DeleteFavSchema = z.object({
-  nasa_id: z.string()
+  nasa_id: z.string(),
 });

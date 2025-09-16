@@ -1,7 +1,10 @@
-import "fastify";
+import 'fastify';
 
-declare module "fastify" {
+declare module 'fastify' {
   interface FastifyInstance {
-    authenticate: (req: import("fastify").FastifyRequest, reply: import("fastify").FastifyReply) => Promise<void>;
+    authenticate: (
+      req: import('fastify').FastifyRequest,
+      reply: import('fastify').FastifyReply
+    ) => Promise<void>;
   }
 }

@@ -1,14 +1,19 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { pool } from "../db/db";
-
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { pool } from '../db/db';
 
 export async function users(req: FastifyRequest, reply: FastifyReply) {
   try {
-    const allUsers = await pool.query(`SELECT id, name, email, image FROM users`);
+    const allUsers = await pool.query(
+      `SELECT id, name, email, image FROM users`
+    );
     return reply.code(200).send({ allUsers: allUsers.rows });
-  } catch (err: any) {
-    console.error("Database error:", err.message);
-    return reply.code(500).send({ message: "Something went wrong" });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error('Unknown error:', err);
+    }
+    reply.code(500).send({ message: 'Something went wrong' });
   }
 }
 
@@ -23,9 +28,13 @@ export async function user(
       [id]
     );
     return reply.code(200).send({ userProfile: userProfile.rows[0] });
-  } catch (err: any) {
-    console.error("Database error:", err.message);
-    return reply.code(500).send({ message: "Something went wrong" });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error('Unknown error:', err);
+    }
+    reply.code(500).send({ message: 'Something went wrong' });
   }
 }
 
@@ -33,8 +42,6 @@ export async function userFavorites(
   req: FastifyRequest<{ Body: { id: number } }>,
   reply: FastifyReply
 ) {
-
-
   const { id } = req.body;
   try {
     const userFav = await pool.query(
@@ -42,8 +49,12 @@ export async function userFavorites(
       [id]
     );
     return reply.code(200).send({ userFav: userFav.rows });
-  } catch (err: any) {
-    console.error("Database error:", err.message);
-    return reply.code(500).send({ message: "Something went wrong" });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error('Unknown error:', err);
+    }
+    reply.code(500).send({ message: 'Something went wrong' });
   }
 }

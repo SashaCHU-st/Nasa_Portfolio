@@ -1,15 +1,13 @@
-import Fastify, { FastifyRequest, FastifyReply } from "fastify";
-import cors from "@fastify/cors";
-import jwt from "@fastify/jwt";
-import cookie from "@fastify/cookie";
-import "dotenv/config";
-import { pool } from "./db/db";
-
-import { AuthRoutes } from "./routes/AuthRoutes";
-import { ProfileRoutes } from "./routes/ProfileRoutes";
-import { AllUsersRoutes } from "./routes/AllUsersRoutes";
-import { FavoriteRoutes } from "./routes/FavoriteRoutes";
-import { FollowRoutes } from "./routes/FollowRoutes";
+import Fastify, { FastifyRequest, FastifyReply } from 'fastify';
+import cors from '@fastify/cors';
+import jwt from '@fastify/jwt';
+import cookie from '@fastify/cookie';
+import 'dotenv/config';
+import { AuthRoutes } from './routes/AuthRoutes';
+import { ProfileRoutes } from './routes/ProfileRoutes';
+import { AllUsersRoutes } from './routes/AllUsersRoutes';
+import { FavoriteRoutes } from './routes/FavoriteRoutes';
+import { FollowRoutes } from './routes/FollowRoutes';
 
 const fastify = Fastify({
   // logger: true,
@@ -17,10 +15,10 @@ const fastify = Fastify({
 });
 
 if (!process.env.COOKIE_SECRET) {
-  throw new Error("NO COOKIE_SECRET");
+  throw new Error('NO COOKIE_SECRET');
 }
 if (!process.env.JWT_KEY) {
-  throw new Error("NO JWT_SECRET_KEY");
+  throw new Error('NO JWT_SECRET_KEY');
 }
 
 fastify.register(cookie, {
@@ -31,25 +29,24 @@ fastify.register(cookie, {
 fastify.register(jwt, {
   secret: process.env.JWT_KEY,
   cookie: {
-    cookieName: "auth_token",
+    cookieName: 'auth_token',
     signed: false,
-    
   },
 });
 
 fastify.register(cors, {
-  origin: ["https://nasa-portfolio.vercel.app", "http://localhost:5173"],
-  methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
+  origin: ['https://nasa-portfolio.vercel.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
   credentials: true,
 });
 
 fastify.decorate(
-  "authenticate",
+  'authenticate',
   async (req: FastifyRequest, reply: FastifyReply) => {
     try {
       await req.jwtVerify();
     } catch {
-      reply.code(401).send({ message: "Invalid token" });
+      reply.code(401).send({ message: 'Invalid token' });
     }
   }
 );
@@ -62,23 +59,23 @@ fastify.register(async (instance) => {
       await req.jwtVerify();
       return true;
     } catch {
-      reply.code(401).send({ message: "Invalid token" });
+      reply.code(401).send({ message: 'Invalid token' });
       return false;
     }
   }
 
   instance.register(ProfileRoutes, { preHandler: verifyJWT });
   instance.register(FavoriteRoutes, { preHandler: verifyJWT });
-    instance.register(FollowRoutes, { preHandler: verifyJWT });
+  instance.register(FollowRoutes, { preHandler: verifyJWT });
 });
 
 const start = async () => {
   try {
     const port = Number(process.env.PORT) || 3000;
-    await fastify.listen({ port, host: "0.0.0.0" });
-    // console.log("🚀 Server running on port", port);
+    await fastify.listen({ port, host: '0.0.0.0' });
+    // console.log('🚀 Server running on port', port);
   } catch (err) {
-    console.error("❌ Server start error:", err);
+    console.error('❌ Server start error:', err);
     process.exit(1);
   }
 };

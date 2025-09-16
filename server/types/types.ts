@@ -31,5 +31,5 @@ export type DeleteFavBody = {
 };
 
 export type FollowBody = {
-  follow_id: number
-}
+  follow_id: number;
+};

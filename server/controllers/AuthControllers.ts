@@ -1,8 +1,8 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { pool } from "../db/db";
-import { SignUpBody, LoginBody } from "../types/types";
-import { hashedPass } from "../utils/hashedPass";
-import bcrypt from "bcrypt";
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { pool } from '../db/db';
+import { SignUpBody, LoginBody } from '../types/types';
+import { hashedPass } from '../utils/hashedPass';
+import bcrypt from 'bcrypt';
 
 export async function signUp(
   req: FastifyRequest<{ Body: SignUpBody }>,
@@ -24,21 +24,25 @@ export async function signUp(
       const token = reply.server.jwt.sign({ id: user.id });
 
       reply
-        .setCookie("auth_token", token, {
+        .setCookie('auth_token', token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-          path: "/",
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+          path: '/',
           maxAge: 24 * 60 * 60,
         })
         .code(200)
-        .send({ message: "Logged in", user });
+        .send({ message: 'Logged in', user });
     } else {
-      reply.code(400).send({ message: "User already exists with this email" });
+      reply.code(400).send({ message: 'User already exists with this email' });
     }
-  } catch (err: any) {
-    console.error(err.message);
-    reply.code(500).send({ message: "Something went wrong" });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error('Unknown error:', err);
+    }
+    reply.code(500).send({ message: 'Something went wrong' });
   }
 }
 
@@ -66,44 +70,48 @@ export async function login(
         if (!checkPass) {
           return reply
             .code(400)
-            .send({ message: "Wrong password", pass: "Wrong password" });
+            .send({ message: 'Wrong password', pass: 'Wrong password' });
         }
         const user = userLogin.rows[0];
         if (!user)
-          return reply.code(401).send({ message: "Invalid credentials" });
+          return reply.code(401).send({ message: 'Invalid credentials' });
 
         const token = reply.server.jwt.sign({ id: user.id });
         reply
-          .setCookie("auth_token", token, {
+          .setCookie('auth_token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-            path: "/",
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            path: '/',
             maxAge: 24 * 60 * 60,
           })
           .code(200)
-          .send({ message: "Logged in", user });
+          .send({ message: 'Logged in', user });
       } else {
-        return reply.code(400).send({ message: "Wrong password" });
+        return reply.code(400).send({ message: 'Wrong password' });
       }
     } else {
       return reply
         .code(400)
-        .send({ message: "No such user", email: "No such user" });
+        .send({ message: 'No such user', email: 'No such user' });
     }
-  } catch (err: any) {
-    console.error("Database error:", err.message);
-    return reply.code(500).send({ message: "Something went wrong" });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error('Unknown error:', err);
+    }
+    reply.code(500).send({ message: 'Something went wrong' });
   }
 }
 
 export async function logout(req: FastifyRequest, reply: FastifyReply) {
   reply
-    .clearCookie("auth_token", {
-      path: "/",
+    .clearCookie('auth_token', {
+      path: '/',
       httpOnly: true,
       secure: false,
     })
     .code(200)
-    .send({ message: "Logged out" });
+    .send({ message: 'Logged out' });
 }
