@@ -1,6 +1,7 @@
 import { useState } from "react";
 import cosmon from "../../public/avatar/cosmon.png";
 import { useEffect } from "react";
+import { validateName, validatePassword } from "../utils/InputValidation";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -13,6 +14,8 @@ const EditProfile = () => {
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [profileUpdatedMessage, setProfileUpdatedMessage] =
     useState<string>("");
+  const [errorPassword, setErrorPassword] = useState<string | null>(null);
+  const [errorName, setErrorName] = useState<string | null>(null);
   // const [error, setError] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +49,10 @@ const EditProfile = () => {
 
   const handleEditProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const passwordErr = validatePassword(password);
+    const nameError = validateName(name);
+    setErrorPassword(passwordErr);
+    setErrorName(nameError);
     try {
       const res = await fetch(`${BACK_API}/editProfile`, {
         method: "POST",
@@ -104,30 +110,71 @@ const EditProfile = () => {
               className="w-32 h-32 object-cover rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] my-4"
             />
           )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="font-orbitron uppercase w-52 rounded-2xl p-4
-              bg-[#0d1b2a]/80 border bg-cyan-700 border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center"
-          />
+          <div className="w-full flex justify-center items-center my-4">
+            <input
+              type="file"
+              accept="image/*"
+              id="fileInput"
+              onChange={handleImageChange}
+              className="absolute w-full h-full opacity-0 cursor-pointer"
+            />
+            <label
+              htmlFor="fileInput"
+              className="font-orbitron uppercase w-full rounded-2xl p-4
+               bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] text-white text-center cursor-pointer"
+            >
+              Upload Image
+            </label>
+          </div>
+          {errorName ? (
+            <h2
+              className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
+                    text-center"
+            >
+              {errorName}
+            </h2>
+          ) : null}
           <input
             className="font-orbitron uppercase border-4 border-gray-500 rounded my-8 p-4 w-96 text-gray-200"
             type="text"
             placeholder={oldName}
             value={name}
             onChange={(e) => {
-              setName(e.target.value), setProfileUpdatedMessage("");
+              setProfileUpdatedMessage("");
+              const value = e.target.value;
+              if (value.length <= 20) {
+                setName("");
+                setName(value);
+              } else {
+                setErrorName("Name must be max 20 characters");
+              }
             }}
           />
 
           <div className="relative w-96 my-8">
+            {errorPassword ? (
+              <h2
+                className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
+                    text-center"
+              >
+                {errorPassword}
+              </h2>
+            ) : null}
             <input
               className="font-orbitron uppercase border-4 border-gray-500 rounded p-4 w-full text-gray-200"
               type={showPassword ? "text" : "password"}
               placeholder="Please write your new password"
               value={password}
-              onChange={(e) => {setPassword(e.target.value),setProfileUpdatedMessage("")}}
+              onChange={(e) => {
+                setProfileUpdatedMessage("");
+                const value = e.target.value;
+                if (value.length <= 40) {
+                  setPassword("");
+                  setPassword(value);
+                } else {
+                  setErrorPassword("Password must be max 40 characters");
+                }
+              }}
             />
             <button
               type="button"

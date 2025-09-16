@@ -70,7 +70,15 @@ const Login = () => {
           type="email"
           placeholder="Please write your email *"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 20) {
+              setEmail("")
+              setEmail(value);
+            } else {
+              setErrorEmail("EMail must be max 20 characters");
+            }
+          }}
         />
         <div className="relative w-96 ">
           {errorPassword ? (
@@ -86,7 +94,15 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             placeholder="Please write your password *"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 40) {
+              setPassword("")
+              setPassword(value);
+            } else {
+              setErrorPassword("Password must be max 40 characters");
+            }
+          }}
           />
           <button
             type="button"

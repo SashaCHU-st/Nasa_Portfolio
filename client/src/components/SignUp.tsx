@@ -79,9 +79,17 @@ const SignUp = () => {
         <input
           className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-96 text-gray-200"
           type="text"
-          placeholder={`Please write your name * ` }
+          placeholder={`Please write your name * `}
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 20) {
+              setName("")
+              setName(value);
+            } else {
+              setErrorName("Name must be max 20 characters");
+            }
+          }}
         />
         {errorEmail ? (
           <h2
@@ -94,9 +102,17 @@ const SignUp = () => {
         <input
           className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-96 text-gray-200"
           type="email"
-          placeholder={`Please write your email * ` }
+          placeholder={`Please write your email * `}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            setEmail("")
+            if (value.length <= 20) {
+              setEmail(value);
+            } else {
+              setErrorEmail("Email must be max 20 characters");
+            }
+          }}
         />
         <div className="relative w-96">
           {errorPassword ? (
@@ -110,9 +126,17 @@ const SignUp = () => {
           <input
             className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-full text-gray-200"
             type={showPassword ? "text" : "password"}
-            placeholder={`Please write your password * ` }
+            placeholder={`Please write your password * `}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              setPassword("")
+              if (value.length <= 40) {
+                setPassword(value);
+              } else {
+                setErrorPassword("Password must be max 40 characters");
+              }
+            }}
           />
           <button
             type="button"
