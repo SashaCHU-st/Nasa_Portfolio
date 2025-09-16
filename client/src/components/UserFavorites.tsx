@@ -56,7 +56,8 @@ const UserFavorites = ({ id }: ProfileProps) => {
     });
   };
 
-  const handleFavoriteClick = async (item: MyFav) => {
+  const handleFavoriteClick = async (e: React.MouseEvent, item: MyFav) => {
+    e.stopPropagation(); 
     if (!isAuthorized) {
       navigate("/auth");
       return;
@@ -91,9 +92,10 @@ const UserFavorites = ({ id }: ProfileProps) => {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
+                className="cursor-pointer relative flex flex-col items-center justify-between rounded-2xl p-6 h-[320px] 
                            bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                            hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                onClick={() => handleMoreDetails(item)}
               >
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
                 <div
@@ -121,17 +123,17 @@ const UserFavorites = ({ id }: ProfileProps) => {
 
                 <div className="flex justify-between items-center w-full">
                   <button
-                    className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold 
-                   rounded-xl px-2 sm:px-2 py-1 sm:py-2 mt-auto w-5/6 z-10 
-                   text-sm sm:text-sm md:text-sm
-                   hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_#0ff] transition"
-                    onClick={() => handleMoreDetails(item)}
+                    className="cursor-pointer font-orbitron uppercase relative border border-cyan-400 
+                    bg-cyan-500/20 text-cyan-200 font-semibold 
+                   rounded-xl  py-1 sm:py-2 mt-auto w-4/6 z-10 
+                   text-sm sm:text-sm md:text-sm"
+                    // onClick={() => handleMoreDetails(item)}
                   >
                     details
                   </button>
                   <button
-                    onClick={() => handleFavoriteClick(item)}
-                    className="cursor-pointer font-orbitron uppercase w-16 sm:w-20 p-1 sm:p-1 rounded-2xl
+                    onClick={(e) => handleFavoriteClick(e, item)}
+                    className="cursor-pointer font-orbitron uppercase w-2/7 sm:w-2/7 p-1 sm:p-1 rounded-2xl
                    shadow-[0_0_15px_#0ff] text-white text-center z-20
                    hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
                   >

@@ -1,15 +1,21 @@
 import ViewProfileButton from "./ViewProfileButton";
 import cosmon from "../../public/avatar/cosmon.png";
 import type { FollowersProps } from "../types/types";
+import { useNavigate } from "react-router-dom";
 
 const Followers = ({ item }: FollowersProps) => {
+  const navigate = useNavigate();
+  const handleViewProfile = (id: number) => {
+    navigate(`/profile/${id}`);
+  };
   return (
     <div>
       <div
         key={item.id}
-        className="relative flex flex-col items-center justify-between rounded-2xl p-4 sm:p-6 h-[280px] sm:h-[320px]
+        className=" cursor-pointer relative flex flex-col items-center justify-between rounded-2xl p-4 sm:p-6 h-[280px] sm:h-[320px]
                         bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                         hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
+                        onClick={()=>handleViewProfile(item.id)}
       >
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
 
@@ -28,7 +34,7 @@ const Followers = ({ item }: FollowersProps) => {
         <h2 className="font-orbitron uppercase mb-2 font-bold text-center text-base sm:text-lg text-cyan-300 z-10">
           {item.name}
         </h2>
-        <ViewProfileButton id={item.id} />
+        <ViewProfileButton />
       </div>
     </div>
   );

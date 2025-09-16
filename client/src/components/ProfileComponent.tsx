@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import type { ProfileProps } from "../types/types";
 import cosmon from "../../public/avatar/cosmon.png";
 import UserFavorites from "./UserFavorites";
 import Follow from "./Follow";
 import BackButton from "./BackButton";
+import Spinner from "./Spinner";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const ProfileComponent = ({ id }: ProfileProps) => {
   const [name, setName] = useState<string>("");
-  const [image, setImage] = useState<string>("");
-  // const navigate = useNavigate();
+  const [image, setImage] = useState<string | null>(null);
+  const [loadingImage, setLoadingImage] = useState(true);
+  const [profileLoaded, setProfileLoaded] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,30 +31,50 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         }
 
         setName(data.userProfile.name);
-        setImage(data.userProfile.image);
-        // console.log("jjjj")
+        setImage(data.userProfile.image || null);
+        setProfileLoaded(true);
       } catch (error) {
         console.error(error);
+        setImage(null);
       }
     };
     fetchProfile();
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (image === null) {
+      const timer = setTimeout(() => setLoadingImage(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [image]);
+
   return (
     <div className="w-full max-w-8xl mx-auto my-22">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-12">
-        <div className="flex-shrink-0">
-          {image ? (
+        <div className="flex-shrink-0 w-24 h-24 sm:w-72 sm:h-72 relative flex items-center justify-center">
+          {loadingImage && <Spinner />}
+          {!profileLoaded ? null : image ? (
             <img
-              className="w-24 h-24 sm:w-72 sm:h-72 rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] object-cover"
+              className={`w-24 h-24 sm:w-72 sm:h-72 rounded-full border-4 border-cyan-500 
+        shadow-[0_0_10px_#0ff] object-cover 
+        ${loadingImage ? "hidden" : "block"}`}
               src={image}
               alt="Profile avatar"
+              onLoad={() => setLoadingImage(false)}
+              onError={() => {
+                setImage(null);
+                setLoadingImage(false);
+              }}
             />
           ) : (
-            <img
-              className="w-24 h-24 sm:w-24 sm:h-24 rounded-full border-4 border-cyan-500 shadow-[0_0_10px_#0ff] object-cover"
-              src={cosmon}
-              alt="Default avatar"
-            />
+            !loadingImage && (
+              <img
+                className="w-24 h-24 sm:w-72 sm:h-72 rounded-full border-4 border-cyan-500 
+        shadow-[0_0_10px_#0ff] object-cover"
+                src={cosmon}
+                alt="Default avatar"
+              />
+            )
           )}
         </div>
 
@@ -65,12 +86,14 @@ const ProfileComponent = ({ id }: ProfileProps) => {
         </h1>
         <Follow id={id} />
       </div>
+
       <h1
         className="font-orbitron uppercase text-4xl sm:text-2xl font-bold text-start text-cyan-400 tracking-widest 
                     [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] py-12"
       >
         Favorites's of {name}:
       </h1>
+
       <UserFavorites id={id} />
       <BackButton />
     </div>

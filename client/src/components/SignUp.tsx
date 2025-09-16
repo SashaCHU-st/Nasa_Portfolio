@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "../utils/InputValidation";
 // import Spinner from "./Spinner";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
@@ -10,12 +15,23 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string>("");
+  // const [error, setError] = useState<string>("");
+  const [errorEmail, setErrorEmail] = useState<string | null>(null);
+  const [errorPassword, setErrorPassword] = useState<string | null>(null);
+  const [errorName, setErrorName] = useState<string | null>(null);
   const navigate = useNavigate();
   const { login: loginUser } = useAuth();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    const emailErr = validateEmail(email);
+    const passwordErr = validatePassword(password);
+    const nameError = validateName(name);
+    setErrorEmail(emailErr);
+    setErrorPassword(passwordErr);
+    setErrorName(nameError);
+
+    if (emailErr || passwordErr || nameError) return;
     try {
       const results = await fetch(`${BACK_API}/signup`, {
         method: "POST",
@@ -37,21 +53,12 @@ const SignUp = () => {
       navigate("/home");
     } catch (err: any) {
       console.error("Error", err);
-      setError(err.message || "Something went wrong");
+      setErrorEmail(err.message || "Something went wrong");
     }
   };
   return (
     <div>
-
-      {error && (
-        <h2
-          className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-white tracking-widest
-                   [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff] mb-6 text-center"
-        >
-          {error}
-        </h2>
-      )}
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center my-4">
         <h2
           className="font-orbitron uppercase text-4xl font-bold text-center text-cyan-400 tracking-widest 
                  [text-shadow:0_0_5px_#0ff,0_0_5px_#0ff]"
@@ -63,25 +70,49 @@ const SignUp = () => {
         onSubmit={handleSignUp}
         className="flex flex-col items-center w-full"
       >
+        {errorName ? (
+          <h2
+            className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
+                    text-center"
+          >
+            {errorName}
+          </h2>
+        ) : null}
         <input
-          className="font-orbitron uppercase border-4 border-gray-500 rounded my-8 p-4 w-96 text-gray-200"
+          className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-96 text-gray-200"
           type="text"
-          placeholder="Please write your name"
+          placeholder={`Please write your name * ` }
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {errorEmail ? (
+          <h2
+            className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
+                   text-center"
+          >
+            {errorEmail}
+          </h2>
+        ) : null}
         <input
-          className="font-orbitron uppercase border-4 border-gray-500 rounded my-8 p-4 w-96 text-gray-200"
+          className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-96 text-gray-200"
           type="email"
-          placeholder="Please write your email"
+          placeholder={`Please write your email * ` }
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="relative w-96 my-8">
+        <div className="relative w-96">
+          {errorPassword ? (
+            <h2
+              className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
+                     text-center"
+            >
+              {errorPassword}
+            </h2>
+          ) : null}
           <input
-            className="font-orbitron uppercase border-4 border-gray-500 rounded p-4 w-full text-gray-200"
+            className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-full text-gray-200"
             type={showPassword ? "text" : "password"}
-            placeholder="Please write your password"
+            placeholder={`Please write your password * ` }
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -101,7 +132,6 @@ const SignUp = () => {
           SignUp
         </button>
       </form>
-
     </div>
   );
 };
