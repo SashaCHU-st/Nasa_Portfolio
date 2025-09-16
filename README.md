@@ -21,7 +21,9 @@
 ## Project Description
 
 This project was created to practice building a full-stack application using **PostgreSQL**, **Node.js (Fastify)**, **Three.js**, **React**, **TypeScript**, and the **NASA API**.  
-It also implements **ESLint** and **Prettier** for clean and consistent code, **JWT** and **Fastify Cookie** for secure authentication, **bcrypt** for password hashing, and **Zod** for robust schema validation.
+It also implements **ESLint** and **Prettier** for clean and consistent code, **JWT** and **Fastify Cookie** for secure authentication, **bcrypt** for password hashing, and **Zod** for robust schema validation.  
+
+The frontend is deployed on **Vercel**, and the backend is deployed on **Render**.
 
 ## Technologies Used
 
@@ -34,6 +36,8 @@ It also implements **ESLint** and **Prettier** for clean and consistent code, **
 - **JWT & Fastify Cookie** — authentication
 - **bcrypt** — password hashing
 - **Zod** — runtime schema validation
+- **Deployment** — frontend on Vercel, backend on Render
+
 
 
 # Watch Demo
