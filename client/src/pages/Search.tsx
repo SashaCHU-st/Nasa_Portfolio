@@ -1,7 +1,7 @@
-import Sun from "../backgrounds/Sun";
-import SearchInput from "../components/SearchInput";
-import { useState } from "react";
-import PauseAnimation from "../components/PauseAnimation";
+import Sun from '../backgrounds/Sun';
+import SearchInput from '../components/SearchInput';
+import { useState } from 'react';
+import PauseAnimation from '../components/PauseAnimation';
 
 const Search = () => {
   const [paused, setPaused] = useState(false);

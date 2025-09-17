@@ -1,4 +1,4 @@
-import type { PageScrollerProps } from "../types/types";
+import type { PageScrollerProps } from '../types/types';
 
 const PageScroller = ({
   totalPages,

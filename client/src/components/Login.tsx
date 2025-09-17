@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { validateEmail, validatePassword } from "../utils/InputValidation";
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthConext';
+import { useNavigate } from 'react-router-dom';
+import { validateEmail, validatePassword } from '../utils/InputValidation';
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const Login = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
   const { login: loginUser } = useAuth();
   const [errorEmail, setErrorEmail] = useState<string | null>(null);
@@ -22,9 +22,9 @@ const Login = () => {
     if (emailErr || passwordErr) return;
     try {
       const results = await fetch(`${BACK_API}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           email,
           password,
@@ -34,13 +34,13 @@ const Login = () => {
 
       if (!results.ok) {
         setErrorPassword(data.pass || null);
-        setErrorEmail(data.email ||null);
-        throw new Error(data.message || "Something went wrong");
+        setErrorEmail(data.email || null);
+        throw new Error(data.message || 'Something went wrong');
       }
       loginUser();
-      navigate("/home");
-    } catch (err: any) {
-      console.error("Error", err);
+      navigate('/home');
+    } catch (err) {
+      console.error('Error', err);
     }
   };
   return (
@@ -73,10 +73,10 @@ const Login = () => {
           onChange={(e) => {
             const value = e.target.value;
             if (value.length <= 20) {
-              setEmail("")
+              setEmail('');
               setEmail(value);
             } else {
-              setErrorEmail("EMail must be max 20 characters");
+              setErrorEmail('EMail must be max 20 characters');
             }
           }}
         />
@@ -91,25 +91,25 @@ const Login = () => {
           ) : null}
           <input
             className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-full text-gray-200"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             placeholder="Please write your password *"
             value={password}
             onChange={(e) => {
-            const value = e.target.value;
-            if (value.length <= 40) {
-              setPassword("")
-              setPassword(value);
-            } else {
-              setErrorPassword("Password must be max 40 characters");
-            }
-          }}
+              const value = e.target.value;
+              if (value.length <= 40) {
+                setPassword('');
+                setPassword(value);
+              } else {
+                setErrorPassword('Password must be max 40 characters');
+              }
+            }}
           />
           <button
             type="button"
             className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? "🙈" : "👁️"}
+            {showPassword ? '🙈' : '👁️'}
           </button>
         </div>
 

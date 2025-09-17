@@ -1,5 +1,5 @@
-import type { NotYetProps } from "../types/types";
-const NotYetItems = ({item}:NotYetProps) => {
+import type { NotYetProps } from '../types/types';
+const NotYetItems = ({ item }: NotYetProps) => {
   return (
     <div className="w-full h-[320px] flex items-center justify-center">
       <h2

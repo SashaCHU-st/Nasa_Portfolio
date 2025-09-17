@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import Spinner from "./Spinner";
+import { useEffect, useState } from 'react';
+import Spinner from './Spinner';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const NASA_API = import.meta.env.VITE_NASA_API;
@@ -57,15 +57,17 @@ const PictOfTheDay = () => {
             className="cursor-pointer cursor-pointer font-orbitron text-white underline mb-4"
             onClick={() => setShowDescription((prev) => !prev)}
           >
-            {showDescription ? "Hide description" : "Show description"}
+            {showDescription ? 'Hide description' : 'Show description'}
           </button>
 
           <div
             className={`transition-all duration-500 overflow-hidden w-full max-w-3xl ${
-              showDescription ? "max-h-[500px]" : "max-h-0"
+              showDescription ? 'max-h-[500px]' : 'max-h-0'
             }`}
           >
-            <p className="font-sans text-white text-xl text-center">{description}</p>
+            <p className="font-sans text-white text-xl text-center">
+              {description}
+            </p>
           </div>
         </div>
       )}

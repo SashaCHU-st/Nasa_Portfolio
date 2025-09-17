@@ -1,12 +1,14 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { AuthContext } from './AuthConext';
+// import type{ AuthContextType } from '../types/types';
 
-export const AuthContext = createContext<any>(null);
+// export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error("AuthProvider missing");
-  return context;
-};
+// export const useAuth = () => {
+//   const context = useContext(AuthContext);
+//   if (!context) throw new Error('AuthProvider missing');
+//   return context;
+// };
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -15,21 +17,21 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   const login = () => {
-    setIsAuthorized(true)
+    setIsAuthorized(true);
   };
 
   const logout = async () => {
     try {
       await fetch(`${BACK_API}/logout`, {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
       });
       setIsAuthorized(false);
-      localStorage.removeItem("searchQuery");
-      localStorage.removeItem("searchResults");
-      localStorage.removeItem("currentPage");
+      localStorage.removeItem('searchQuery');
+      localStorage.removeItem('searchResults');
+      localStorage.removeItem('currentPage');
     } catch (err) {
-      console.error("Logout failed", err);
+      console.error('Logout failed', err);
     }
   };
 
@@ -41,10 +43,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         //   return;
         // }
         const res = await fetch(`${BACK_API}/me`, {
-          credentials: "include",
+          credentials: 'include',
         });
         setIsAuthorized(res.ok);
       } catch (err) {
+        console.error(err);
         setIsAuthorized(false);
       } finally {
         setLoading(false);

@@ -1,27 +1,35 @@
-import { useEffect, useState } from "react";
-import type { ListMySubscriptionProps } from "../types/types";
-import SubAndFollow from "./SubAndFollow";
+import { useEffect, useState, useCallback } from 'react';
+import type { ListMySubscriptionProps } from '../types/types';
+import SubAndFollow from './SubAndFollow';
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const ListMyFollowers = ({ users, setUsers }: ListMySubscriptionProps) => {
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchSubscriptions = async () => {
+  const fetchSubscriptions = useCallback(async () => {
+    try {
       setLoading(true);
       const res = await fetch(`${BACK_API}/getMyFollowers`, {
-        credentials: "include",
+        credentials: 'include',
       });
       const data = await res.json();
+
       if (!res.ok) {
-        throw new Error(data.message || "Something went wrong");
+        throw new Error(data.message || 'Something went wrong');
       }
-      setLoading(false);
+
       setUsers(data.mySubscrib);
-    };
+    } catch (err) {
+      console.error('Error fetching subscriptions:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [setUsers, setLoading]);
+
+  useEffect(() => {
     fetchSubscriptions();
-  }, []);
+  }, [fetchSubscriptions]);
 
   return (
     <div>

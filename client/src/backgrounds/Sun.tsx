@@ -1,13 +1,14 @@
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import type { AnimationProps } from "../types/types";
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { AnimationProps } from '../types/types';
 
 const Sun = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!mountRef.current) return;
+    const mount = mountRef.current;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
@@ -42,7 +43,7 @@ const Sun = ({ paused }: AnimationProps) => {
 
     // Sun texture
     const loader = new THREE.TextureLoader();
-    const sunTex = loader.load("/textures/sun.jpg");
+    const sunTex = loader.load('/textures/sun.jpg');
 
     const sunGeometry = new THREE.SphereGeometry(1, 64, 64);
     const sunMaterial = new THREE.MeshPhongMaterial({
@@ -68,10 +69,13 @@ const Sun = ({ paused }: AnimationProps) => {
       );
     }
     starsGeometry.setAttribute(
-      "position",
+      'position',
       new THREE.Float32BufferAttribute(starVertices, 3)
     );
-    const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 });
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.1,
+    });
     const starField = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(starField);
 
@@ -97,11 +101,11 @@ const Sun = ({ paused }: AnimationProps) => {
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      mountRef.current?.removeChild(renderer.domElement);
+      window.removeEventListener('resize', handleResize);
+      mount.removeChild(renderer.domElement);
     };
   }, [paused]);
 

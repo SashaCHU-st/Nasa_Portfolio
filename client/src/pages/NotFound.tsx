@@ -1,6 +1,6 @@
-import Universe from "../backgrounds/Universe";
-import { useState } from "react";
-import PauseAnimation from "../components/PauseAnimation";
+import Universe from '../backgrounds/Universe';
+import { useState } from 'react';
+import PauseAnimation from '../components/PauseAnimation';
 
 export const NotFound = () => {
   const [paused, setPaused] = useState(false);

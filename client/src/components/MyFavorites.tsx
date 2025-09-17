@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import type { MyFav } from "../types/types";
-import cosmon from "../../public/avatar/cosmon.png";
-import PageScroller from "./PageScroller";
-import { useNavigate } from "react-router-dom";
-import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Spinner from "./Spinner";
-import { paginate } from "../utils/paginatedItems";
+import { useEffect, useState } from 'react';
+import type { MyFav } from '../types/types';
+import cosmon from '../../public/avatar/cosmon.png';
+import PageScroller from './PageScroller';
+import { useNavigate } from 'react-router-dom';
+import { faHeartBroken } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Spinner from './Spinner';
+import { paginate } from '../utils/paginatedItems';
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 const ITEMS_PER_PAGE = 6;
@@ -21,11 +21,11 @@ const MyFavorites = () => {
     const fetchFav = async () => {
       try {
         const res = await fetch(`${BACK_API}/myFavorites`, {
-          credentials: "include",
+          credentials: 'include',
         });
         const data = await res.json();
         if (!res.ok) {
-          throw new Error(data.message || "Something went wrong");
+          throw new Error(data.message || 'Something went wrong');
         }
         setMyFav(data.fav);
         setCurrentPage(1);
@@ -38,7 +38,7 @@ const MyFavorites = () => {
     fetchFav();
   }, []);
   const { items, totalPages } = paginate(myFav, currentPage);
-  const handleMoreDetails = (item: any) => {
+  const handleMoreDetails = (item: MyFav) => {
     navigate(`/moreDetails/${item.nasa_id}`, {
       state: {
         title: item.title,
@@ -51,16 +51,16 @@ const MyFavorites = () => {
   const handleDeleteFav = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     const res = await fetch(`${BACK_API}/deleteFavorites`, {
-      method: "DELETE",
-      credentials: "include",
-      headers: { "Content-type": "application/json" },
+      method: 'DELETE',
+      credentials: 'include',
+      headers: { 'Content-type': 'application/json' },
       body: JSON.stringify({
         nasa_id: id,
       }),
     });
     const data = await res.json();
     if (!res.ok) {
-      throw new Error(data.message || "Something went wrong");
+      throw new Error(data.message || 'Something went wrong');
     }
 
     setMyFav((prev) => prev.filter((item) => item.nasa_id !== id));

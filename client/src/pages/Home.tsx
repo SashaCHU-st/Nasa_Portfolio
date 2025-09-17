@@ -1,9 +1,9 @@
-import PictOfTheDay from "../components/PictOfTheDay";
-import Earth from "../backgrounds/Earth";
-import github from "../../public/logo/github.png";
-import linkedIn from "../../public/logo/linkedIn.png";
-import { useState } from "react";
-import PauseAnimation from "../components/PauseAnimation";
+import PictOfTheDay from '../components/PictOfTheDay';
+import Earth from '../backgrounds/Earth';
+import github from '../../public/logo/github.png';
+import linkedIn from '../../public/logo/linkedIn.png';
+import { useState } from 'react';
+import PauseAnimation from '../components/PauseAnimation';
 
 const Home = () => {
   const [paused, setPaused] = useState(false);
@@ -23,7 +23,7 @@ const Home = () => {
              text-white font-sans text-center backdrop-blur-md"
         >
           <h2 className="text-lg sm:text-xl md:text-2xl font-medium leading-relaxed">
-            Hello, I’m{" "}
+            Hello, I’m{' '}
             <a
               href="https://www.linkedin.com/in/aleksandra-heinanen-a63108193/"
               target="_blank"
@@ -32,7 +32,7 @@ const Home = () => {
                 Aleksandra Heinänen
               </span>
             </a>
-            , and I’m excited to present my{" "}
+            , and I’m excited to present my{' '}
             <a
               href="https://github.com/SashaCHU-st/Nasa_Portfolio"
               target="_blank"

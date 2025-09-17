@@ -1,10 +1,10 @@
-import { useState } from "react";
-import PageScroller from "./PageScroller";
-import Followers from "./Followers";
-import Spinner from "./Spinner";
-import type { SubFollowProps } from "../types/types";
-import { paginate } from "../utils/paginatedItems";
-import NotYetItems from "./NotYetItems";
+import { useState } from 'react';
+import PageScroller from './PageScroller';
+import Followers from './Followers';
+import Spinner from './Spinner';
+import type { SubFollowProps } from '../types/types';
+import { paginate } from '../utils/paginatedItems';
+import NotYetItems from './NotYetItems';
 
 const SubAndFollow = ({ users, loading }: SubFollowProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);

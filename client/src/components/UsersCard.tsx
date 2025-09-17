@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import type { UsersType } from "../types/types";
-import PageScroller from "./PageScroller";
-import SearchUsers from "./SearchUsers";
-import cosmon from "../../public/avatar/cosmon.png";
-import Spinner from "./Spinner";
-import ViewProfileButton from "./ViewProfileButton";
-import { useNavigate } from "react-router-dom";
-import { paginate } from "../utils/paginatedItems";
+import { useEffect, useState } from 'react';
+import type { UsersType } from '../types/types';
+import PageScroller from './PageScroller';
+import SearchUsers from './SearchUsers';
+import cosmon from '../../public/avatar/cosmon.png';
+import Spinner from './Spinner';
+import ViewProfileButton from './ViewProfileButton';
+import { useNavigate } from 'react-router-dom';
+import { paginate } from '../utils/paginatedItems';
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -25,7 +25,7 @@ const UsersCard = () => {
     const fetchUsers = async () => {
       try {
         const results = await fetch(`${BACK_API}/users`, {
-          credentials: "include",
+          credentials: 'include',
         });
         const data = await results.json();
         setUsers(data.allUsers);
@@ -57,7 +57,7 @@ const UsersCard = () => {
               className="cursor-pointer relative flex flex-col items-center justify-between rounded-2xl p-4 sm:p-6 h-[280px] sm:h-[320px]
                  bg-[#0d1b2a]/80 border border-cyan-500 shadow-[0_0_15px_#0ff] 
                  hover:scale-105 hover:shadow-[0_0_30px_#0ff] transition-all duration-300"
-                 onClick={()=>handleViewProfile(item.id)}
+              onClick={() => handleViewProfile(item.id)}
             >
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-700/10 blur-xl"></div>
 

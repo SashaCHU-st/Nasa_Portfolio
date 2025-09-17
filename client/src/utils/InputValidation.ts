@@ -1,38 +1,27 @@
 export const validateEmail = (email: string): string | null => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email) 
-	return "Email is required.";
-  if (/\s/.test(email))
-	return "Email cannot contain spaces.";
-  if (email.length > 20)
-     return "Password must be maximum 20 characters long."
-  if (!emailRegex.test(email)) 
-	return "Invalid email format.";
+  if (!email) return 'Email is required.';
+  if (/\s/.test(email)) return 'Email cannot contain spaces.';
+  if (email.length > 20) return 'Password must be maximum 20 characters long.';
+  if (!emailRegex.test(email)) return 'Invalid email format.';
   return null;
 };
 
 export const validatePassword = (password: string): string | null => {
-  if (!password) 
-	return "Password is required.";
-  if (password.length < 4) 
-	return "Password must be at least 4 characters.";
+  if (!password) return 'Password is required.';
+  if (password.length < 4) return 'Password must be at least 4 characters.';
   if (password.length > 40)
-     return "Password must be maximum 40 characters long."
-  if (/\s/.test(password)) 
-    return "Password cannot contain spaces.";
+    return 'Password must be maximum 40 characters long.';
+  if (/\s/.test(password)) return 'Password cannot contain spaces.';
   return null;
 };
 
 export const validateName = (name: string): string | null => {
-  if (!name) 
-	return "Name is required.";
-  if (name.length < 1) 
-	return "Name must be at least 1 characters.";
-  if(name.length > 40)
-    return "Name must be maximum 20 characters long."
-  if (/^\s/.test(name)) 
-    return "Name cannot start with a whitespace.";
-  if (!/^[a-zA-Z\s\-']+$/.test(name)) 
-	return "Name can only contain letters, spaces, hyphens, or apostrophes.";
+  if (!name) return 'Name is required.';
+  if (name.length < 1) return 'Name must be at least 1 characters.';
+  if (name.length > 15) return 'Name must be maximum 15 characters long.';
+  if (/^\s/.test(name)) return 'Name cannot start with a whitespace.';
+  if (!/^[a-zA-Z\s\-']+$/.test(name))
+    return 'Name can only contain letters, spaces, hyphens, or apostrophes.';
   return null;
 };

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Saturn from "../backgrounds/Saturn";
-import Details from "../components/Details";
-import PauseAnimation from "../components/PauseAnimation";
+import { useState } from 'react';
+import Saturn from '../backgrounds/Saturn';
+import Details from '../components/Details';
+import PauseAnimation from '../components/PauseAnimation';
 
 const MoreDetails = () => {
   const [paused, setPaused] = useState(false);

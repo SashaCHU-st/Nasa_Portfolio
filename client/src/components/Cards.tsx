@@ -1,13 +1,13 @@
-import type { CardProps } from "../types/types";
-import PageScroller from "./PageScroller";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
-import { addToMyFavorite } from "../api/api";
-import { useAuth } from "../context/AuthContext";
-import type { MyFav } from "../types/types";
-import { useState } from "react";
-import Spinner from "./Spinner";
+import type { CardProps } from '../types/types';
+import PageScroller from './PageScroller';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import { addToMyFavorite } from '../api/api';
+import { useAuth } from '../context/AuthConext';
+import type { MyFav } from '../types/types';
+import { useState } from 'react';
+import Spinner from './Spinner';
 
 const Cards = ({
   search,
@@ -18,9 +18,9 @@ const Cards = ({
 }: CardProps) => {
   const navigate = useNavigate();
   const { isAuthorized } = useAuth();
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
 
-  const handleMoreDetails = (item: any) => {
+  const handleMoreDetails = (item: (typeof paginatedItems)[number]) => {
     navigate(`/moreDetails/${item.data[0].nasa_id}`, {
       state: {
         title: item.data[0].title,
@@ -32,7 +32,7 @@ const Cards = ({
 
   const handleFavoriteClick = async (item: (typeof paginatedItems)[number]) => {
     if (!isAuthorized) {
-      navigate("/auth");
+      navigate('/auth');
       return;
     }
 
@@ -63,7 +63,7 @@ const Cards = ({
           <div className="w-full flex justify-center items-center col-span-full h-64">
             <Spinner />
           </div>
-        ) : search !== "" && searchPressed ? (
+        ) : search !== '' && searchPressed ? (
           paginatedItems.length > 0 ? (
             paginatedItems.map((item, index) => (
               <div
@@ -119,7 +119,7 @@ const Cards = ({
           )
         ) : null}
 
-        {search === "" && searchPressed && (
+        {search === '' && searchPressed && (
           <div className="flex justify-center col-span-full">
             <h2
               className="font-orbitron uppercase text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest

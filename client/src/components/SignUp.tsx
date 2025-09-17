@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthConext';
 import {
   validateEmail,
   validateName,
   validatePassword,
-} from "../utils/InputValidation";
+} from '../utils/InputValidation';
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const SignUp = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorEmail, setErrorEmail] = useState<string | null>(null);
   const [errorPassword, setErrorPassword] = useState<string | null>(null);
@@ -32,9 +32,9 @@ const SignUp = () => {
     if (emailErr || passwordErr || nameError) return;
     try {
       const results = await fetch(`${BACK_API}/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           name,
           email,
@@ -45,13 +45,13 @@ const SignUp = () => {
       const data = await results.json();
 
       if (!results.ok) {
-        throw new Error(data.message || "Something went wrong");
+        setErrorEmail(data.message || 'Something went wrong');
+        throw new Error(data.message || 'Something went wrong');
       }
       loginUser();
-      navigate("/home");
-    } catch (err: any) {
-      console.error("Error", err);
-      setErrorEmail(err.message || "Something went wrong");
+      navigate('/home');
+    } catch (err) {
+      console.error('Error', err);
     }
   };
   return (
@@ -83,11 +83,11 @@ const SignUp = () => {
           value={name}
           onChange={(e) => {
             const value = e.target.value;
-            if (value.length <= 20) {
-              setName("")
+            if (value.length <= 15) {
+              setName('');
               setName(value);
             } else {
-              setErrorName("Name must be max 20 characters");
+              setErrorName('Name must be max 15 characters');
             }
           }}
         />
@@ -106,11 +106,11 @@ const SignUp = () => {
           value={email}
           onChange={(e) => {
             const value = e.target.value;
-            setEmail("")
+            setEmail('');
             if (value.length <= 20) {
               setEmail(value);
             } else {
-              setErrorEmail("Email must be max 20 characters");
+              setErrorEmail('Email must be max 20 characters');
             }
           }}
         />
@@ -125,16 +125,16 @@ const SignUp = () => {
           ) : null}
           <input
             className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-full text-gray-200"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             placeholder={`Please write your password * `}
             value={password}
             onChange={(e) => {
               const value = e.target.value;
-              setPassword("")
+              setPassword('');
               if (value.length <= 40) {
                 setPassword(value);
               } else {
-                setErrorPassword("Password must be max 40 characters");
+                setErrorPassword('Password must be max 40 characters');
               }
             }}
           />
@@ -143,7 +143,7 @@ const SignUp = () => {
             className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? "🙈" : "👁️"}
+            {showPassword ? '🙈' : '👁️'}
           </button>
         </div>
         <button

@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import type { AnimationProps } from "../types/types";
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { AnimationProps } from '../types/types';
 
 const Moon = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -9,6 +9,7 @@ const Moon = ({ paused }: AnimationProps) => {
     if (!mountRef.current) {
       return;
     }
+    const mount = mountRef.current;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x00000); //black
@@ -44,7 +45,7 @@ const Moon = ({ paused }: AnimationProps) => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const moonTex = loader.load("/textures/moon.jpg");
+    const moonTex = loader.load('/textures/moon.jpg');
     // const bump = loader.load("/textures/moon_bump.jpg");
 
     const moonGeometry = new THREE.SphereGeometry(1, 64, 64);
@@ -72,7 +73,7 @@ const Moon = ({ paused }: AnimationProps) => {
       );
     }
     starsGeometry.setAttribute(
-      "position",
+      'position',
       new THREE.Float32BufferAttribute(starVertices, 3)
     );
 
@@ -100,11 +101,11 @@ const Moon = ({ paused }: AnimationProps) => {
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      mountRef.current?.removeChild(renderer.domElement);
+      window.removeEventListener('resize', handleResize);
+      mount.removeChild(renderer.domElement);
     };
   }, [paused]);
   return <div ref={mountRef} className="w-screen h-screen" />;

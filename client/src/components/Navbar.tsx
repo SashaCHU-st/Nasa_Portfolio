@@ -1,23 +1,22 @@
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
   faUserGroup,
   faArrowRightFromBracket,
   faBars,
   faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+} from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../context/AuthConext';
+import { useState } from 'react';
 
 const Navbar = () => {
   const { isAuthorized, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-const linkClasses = ({ isActive }: { isActive: boolean }) =>
-  `flex justify-center items-center text-center w-full px-4 py-2 text-white font-orbitron uppercase rounded transition-all duration-300 
-   ${isActive ? "bg-gray-800 shadow-inner" : "hover:bg-gray-700 hover:shadow-md"}`;
-
+  const linkClasses = ({ isActive }: { isActive: boolean }) =>
+    `flex justify-center items-center text-center w-full px-4 py-2 text-white font-orbitron uppercase rounded transition-all duration-300 
+   ${isActive ? 'bg-gray-800 shadow-inner' : 'hover:bg-gray-700 hover:shadow-md'}`;
 
   return (
     <div className="fixed top-0 left-0 w-full bg-black shadow-md min-h-24 flex items-center px-4 md:px-8 z-50">
@@ -81,7 +80,7 @@ const linkClasses = ({ isActive }: { isActive: boolean }) =>
       </div>
       <div
         className={`absolute top-24 left-0 w-full bg-black flex flex-col items-start p-4 md:hidden transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         <NavLink
@@ -131,7 +130,7 @@ const linkClasses = ({ isActive }: { isActive: boolean }) =>
               className={linkClasses}
               onClick={() => setIsOpen(false)}
             >
-              <FontAwesomeIcon icon={faUserGroup} className="text-xl mr-2" />{" "}
+              <FontAwesomeIcon icon={faUserGroup} className="text-xl mr-2" />{' '}
               Subscriptions
             </NavLink>
             <NavLink

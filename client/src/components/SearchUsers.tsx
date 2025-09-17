@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import type { SearchUserProps } from "../types/types";
+import React, { useState } from 'react';
+import type { SearchUserProps } from '../types/types';
 
 const SearchUsers = ({ setUsers, allUsers }: SearchUserProps) => {
-  const [searchUsers, setSearchUsers] = useState<string>("");
+  const [searchUsers, setSearchUsers] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     setSearchUsers(text);
 
-    if (text === "") {
+    if (text === '') {
       setUsers(allUsers);
     } else {
       const filtered = allUsers.filter((user) =>
@@ -19,7 +19,7 @@ const SearchUsers = ({ setUsers, allUsers }: SearchUserProps) => {
   };
   return (
     <div>
-      <form className="flex flex-col sm:flex-row justify-center items-center my-6 gap-4" >
+      <form className="flex flex-col sm:flex-row justify-center items-center my-6 gap-4">
         <input
           type="text"
           className="font-orbitron uppercase w-full max-w-sm sm:max-w-[384px] rounded-2xl p-3

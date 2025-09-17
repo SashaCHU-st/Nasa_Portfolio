@@ -1,6 +1,6 @@
-import { useState } from "react";
-import SignUp from "./SignUp";
-import Login from "./Login";
+import { useState } from 'react';
+import SignUp from './SignUp';
+import Login from './Login';
 
 const AuthComponent = () => {
   const [switcher, setSwitcher] = useState(false);
@@ -31,9 +31,9 @@ const AuthComponent = () => {
             </button>
           </>
         )}
-            <p className="text-white font-orbitron uppercase text-sm mb-4">
-              * Required fields
-            </p>
+        <p className="text-white font-orbitron uppercase text-sm mb-4">
+          * Required fields
+        </p>
       </div>
     </div>
   );

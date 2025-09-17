@@ -45,27 +45,23 @@ export type MyFav = {
   image?: string;
 };
 
-
 export interface ListMySubscriptionProps {
   users: UsersType[];
-  setUsers: React.Dispatch<React.SetStateAction<UsersType[]>>
-};
+  setUsers: React.Dispatch<React.SetStateAction<UsersType[]>>;
+}
 
 export type FollowersProps = {
   item: UsersType;
 };
 
-
-
 export interface SubFollowProps {
-    users:UsersType[];
-    loading:boolean
+  users: UsersType[];
+  loading: boolean;
 }
 
-export type NotYetProps = 
-{
-  item:string
-}
+export type NotYetProps = {
+  item: string;
+};
 
 export interface PauseProps {
   setPaused: (value: boolean) => void;
@@ -73,4 +69,11 @@ export interface PauseProps {
 }
 export interface AnimationProps {
   paused: boolean;
+}
+
+export interface AuthContextType {
+  isAuthorized: boolean;
+  loading: boolean;
+  login: () => void;
+  logout: () => void;
 }

@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import type { ProfileProps } from "../types/types";
-import cosmon from "../../public/avatar/cosmon.png";
-import UserFavorites from "./UserFavorites";
-import Follow from "./Follow";
-import BackButton from "./BackButton";
-import Spinner from "./Spinner";
+import { useEffect, useState } from 'react';
+import type { ProfileProps } from '../types/types';
+import cosmon from '../../public/avatar/cosmon.png';
+import UserFavorites from './UserFavorites';
+import Follow from './Follow';
+import BackButton from './BackButton';
+import Spinner from './Spinner';
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const ProfileComponent = ({ id }: ProfileProps) => {
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [loadingImage, setLoadingImage] = useState(true);
   const [profileLoaded, setProfileLoaded] = useState(false);
@@ -18,16 +18,16 @@ const ProfileComponent = ({ id }: ProfileProps) => {
     const fetchProfile = async () => {
       try {
         const res = await fetch(`${BACK_API}/user`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: Number(id),
           }),
         });
         const data = await res.json();
         if (!res.ok) {
-          throw new Error(data.message || "Something went wrong");
+          throw new Error(data.message || 'Something went wrong');
         }
 
         setName(data.userProfile.name);
@@ -57,7 +57,7 @@ const ProfileComponent = ({ id }: ProfileProps) => {
             <img
               className={`w-24 h-24 sm:w-72 sm:h-72 rounded-full border-4 border-cyan-500 
         shadow-[0_0_10px_#0ff] object-cover 
-        ${loadingImage ? "hidden" : "block"}`}
+        ${loadingImage ? 'hidden' : 'block'}`}
               src={image}
               alt="Profile avatar"
               onLoad={() => setLoadingImage(false)}

@@ -1,17 +1,17 @@
-import { useEffect } from "react";
-import type { ProfileProps } from "../types/types";
-import { useState } from "react";
-import type { MyFav } from "../types/types";
-import PageScroller from "./PageScroller";
-import cosmon from "../../public/avatar/cosmon.png";
-import { useNavigate } from "react-router-dom";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addToMyFavorite } from "../api/api";
-import { useAuth } from "../context/AuthContext";
-import { paginate } from "../utils/paginatedItems";
-import Spinner from "./Spinner";
-import NotYetItems from "./NotYetItems";
+import { useEffect } from 'react';
+import type { ProfileProps } from '../types/types';
+import { useState } from 'react';
+import type { MyFav } from '../types/types';
+import PageScroller from './PageScroller';
+import cosmon from '../../public/avatar/cosmon.png';
+import { useNavigate } from 'react-router-dom';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { addToMyFavorite } from '../api/api';
+import { useAuth } from '../context/AuthConext';
+import { paginate } from '../utils/paginatedItems';
+import Spinner from './Spinner';
+import NotYetItems from './NotYetItems';
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const UserFavorites = ({ id }: ProfileProps) => {
@@ -19,7 +19,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
   const [fav, setFav] = useState<MyFav[]>([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const UserFavorites = ({ id }: ProfileProps) => {
       try {
         setLoading(true);
         const res = await fetch(`${BACK_API}/userFavorites`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: Number(id),
           }),
@@ -38,15 +38,15 @@ const UserFavorites = ({ id }: ProfileProps) => {
         // console.log("UUUU=>", data.userFav);
         setLoading(false);
         setFav(data.userFav);
-      } catch (err: any) {
+      } catch (err) {
         console.error(err);
       }
     };
     handleUserFavorites();
-  }, []);
+  }, [id]);
   const { items, totalPages } = paginate(fav, currentPage);
 
-  const handleMoreDetails = (item: any) => {
+  const handleMoreDetails = (item: MyFav) => {
     navigate(`/moreDetails/${item.nasa_id}`, {
       state: {
         title: item.title,
@@ -57,9 +57,9 @@ const UserFavorites = ({ id }: ProfileProps) => {
   };
 
   const handleFavoriteClick = async (e: React.MouseEvent, item: MyFav) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     if (!isAuthorized) {
-      navigate("/auth");
+      navigate('/auth');
       return;
     }
 

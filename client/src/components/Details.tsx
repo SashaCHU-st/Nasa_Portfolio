@@ -1,24 +1,24 @@
-import { useLocation, useParams } from "react-router-dom";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addToMyFavorite } from "../api/api";
-import { useAuth } from "../context/AuthContext";
-import BackButton from "./BackButton";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useParams } from 'react-router-dom';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { addToMyFavorite } from '../api/api';
+import { useAuth } from '../context/AuthConext';
+import BackButton from './BackButton';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Details = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthorized } = useAuth();
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
   const { title, description, image } = location.state || {};
 
   const handleAddToFavorites = async () => {
     if (!id) return;
     if (!isAuthorized) {
-      navigate("/auth");
+      navigate('/auth');
       return;
     }
 
