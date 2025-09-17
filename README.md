@@ -18,7 +18,27 @@
 
 **Live Demo:** [nasa-portfolio.vercel.app](https://nasa-portfolio.vercel.app/)
 
-This project was created to practice building a full-stack application using PostgreSQL, Node.js (Fastify),Three.js React, TypeScript, and the NASA API.
+## Project Description
+
+This project was created to practice building a full-stack application using **PostgreSQL**, **Node.js (Fastify)**, **Three.js**, **React**, **TypeScript**, and the **NASA API**.  
+It also implements **ESLint** and **Prettier** for clean and consistent code, **JWT** and **Fastify Cookie** for secure authentication, **bcrypt** for password hashing, and **Zod** for robust schema validation.  
+
+The frontend is deployed on **Vercel**, and the backend is deployed on **Render**.
+
+## Technologies Used
+
+- **PostgreSQL** — database
+- **Node.js (Fastify)** — backend framework
+- **React & Three.js** — frontend and 3D rendering
+- **TypeScript** — type safety
+- **NASA API** — external data source
+- **ESLint & Prettier** — code quality and formatting
+- **JWT & Fastify Cookie** — authentication
+- **bcrypt** — password hashing
+- **Zod** — runtime schema validation
+- **Deployment** — frontend on Vercel, backend on Render
+
+
 
 # Watch Demo
 https://vimeo.com/1116421740?fl=pl&fe=sh
@@ -44,8 +64,9 @@ https://vimeo.com/1116421740?fl=pl&fe=sh
 # Usage on Local Computer
 
 ## Requirements
-- Node.js v22
-- npm v10.8.2
+- Node.js v18 or higher (recommended: v20)
+- npm v9 or higher
+
 
 ## Steps
 
@@ -109,7 +130,7 @@ the frontend will run http://localhost:5173/
 | Feature/Bug | Status |
 |-------------|--------|
 | Tests | in progress |
-| Follow button | Users can follow other users |
+| Follow button | done |
 | Chat between friends | Friends can send and receive messages |
 | Add friends | Users can send friend requests and receive notifications |
 | Display user join date | Shows when users joined the app |
