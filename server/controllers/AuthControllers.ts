@@ -3,6 +3,7 @@ import { pool } from '../db/db';
 import { SignUpBody, LoginBody } from '../types/types';
 import { hashedPass } from '../utils/hashedPass';
 import bcrypt from 'bcrypt';
+import { check } from 'zod';
 
 export async function signUp(
   req: FastifyRequest<{ Body: SignUpBody }>,
@@ -56,27 +57,13 @@ export async function login(
       `SELECT * FROM users WHERE email = $1`,
       [email]
     );
-
     if (userExists.rowCount !== 0) {
-      const userLogin = await pool.query(
-        `SELECT * FROM users WHERE email = $1`,
-        [email]
+      const checkPass = await bcrypt.compare(
+        password,
+        userExists.rows[0].password
       );
-      if (userLogin.rowCount !== 0) {
-        const checkPass = await bcrypt.compare(
-          password,
-          userLogin.rows[0].password
-        );
-        if (!checkPass) {
-          return reply
-            .code(400)
-            .send({ message: 'Wrong password', pass: 'Wrong password' });
-        }
-        const user = userLogin.rows[0];
-        if (!user)
-          return reply.code(401).send({ message: 'Invalid credentials' });
-
-        const token = reply.server.jwt.sign({ id: user.id });
+      if (checkPass) {
+        const token = reply.server.jwt.sign({ id: userExists.rows[0].id });
         reply
           .setCookie('auth_token', token, {
             httpOnly: true,
@@ -86,14 +73,12 @@ export async function login(
             maxAge: 24 * 60 * 60,
           })
           .code(200)
-          .send({ message: 'Logged in', user });
+          .send({ message: 'Logged in' });
       } else {
-        return reply.code(400).send({ message: 'Wrong password' });
+        return reply.code(401).send({message:'No such user', pass: 'Wrong password' });
       }
     } else {
-      return reply
-        .code(400)
-        .send({ message: 'No such user', email: 'No such user' });
+      return reply.code(401).send({message:'No such user', email: 'No such user' });
     }
   } catch (err: unknown) {
     if (err instanceof Error) {

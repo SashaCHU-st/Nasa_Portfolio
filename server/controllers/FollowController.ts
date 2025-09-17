@@ -8,6 +8,7 @@ export async function subscribe(
   req: FastifyRequest,
   reply: FastifyReply
 ) {
+  console.log("herre")
   try {
     const userId = await authorisation(req, reply);
     const { follow_id } = data;
