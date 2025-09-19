@@ -122,6 +122,11 @@ npm run dev
 ```
 the frontend will run http://localhost:5173/
 
+# Testing
+2.1 Move to server directory
+```bash
+npm test
+```
 
 ### Project is still a work in progress, issues I am working on:
 
