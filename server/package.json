@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon --watch ./ --ext ts --exec ts-node server.ts",

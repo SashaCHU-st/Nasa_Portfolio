@@ -3,7 +3,7 @@ import { pool } from '../db/db';
 import { SignUpBody, LoginBody } from '../types/types';
 import { hashedPass } from '../utils/hashedPass';
 import bcrypt from 'bcrypt';
-import { check } from 'zod';
+// import { check } from 'zod';
 
 export async function signUp(
   req: FastifyRequest<{ Body: SignUpBody }>,
