@@ -2,7 +2,7 @@ export const validateEmail = (email: string): string | null => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email) return 'Email is required.';
   if (/\s/.test(email)) return 'Email cannot contain spaces.';
-  if (email.length > 20) return 'Password must be maximum 20 characters long.';
+  if (email.length > 30) return 'Password must be maximum 20 characters long.';
   if (!emailRegex.test(email)) return 'Invalid email format.';
   return null;
 };

@@ -40,7 +40,7 @@ const Login = () => {
       loginUser();
       navigate('/home');
     } catch (err) {
-      console.error('Error', err);
+      // console.error('Error', err);
     }
   };
   return (
@@ -72,7 +72,7 @@ const Login = () => {
           value={email}
           onChange={(e) => {
             const value = e.target.value;
-            if (value.length <= 20) {
+            if (value.length <= 30) {
               setEmail('');
               setEmail(value);
             } else {

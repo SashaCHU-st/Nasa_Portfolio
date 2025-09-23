@@ -24,6 +24,7 @@ export async function signUp(
       const user = newUser.rows[0];
       const token = reply.server.jwt.sign({ id: user.id });
 
+      console.log("ppp=>", user)
       reply
         .setCookie('auth_token', token, {
           httpOnly: true,

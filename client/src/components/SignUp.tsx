@@ -107,7 +107,7 @@ const SignUp = () => {
           onChange={(e) => {
             const value = e.target.value;
             setEmail('');
-            if (value.length <= 20) {
+            if (value.length <= 30) {
               setEmail(value);
             } else {
               setErrorEmail('Email must be max 20 characters');

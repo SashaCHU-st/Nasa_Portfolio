@@ -9,7 +9,7 @@
     "postinstall": "npm run build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
-    "test": "vitest"
+    "test": "vitest tests/**/*.test.ts"
   },
   "engines": {
     "node": ">=22.12.0"
