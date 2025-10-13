@@ -41,7 +41,8 @@ The frontend is deployed on **Vercel**, and the backend is deployed on **Render*
 
 
 # Watch Demo
-youtube.com/watch?v=ulFAAWBXqWI&feature=youtu.be
+[![Описание видео](https://img.youtube.com/vi/ulFAAWBXqWI/hqdefault.jpg)](https://www.youtube.com/watch?v=ulFAAWBXqWI)
+
 
 
 # What Works Now
