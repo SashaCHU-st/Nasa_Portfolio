@@ -142,3 +142,10 @@ npm test
 | Display user join date | Shows when users joined the app |
 | Show article likes | Displays how many likes a specific article has |
 
+
+# ✅ Issues need to fix
+| Feature/Bug | Status |
+|-------------|--------|
+| when there is no picture of the day, need to show "No picture of the day", now it is always loading | in progress |
+
+
