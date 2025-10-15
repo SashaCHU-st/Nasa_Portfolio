@@ -13,23 +13,53 @@ const PictOfTheDay = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let upload = true;
+    const MIN_LOADING_MS = 700;
+    const FETCH_TIMEOUT_MS = 3000;
+
     const fetchPicture = async () => {
+      setLoading(true);
+      const start = Date.now();
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
       try {
-        setLoading(true);
-        const res = await fetch(`${NASA_API}${API_KEY}`);
+        const res = await fetch(`${NASA_API}${API_KEY}`, {
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        if (!res.ok) {
+          throw new Error(`Fetch failed: ${res.status}`);
+        }
+
         const data = await res.json();
-        if (data.url) {
+        if (!upload) return;
+
+        if (data && data.url) {
           setPicture(data.url);
           setDescription(data.explanation);
           setTitle(data.title);
           setDate(data.date);
+        } else {
+          setPicture(null);
         }
-        setLoading(false);
       } catch (error) {
-        console.error(error);
+        if ((error as any)?.name !== 'AbortError') console.error(error);
+        if (upload) setPicture(null);
+      } finally {
+        const elapsed = Date.now() - start;
+        const wait = Math.max(0, MIN_LOADING_MS - elapsed);
+        if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+        if (upload) setLoading(false);
       }
     };
+
     fetchPicture();
+
+    return () => {
+      upload = false;
+    };
   }, []);
 
   return (
@@ -45,30 +75,33 @@ const PictOfTheDay = () => {
             {date}
           </p>
           {picture ? (
-            <img
-              src={picture}
-              alt="NASA Picture of the Day"
-              className="w-46 md:w-[28rem] lg:w-[36rem] h-46 rounded shadow-lg mb-6"
-            />
-          ) : (
-            <p className="text-white">Today no picture of the day :(</p>
-          )}
-          <button
-            className="cursor-pointer cursor-pointer font-orbitron text-white underline mb-4"
-            onClick={() => setShowDescription((prev) => !prev)}
-          >
-            {showDescription ? 'Hide description' : 'Show description'}
-          </button>
+            <>
+              <img
+                src={picture}
+                alt="NASA Picture of the Day"
+                className="w-46 md:w-[28rem] lg:w-[36rem] h-46 rounded shadow-lg mb-6"
+              />
 
-          <div
-            className={`transition-all duration-500 overflow-hidden w-full max-w-3xl ${
-              showDescription ? 'max-h-[500px]' : 'max-h-0'
-            }`}
-          >
-            <p className="font-sans text-white text-xl text-center">
-              {description}
-            </p>
-          </div>
+              <button
+                className="cursor-pointer font-orbitron text-white underline mb-4"
+                onClick={() => setShowDescription((prev) => !prev)}
+              >
+                {showDescription ? 'Hide description' : 'Show description'}
+              </button>
+
+              <div
+                className={`transition-all duration-500 overflow-hidden w-full max-w-3xl ${
+                  showDescription ? 'max-h-[500px]' : 'max-h-0'
+                }`}
+              >
+                <p className="font-sans text-white text-xl text-center">
+                  {description}
+                </p>
+              </div>
+            </>
+          ) : (
+            <p className="font-sans text-white text-xl text-center">Today no picture of the day :(</p>
+          )}
         </div>
       )}
     </div>
