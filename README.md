@@ -1,4 +1,4 @@
-# NASA project is in progress — now with Three.js 3D effects and exciting new features
+# NASA project is in progress now with Three.js 3D effects and exciting new features
 ![Nasa (9)](https://github.com/user-attachments/assets/dfec5262-c366-4532-b14b-21cbe06eabcf)
 
 ## Note not yet, ready for Mobile layout
@@ -41,7 +41,8 @@ The frontend is deployed on **Vercel**, and the backend is deployed on **Render*
 
 
 # Watch Demo
-https://vimeo.com/1116421740?fl=pl&fe=sh
+[![Описание видео](https://img.youtube.com/vi/ulFAAWBXqWI/hqdefault.jpg)](https://www.youtube.com/watch?v=ulFAAWBXqWI)
+
 
 
 # What Works Now
@@ -122,6 +123,11 @@ npm run dev
 ```
 the frontend will run http://localhost:5173/
 
+# Testing
+2.1 Move to server directory
+```bash
+npm test
+```
 
 ### Project is still a work in progress, issues I am working on:
 
@@ -135,4 +141,11 @@ the frontend will run http://localhost:5173/
 | Add friends | Users can send friend requests and receive notifications |
 | Display user join date | Shows when users joined the app |
 | Show article likes | Displays how many likes a specific article has |
+
+
+# ✅ Issues need to fix
+| Feature/Bug | Status |
+|-------------|--------|
+| when there is no picture of the day, need to show "No picture of the day", now it is always loading | in progress |
+
 
