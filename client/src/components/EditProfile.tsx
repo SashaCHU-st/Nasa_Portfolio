@@ -51,8 +51,10 @@ const EditProfile = () => {
     e.preventDefault();
     const passwordErr = validatePassword(password);
     const nameError = validateName(name);
-    setErrorPassword(passwordErr);
-    setErrorName(nameError);
+    if (passwordErr === '' || nameError === '') {
+      setErrorPassword(passwordErr);
+      setErrorName(nameError);
+    }
     try {
       const res = await fetch(`${BACK_API}/editProfile`, {
         method: 'POST',
@@ -131,30 +133,33 @@ const EditProfile = () => {
               Upload Image
             </label>
           </div>
-          {errorName ? (
-            <h2
-              className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
+          <div className="relative w-96 my-8">
+            {errorName ? (
+              <h2
+                className="font-orbitron uppercase text-l sm:text-l md:text-l font-bold text-red-600 tracking-widest
                     text-center"
-            >
-              {errorName}
-            </h2>
-          ) : null}
-          <input
-            className="font-orbitron uppercase border-4 border-gray-500 rounded my-8 p-4 w-96 text-gray-200"
-            type="text"
-            placeholder={oldName}
-            value={name}
-            onChange={(e) => {
-              setProfileUpdatedMessage('');
-              const value = e.target.value;
-              if (value.length <= 20) {
-                setName('');
-                setName(value);
-              } else {
-                setErrorName('Name must be max 20 characters');
-              }
-            }}
-          />
+              >
+                {errorName}
+              </h2>
+            ) : null}
+            <input
+              className="font-orbitron uppercase border-4 border-gray-500 rounded my-8 p-4 w-96 text-gray-200"
+              type="text"
+              placeholder={oldName}
+              value={name}
+              onChange={(e) => {
+                setProfileUpdatedMessage('');
+                const value = e.target.value;
+                // clear previous error while user types
+                if (errorName) setErrorName(null);
+                if (value.length <= 20) {
+                  setName(value);
+                } else {
+                  setErrorName('Name must be max 20 characters');
+                }
+              }}
+            />
+          </div>
 
           <div className="relative w-96 my-8">
             {errorPassword ? (
@@ -173,8 +178,9 @@ const EditProfile = () => {
               onChange={(e) => {
                 setProfileUpdatedMessage('');
                 const value = e.target.value;
+                // clear previous error while user types
+                if (errorPassword) setErrorPassword(null);
                 if (value.length <= 40) {
-                  setPassword('');
                   setPassword(value);
                 } else {
                   setErrorPassword('Password must be max 40 characters');
