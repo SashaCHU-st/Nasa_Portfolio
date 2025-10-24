@@ -72,11 +72,11 @@ const Login = () => {
           value={email}
           onChange={(e) => {
             const value = e.target.value;
-            if (value.length <= 20) {
+            if (value.length <= 40) {
               setEmail('');
               setEmail(value);
             } else {
-              setErrorEmail('EMail must be max 20 characters');
+              setErrorEmail('EMail must be max 40 characters');
             }
           }}
         />
