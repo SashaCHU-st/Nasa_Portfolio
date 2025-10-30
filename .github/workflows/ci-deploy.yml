@@ -1,0 +1,55 @@
+name: CI Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Ensure ECR repository exists and login
+        id: ecr
+        run: |
+          REPO_NAME=nasa-portfolio-server
+          aws ecr describe-repositories --repository-names "$REPO_NAME" || aws ecr create-repository --repository-name "$REPO_NAME"
+          REPO_URI=$(aws ecr describe-repositories --repository-names "$REPO_NAME" --query 'repositories[0].repositoryUri' --output text)
+          echo "REPO_URI=$REPO_URI" >> $GITHUB_ENV
+          echo "Logging into ECR $REPO_URI"
+          aws ecr get-login-password | docker login --username AWS --password-stdin $REPO_URI
+
+      - name: Build server image and push to ECR
+        env:
+          REPO_URI: ${{ env.REPO_URI }}
+        run: |
+          cd server
+          npm ci
+          npm run build
+          IMAGE_TAG=${GITHUB_SHA::8}
+          docker build -t $REPO_URI:$IMAGE_TAG .
+          docker push $REPO_URI:$IMAGE_TAG
+          echo "IMAGE_URI=$REPO_URI:$IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: CDK deploy
+        env:
+          IMAGE_URI: ${{ env.IMAGE_URI }}
+        run: |
+          cd aws
+          npm ci
+          npm run build
+          npx cdk bootstrap --require-approval never
+          npx cdk deploy -c createRDS=true -c createECS=true -c imageUri=$IMAGE_URI --require-approval never
