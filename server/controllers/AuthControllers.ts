@@ -75,10 +75,14 @@ export async function login(
           .code(200)
           .send({ message: 'Logged in' });
       } else {
-        return reply.code(401).send({message:'No such user', pass: 'Wrong password' });
+        return reply
+          .code(401)
+          .send({ message: 'No such user', pass: 'Wrong password' });
       }
     } else {
-      return reply.code(401).send({message:'No such user', email: 'No such user' });
+      return reply
+        .code(401)
+        .send({ message: 'No such user', email: 'No such user' });
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -95,7 +99,8 @@ export async function logout(req: FastifyRequest, reply: FastifyReply) {
     .clearCookie('auth_token', {
       path: '/',
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     })
     .code(200)
     .send({ message: 'Logged out' });
