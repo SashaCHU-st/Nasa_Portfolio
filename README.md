@@ -146,6 +146,7 @@ npm test
 # ✅ Issues need to fix
 | Feature/Bug | Status |
 |-------------|--------|
-| when there is no picture of the day, need to show "No picture of the day", now it is always loading | in progress |
+| when there is no picture of the day, need to show "No picture of the day", now it is always loading | done |
+| store in db not picture, but the link to the picture | in progress |
 
 
