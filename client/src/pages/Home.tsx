@@ -49,6 +49,25 @@ const Home = () => {
             <span className="font-semibold"> Fastify</span>, and
             <span className="font-semibold"> PostgreSQL</span>.
           </p>
+          <div className="flex flex-col items-start space-y-2 text-lg sm:text-xl md:text-xl">
+            <span className="text-cyan-400 font-semibold">
+              When Not Logged In:
+            </span>
+            <p className="text-left">
+              Users can view the "Picture of the Day" on the home page, browse a
+              list of users and their favorite items, search for NASA articles,
+              check article details, interact with a 3D universe by rotating and
+              moving it, and log in or sign up.
+            </p>
+            <span className="text-cyan-400 font-semibold">When Logged In:</span>
+            <p className="text-left">
+              Users can search for NASA articles, add or remove articles from
+              their favorites, check their own favorites, follow other users,
+              update their profile including name, password, and profile
+              picture, and log out.
+            </p>
+          </div>
+
           <div className="flex justify-end gap-4 w-full mt-4">
             <a
               className="cursor-pointer"

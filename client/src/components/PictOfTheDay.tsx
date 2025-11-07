@@ -123,7 +123,6 @@ const PictOfTheDay = () => {
             <p className="font-sans text-white text-xl text-center">
               NASA has temporarily stopped providing the Picture of the Day.{' '}
               <br />
-              Please check back later for stunning space photos!
             </p>
           )}
         </div>
