@@ -57,8 +57,19 @@ const Home = () => {
               Users can view the "Picture of the Day" on the home page, browse a
               list of users and their favorite items, search for NASA articles,
               check article details, interact with a 3D universe by rotating and
-              moving it, and log in or sign up.
+              moving it, and log in or sign up. <br /> The NASA articles and images are
+              fetched from the official{' '}
+              <a
+                href="https://api.nasa.gov/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline hover:text-blue-600"
+              >
+                NASA API
+              </a>
+              , which you can visit to learn more about the data source.
             </p>
+
             <span className="text-cyan-400 font-semibold">When Logged In:</span>
             <p className="text-left">
               Users can search for NASA articles, add or remove articles from
