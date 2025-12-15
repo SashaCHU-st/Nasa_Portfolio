@@ -69,7 +69,8 @@ const PictOfTheDay = () => {
         <div className="flex flex-col justify-center items-center text-center px-2 md:px-0">
           <h2 className="font-sans uppercase text-white text-lg sm:text-l md:text-l mb-4">
             {title ?? 'NASA Picture of the Day'}
-            <p className="font-sans text-center text-white bg-red-900 bg-opacity-50 rounded-lg p-4 max-w-xl mx-auto shadow-md">
+            {/* IN CASE NASA API WILL STOP AGAIN */}
+            {/* <p className="font-sans text-center text-white bg-red-900 bg-opacity-50 rounded-lg p-4 max-w-xl mx-auto shadow-md">
               <span className="block text-xl font-semibold mb-2">
                 NASA has temporarily stopped providing the Picture of the Day 😞
               </span>
@@ -88,7 +89,7 @@ const PictOfTheDay = () => {
                   https://api.nasa.gov/
                 </a>
               </span>
-            </p>
+            </p> */}
           </h2>
           <p className="font-orbitron uppercase text-white text-lg sm:text-l md:text-l mb-4 text-right w-full">
             {date ?? ''}
