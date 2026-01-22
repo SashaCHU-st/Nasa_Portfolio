@@ -9,6 +9,7 @@ interface AuthInputProps {
   value: string;
   onChange: (value: string) => void;
   error?: string | null;
+  className?: string;
   wrapperClassName?: string;
   action?: AuthInputAction;
 }
@@ -19,9 +20,13 @@ const AuthInput = ({
   value,
   onChange,
   error,
+  className,
   wrapperClassName,
   action,
 }: AuthInputProps) => {
+  const inputClasses =
+    className ||
+    "font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-96 text-gray-200";
   const wrapperClasses = action
     ? `relative ${wrapperClassName || "w-96"}`
     : wrapperClassName || "";
@@ -37,7 +42,7 @@ const AuthInput = ({
         </p>
       ) : null}
       <input
-        className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-96 text-gray-200"
+        className={inputClasses}
         type={type}
         placeholder={placeholder}
         value={value}
