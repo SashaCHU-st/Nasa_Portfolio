@@ -65,17 +65,16 @@ The frontend is deployed on **Vercel**, and the backend is deployed on **Render*
 # Usage on Local Computer
 
 ## Requirements
-- Node.js v18 or higher (recommended: v20)
-- npm v9 or higher
+- Node.js v20 
 
 
 ## Steps
 
 ### 1. Clone Repository
 ```bash
-git clone <repository_url>
-cd <repository_name>
-
+git clone https://github.com/SashaCHU-st/Nasa_Portfolio.git
+cd Nasa_Portfolio
+```
 
 ## Steps
 1.💻 Clone repository
@@ -111,6 +110,25 @@ cd client
 ```bash
 npm install
 ```
+### Commands
+
+### Checking correct types without build
+```bash
+npm run type-check
+```
+### Checking lint errors
+```bash
+npm run lint
+```
+
+### Checks code formatting 
+```bash
+npm run format:check
+```
+### TypeScript compilation and creates a production build.
+```bash
+npm run build
+```
 This project uses a .env file to manage sensitive environment variables. 
 ### ❗ NOTE
 For security reasons, the .env file is not included in this repository. Instead, an example file is provided.
@@ -118,15 +136,16 @@ For security reasons, the .env file is not included in this repository. Instead,
 3.2.1 Replace the enviroment values with your own.
   
 3.3 Start server
-```
+```bash
 npm run dev
 ```
 the frontend will run http://localhost:5173/
 
+
 # Testing
 2.1 Move to server directory
 ```bash
-npm test
+npm run test
 ```
 
 ### Project is still a work in progress, issues I am working on:
@@ -146,7 +165,6 @@ npm test
 # ✅ Issues need to fix
 | Feature/Bug | Status |
 |-------------|--------|
-| when there is no picture of the day, need to show "No picture of the day", now it is always loading | done |
 | store in db not picture, but the link to the picture | in progress |
 
 
