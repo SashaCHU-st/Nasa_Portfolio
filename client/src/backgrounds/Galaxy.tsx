@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import {
   Scene,
   PerspectiveCamera,
@@ -10,8 +10,8 @@ import {
   Points,
   AdditiveBlending,
   // Clock,
-} from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+} from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const GalaxyScene: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -29,8 +29,8 @@ const GalaxyScene: React.FC = () => {
       spin: 1,
       randomness: 0.3,
       randomnessPower: 5,
-      insideColor: '#ffffff',
-      outsideColor: '#000099',
+      insideColor: "#ffffff",
+      outsideColor: "#000099",
     };
 
     let geo: InstanceType<typeof BufferGeometry> | null = null;
@@ -82,8 +82,8 @@ const GalaxyScene: React.FC = () => {
         colors[i3 + 2] = mixedColor.b;
       }
 
-      geo.setAttribute('position', new BufferAttribute(positions, 3));
-      geo.setAttribute('color', new BufferAttribute(colors, 3));
+      geo.setAttribute("position", new BufferAttribute(positions, 3));
+      geo.setAttribute("color", new BufferAttribute(colors, 3));
 
       material = new PointsMaterial({
         size: parameters.size,
@@ -107,7 +107,7 @@ const GalaxyScene: React.FC = () => {
       75,
       sizes.width / sizes.height,
       0.1,
-      100
+      100,
     );
     camera.position.set(3, 3, 3);
     scene.add(camera);
@@ -130,7 +130,7 @@ const GalaxyScene: React.FC = () => {
       renderer.setSize(sizes.width, sizes.height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     /**
      * Animation
@@ -147,7 +147,7 @@ const GalaxyScene: React.FC = () => {
     // Cleanup
     return () => {
       // gui.destroy()
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
       geo?.dispose();
       material?.dispose();

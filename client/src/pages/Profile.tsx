@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom';
-import Neptune from '../backgrounds/Neptune';
-import ProfileComponent from '../components/ProfileComponent';
-import PauseAnimation from '../components/PauseAnimation';
-import { useState } from 'react';
+import { useParams } from "react-router-dom";
+import Neptune from "../backgrounds/Neptune";
+import ProfileComponent from "../components/Profile/ProfileComponent";
+import PauseAnimation from "../components/common/PauseAnimation";
+import { useState } from "react";
 
 const Profile = () => {
   const { id } = useParams<{ id: string }>();

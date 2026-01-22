@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import type { AnimationProps } from '../types/types';
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import type { AnimationProps } from "../types/types";
 
 const Mercury = ({ paused }: AnimationProps) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ const Mercury = ({ paused }: AnimationProps) => {
       45,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      1000,
     );
 
     camera.position.z = 5;
@@ -45,7 +45,7 @@ const Mercury = ({ paused }: AnimationProps) => {
 
     ///Textures
     const loader = new THREE.TextureLoader();
-    const mercuryTex = loader.load('/textures/mercury.jpg');
+    const mercuryTex = loader.load("/textures/mercury.jpg");
     // const bump = loader.load("/textures/mercury_bump.png");
 
     const mercuryGeometry = new THREE.SphereGeometry(1, 64, 64);
@@ -70,12 +70,12 @@ const Mercury = ({ paused }: AnimationProps) => {
       starVertices.push(
         (Math.random() - 0.5) * 400,
         (Math.random() - 0.5) * 400,
-        (Math.random() - 0.5) * 400
+        (Math.random() - 0.5) * 400,
       );
     }
     starsGeometry.setAttribute(
-      'position',
-      new THREE.Float32BufferAttribute(starVertices, 3)
+      "position",
+      new THREE.Float32BufferAttribute(starVertices, 3),
     );
 
     const starsMaterial = new THREE.PointsMaterial({
@@ -108,10 +108,10 @@ const Mercury = ({ paused }: AnimationProps) => {
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
       mount.removeChild(renderer.domElement);
     };
   }, [paused]);

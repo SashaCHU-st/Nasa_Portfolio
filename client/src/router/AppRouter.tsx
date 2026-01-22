@@ -1,18 +1,18 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import Home from '../pages/Home';
-import Users from '../pages/Users';
-import Auth from '../pages/Auth';
-import Search from '../pages/Search';
-import Navbar from '../components/Navbar';
-import Favorites from '../pages/Favorites';
-import Profile from '../pages/Profile';
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthConext';
-import PrivateRoute from './PrivateRoute';
-import MyProfile from '../pages/MyProfile';
-import Subscriptions from '../pages/Subscriptions';
-import MoreDetails from '../pages/MoreDetails';
-import { NotFound } from '../pages/NotFound';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Home from "../pages/Home";
+import Users from "../pages/Users";
+import Auth from "../pages/Auth";
+import Search from "../pages/Search";
+import Navbar from "../components/Navbar/Navbar";
+import Favorites from "../pages/Favorites";
+import Profile from "../pages/Profile";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import PrivateRoute from "./PrivateRoute";
+import MyProfile from "../pages/MyProfile";
+import Subscriptions from "../pages/Subscriptions";
+import MoreDetails from "../pages/MoreDetails";
+import { NotFound } from "../pages/NotFound";
 
 const AppRouter = () => {
   const auth = useContext(AuthContext);

@@ -1,7 +1,7 @@
-import EditProfile from '../components/EditProfile';
-import Venus from '../backgrounds/Venus';
-import { useState } from 'react';
-import PauseAnimation from '../components/PauseAnimation';
+import EditProfile from "../components/MyProfile/EditProfile";
+import Venus from "../backgrounds/Venus";
+import { useState } from "react";
+import PauseAnimation from "../components/common/PauseAnimation";
 const MyProfile = () => {
   const [paused, setPaused] = useState(false);
   return (

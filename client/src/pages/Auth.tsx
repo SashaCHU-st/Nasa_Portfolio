@@ -1,7 +1,7 @@
-import Mars from '../backgrounds/Mars';
-import AuthComponent from '../components/AuthComponent';
-import { useState } from 'react';
-import PauseAnimation from '../components/PauseAnimation';
+import Mars from "../backgrounds/Mars";
+import AuthComponent from "../components/Auth/AuthComponent";
+import { useState } from "react";
+import PauseAnimation from "../components/common/PauseAnimation";
 
 const Auth = () => {
   const [paused, setPaused] = useState(false);

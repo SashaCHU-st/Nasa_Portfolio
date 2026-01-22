@@ -1,7 +1,7 @@
-import Mercury from '../backgrounds/Mercury';
-import MySubscriptions from '../components/MySubscriptions';
-import PauseAnimation from '../components/PauseAnimation';
-import { useState } from 'react';
+import Mercury from "../backgrounds/Mercury";
+import MySubscriptions from "../components/Subscriptions/MySubscriptions";
+import PauseAnimation from "../components/common/PauseAnimation";
+import { useState } from "react";
 const Subscriptions = () => {
   const [paused, setPaused] = useState(false);
   return (

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { AuthContext } from './AuthConext';
+import { useState, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
 // import type{ AuthContextType } from '../types/types';
 
 // export const AuthContext = createContext<AuthContextType | null>(null);
@@ -23,15 +23,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     try {
       await fetch(`${BACK_API}/logout`, {
-        method: 'POST',
-        credentials: 'include',
+        method: "POST",
+        credentials: "include",
       });
       setIsAuthorized(false);
-      localStorage.removeItem('searchQuery');
-      localStorage.removeItem('searchResults');
-      localStorage.removeItem('currentPage');
+      localStorage.removeItem("searchQuery");
+      localStorage.removeItem("searchResults");
+      localStorage.removeItem("currentPage");
     } catch (err) {
-      console.error('Logout failed', err);
+      console.error("Logout failed", err);
     }
   };
 
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         //   return;
         // }
         const res = await fetch(`${BACK_API}/me`, {
-          credentials: 'include',
+          credentials: "include",
         });
         setIsAuthorized(res.ok);
       } catch (err) {

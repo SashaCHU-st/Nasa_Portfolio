@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Moon from '../backgrounds/Moon';
-import UsersCard from '../components/UsersCard';
-import PauseAnimation from '../components/PauseAnimation';
+import { useState } from "react";
+import Moon from "../backgrounds/Moon";
+import UsersCard from "../components/UsersCard/UsersCard";
+import PauseAnimation from "../components/common/PauseAnimation";
 
 const Users = () => {
   const [paused, setPaused] = useState(false);

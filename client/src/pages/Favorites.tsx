@@ -1,5 +1,5 @@
-import GalaxyScene from '../backgrounds/Galaxy';
-import MyFavorites from '../components/MyFavorites';
+import GalaxyScene from "../backgrounds/Galaxy";
+import MyFavorites from "../components/Favorites/MyFavorites";
 
 const Favorites = () => {
   return (
