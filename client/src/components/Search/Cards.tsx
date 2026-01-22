@@ -3,7 +3,7 @@ import PageScroller from "../common/PageScroller";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { addToMyFavorite } from "../../api/api";
+import { addToMyFavorite } from "../../api/apiAddToFavorite";
 import { useAuth } from "../../context/AuthContext";
 import type { MyFav } from "../../types/types";
 import { useState } from "react";

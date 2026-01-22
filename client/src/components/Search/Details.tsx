@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addToMyFavorite } from "../../api/api";
+import { addToMyFavorite } from "../../api/apiAddToFavorite";
 import { useAuth } from "../../context/AuthContext";
 import BackButton from "../common/BackButton";
 import { useNavigate } from "react-router-dom";

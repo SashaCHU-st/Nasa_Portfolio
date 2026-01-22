@@ -7,7 +7,7 @@ import cosmon from "../../../public/avatar/cosmon.png";
 import { useNavigate } from "react-router-dom";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addToMyFavorite } from "../../api/api";
+import { addToMyFavorite } from "../../api/apiAddToFavorite";
 import { useAuth } from "../../context/AuthContext";
 import { paginate } from "../../utils/paginatedItems";
 import Spinner from "../common/Spinner";
