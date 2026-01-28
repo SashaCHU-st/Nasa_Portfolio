@@ -17,7 +17,9 @@ describe("Switcher", () => {
     render(<Switcher switcher={true} setSwitcher={setSwitcher} />);
 
     expect(screen.getByText("SignUpView")).toBeInTheDocument();
-    const button = screen.getByRole("button", { name: /have an account\? login/i });
+    const button = screen.getByRole("button", {
+      name: /have an account\? login/i,
+    });
     await userEvent.click(button);
 
     expect(setSwitcher).toHaveBeenCalledWith(false);

@@ -29,7 +29,7 @@ const PasswordInput = ({
       className="font-orbitron uppercase border-4 border-gray-500 rounded my-4 p-4 w-full text-gray-200"
       wrapperClassName="w-96"
       action={{
-        label: showPassword ? "Hide" : "Show",
+        label: showPassword ? "🙈" : "👁️",
         onClick: () => setShowPassword(!showPassword),
       }}
       onChange={onChange}

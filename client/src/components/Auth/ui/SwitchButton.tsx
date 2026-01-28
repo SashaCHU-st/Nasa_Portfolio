@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 interface SwitchButtonProps {
   children: ReactNode;
-  setSwitcher: (value:boolean) => void;
+  setSwitcher: (value: boolean) => void;
 }
 const SwitchButton = ({ children, setSwitcher }: SwitchButtonProps) => {
   return (

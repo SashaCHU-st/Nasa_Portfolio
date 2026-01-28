@@ -17,13 +17,9 @@ test.describe("Auth forms", () => {
       .getByRole("button", { name: "Don't have account Register" })
       .click();
 
-    await expect(
-      page.getByRole("heading", { name: "Register" }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Register" })).toBeVisible();
 
-    await page
-      .getByPlaceholder("Please write your name * ")
-      .fill("Alex");
+    await page.getByPlaceholder("Please write your name * ").fill("Alex");
     await page
       .getByPlaceholder("Please write your email * ")
       .fill("alex@example.com");
@@ -31,9 +27,7 @@ test.describe("Auth forms", () => {
       .getByPlaceholder("Please write your password * ")
       .fill("Space123");
 
-    await expect(
-      page.getByRole("button", { name: "Sign Up" }),
-    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Sign Up" })).toBeVisible();
   });
 
   test("password show/hide toggles input type", async ({ page }) => {
