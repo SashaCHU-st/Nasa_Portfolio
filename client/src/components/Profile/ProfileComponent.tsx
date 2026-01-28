@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ProfileProps } from "../../types/types";
-import cosmon from "../../../public/avatar/cosmon.png";
+const cosmon = "/avatar/cosmon.png";
 import UserFavorites from "./UserFavorites";
 import Follow from "./Follow";
 import BackButton from "../common/BackButton";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { MyFav } from "../../types/types";
-import cosmon from "../../../public/avatar/cosmon.png";
+const cosmon = "/avatar/cosmon.png";
 import PageScroller from "../common/PageScroller";
 import { useNavigate } from "react-router-dom";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";

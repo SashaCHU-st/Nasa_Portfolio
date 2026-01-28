@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { UsersType } from "../../types/types";
 import PageScroller from "../common/PageScroller";
 import SearchUsers from "./SearchUsers";
-import cosmon from "../../../public/avatar/cosmon.png";
+const cosmon = "/avatar/cosmon.png";
 import Spinner from "../common/Spinner";
 import ViewProfileButton from "./ViewProfileButton";
 import { useNavigate } from "react-router-dom";

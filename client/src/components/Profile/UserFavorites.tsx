@@ -3,7 +3,7 @@ import type { ProfileProps, MyFav } from "../../types/types";
 import { useState } from "react";
 import type {} from "../../types/types";
 import PageScroller from "../common/PageScroller";
-import cosmon from "../../../public/avatar/cosmon.png";
+const cosmon = "/avatar/cosmon.png";
 import { useNavigate } from "react-router-dom";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

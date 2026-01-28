@@ -1,5 +1,5 @@
 import ViewProfileButton from "../UsersCard/ViewProfileButton";
-import cosmon from "../../../public/avatar/cosmon.png";
+const cosmon = "/avatar/cosmon.png";
 import type { FollowersProps } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 

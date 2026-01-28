@@ -1,5 +1,5 @@
 import { useState } from "react";
-import cosmon from "../../../public/avatar/cosmon.png";
+const cosmon = "/avatar/cosmon.png";
 import { useEffect } from "react";
 import { validateName, validatePassword } from "../../utils/InputValidation";
 

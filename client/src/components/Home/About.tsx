@@ -1,5 +1,5 @@
-import github from "../../../public/logo/github.png";
-import linkedIn from "../../../public/logo/linkedIn.png";
+const github = "/logo/github.png";
+const linkedIn = "/logo/linkedIn.png";
 
 const About = () => {
   return (
@@ -13,13 +13,18 @@ const About = () => {
         <a
           href="https://www.linkedin.com/in/aleksandra-heinanen-a63108193/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <span className="text-cyan-400 font-semibold">
             Aleksandra Heinänen
           </span>
         </a>
         , and I’m excited to present my{" "}
-        <a href="https://github.com/SashaCHU-st/Nasa_Portfolio" target="_blank">
+        <a
+          href="https://github.com/SashaCHU-st/Nasa_Portfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span className="text-cyan-300">Full Stack Project</span>.
         </a>
       </h2>
@@ -64,6 +69,7 @@ const About = () => {
           className="cursor-pointer"
           href="https://github.com/SashaCHU-st/Nasa_Portfolio"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <img src={github} alt="github" className="h-8" />
         </a>
@@ -71,6 +77,7 @@ const About = () => {
           className="cursor-pointer"
           href="https://www.linkedin.com/in/aleksandra-heinanen-a63108193/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <img src={linkedIn} alt="linkedIn" className="  w-10 h-8" />
         </a>
