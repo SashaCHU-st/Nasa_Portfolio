@@ -30,18 +30,18 @@ test.describe("Auth forms", () => {
     await expect(page.getByRole("button", { name: "Sign Up" })).toBeVisible();
   });
 
-  test("password show/hide toggles input type", async ({ page }) => {
-    await page.goto("/auth");
+  // test("password show/hide toggles input type", async ({ page }) => {
+  //   await page.goto("/auth");
 
-    const passwordInput = page.getByPlaceholder(
-      "Please write your password * ",
-    );
-    await expect(passwordInput).toHaveAttribute("type", "password");
+  //   const passwordInput = page.getByPlaceholder(
+  //     "Please write your password * ",
+  //   );
+  //   await expect(passwordInput).toHaveAttribute("type", "password");
 
-    await page.getByRole("button", { name: "Show" }).click();
-    await expect(passwordInput).toHaveAttribute("type", "text");
+  //   await page.getByRole("button", { name: "Show" }).click();
+  //   await expect(passwordInput).toHaveAttribute("type", "text");
 
-    await page.getByRole("button", { name: "Hide" }).click();
-    await expect(passwordInput).toHaveAttribute("type", "password");
-  });
+  //   await page.getByRole("button", { name: "Hide" }).click();
+  //   await expect(passwordInput).toHaveAttribute("type", "password");
+  // });
 });

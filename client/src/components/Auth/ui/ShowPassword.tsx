@@ -7,6 +7,8 @@ const ShowPassword = ({ showPassword, setShowPassword }: ShowPasswordProps) => {
     <button
       type="button"
       className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
+      aria-label={showPassword ? "Hide" : "Show"}
+      title={showPassword ? "Hide" : "Show"}
       onClick={() => setShowPassword(!showPassword)}
     >
       {showPassword ? "🙈" : "👁️"}

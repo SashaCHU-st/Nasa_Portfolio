@@ -129,6 +129,23 @@ npm run format:check
 ```bash
 npm run build
 ```
+### Unit tests (Vitest)
+```bash
+npm run test
+```
+### Run end-to-end tests (Playwright)
+
+#### 1. Start the development server in one terminal:
+
+```bash
+npm run dev
+```
+The application will be available at:
+http://localhost:5173
+#### 2.In another terminal, run the end-to-end tests:
+```bash
+npm run test:e2e
+```
 This project uses a .env file to manage sensitive environment variables. 
 ### ❗ NOTE
 For security reasons, the .env file is not included in this repository. Instead, an example file is provided.
