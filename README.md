@@ -110,7 +110,19 @@ cd client
 ```bash
 npm install
 ```
-### Commands
+This project uses a .env file to manage sensitive environment variables. 
+### ❗ NOTE
+For security reasons, the .env file is not included in this repository. Instead, an example file is provided.
+
+3.2.1 Replace the enviroment values with your own.
+  
+3.3 Start server
+```bash
+npm run dev
+```
+the frontend will run http://localhost:5173/
+
+## Commands
 
 ### Checking correct types without build
 ```bash
@@ -129,6 +141,9 @@ npm run format:check
 ```bash
 npm run build
 ```
+
+
+## Testing
 ### Unit tests (Vitest)
 ```bash
 npm run test
@@ -146,24 +161,8 @@ http://localhost:5173
 ```bash
 npm run test:e2e
 ```
-This project uses a .env file to manage sensitive environment variables. 
-### ❗ NOTE
-For security reasons, the .env file is not included in this repository. Instead, an example file is provided.
-
-3.2.1 Replace the enviroment values with your own.
-  
-3.3 Start server
-```bash
-npm run dev
-```
-the frontend will run http://localhost:5173/
 
 
-# Testing
-2.1 Move to server directory
-```bash
-npm run test
-```
 
 ### Project is still a work in progress, issues I am working on:
 
