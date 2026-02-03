@@ -166,7 +166,7 @@ npm run test:e2e
 
 ### Project is still a work in progress, issues I am working on:
 
-# ✅ Planning
+#### ✅ Planning
 
 | Feature/Bug | Status |
 |-------------|--------|
@@ -177,10 +177,5 @@ npm run test:e2e
 | Display user join date | Shows when users joined the app |
 | Show article likes | Displays how many likes a specific article has |
 
-
-# ✅ Issues need to fix
-| Feature/Bug | Status |
-|-------------|--------|
-| store in db not picture, but the link to the picture | in progress |
 
 
