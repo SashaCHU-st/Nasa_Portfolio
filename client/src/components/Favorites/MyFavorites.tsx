@@ -7,8 +7,10 @@ import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Spinner from "../common/Spinner";
 import { paginate } from "../../utils/paginatedItems";
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import {
+  deleteFavoriteRequest,
+  getMyFavoritesRequest,
+} from "../../api/apiFavorites";
 const ITEMS_PER_PAGE = 6;
 
 const MyFavorites = () => {
@@ -20,11 +22,8 @@ const MyFavorites = () => {
   useEffect(() => {
     const fetchFav = async () => {
       try {
-        const res = await fetch(`${BACK_API}/myFavorites`, {
-          credentials: "include",
-        });
-        const data = await res.json();
-        if (!res.ok) {
+        const { ok, data } = await getMyFavoritesRequest();
+        if (!ok) {
           throw new Error(data.message || "Something went wrong");
         }
         setMyFav(data.fav);
@@ -50,16 +49,8 @@ const MyFavorites = () => {
 
   const handleDeleteFav = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
-    const res = await fetch(`${BACK_API}/deleteFavorites`, {
-      method: "DELETE",
-      credentials: "include",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        nasa_id: id,
-      }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
+    const { ok, data } = await deleteFavoriteRequest(id);
+    if (!ok) {
       throw new Error(data.message || "Something went wrong");
     }
 

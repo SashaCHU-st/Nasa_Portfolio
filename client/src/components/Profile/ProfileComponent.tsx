@@ -5,8 +5,7 @@ import UserFavorites from "./UserFavorites";
 import Follow from "./Follow";
 import BackButton from "../common/BackButton";
 import Spinner from "../common/Spinner";
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import { getUserProfileRequest } from "../../api/apiProfile";
 
 const ProfileComponent = ({ id }: ProfileProps) => {
   const [name, setName] = useState<string>("");
@@ -17,16 +16,8 @@ const ProfileComponent = ({ id }: ProfileProps) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${BACK_API}/user`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: Number(id),
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
+        const { ok, data } = await getUserProfileRequest(id);
+        if (!ok) {
           throw new Error(data.message || "Something went wrong");
         }
 

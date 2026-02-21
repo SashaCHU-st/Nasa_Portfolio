@@ -1,3 +1,4 @@
+import { fetchWithTimeout } from "./fetchWithTimeout";
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 export interface LoginPayload {
@@ -12,7 +13,7 @@ export interface SignUpPayload {
 }
 
 export const loginRequest = async (payload: LoginPayload) => {
-  const res = await fetch(`${BACK_API}/login`, {
+  const res = await fetchWithTimeout(`${BACK_API}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -24,7 +25,7 @@ export const loginRequest = async (payload: LoginPayload) => {
 };
 
 export const signUpRequest = async (payload: SignUpPayload) => {
-  const res = await fetch(`${BACK_API}/signup`, {
+  const res = await fetchWithTimeout(`${BACK_API}/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",

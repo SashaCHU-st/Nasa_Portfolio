@@ -7,8 +7,7 @@ import Spinner from "../common/Spinner";
 import ViewProfileButton from "./ViewProfileButton";
 import { useNavigate } from "react-router-dom";
 import { paginate } from "../../utils/paginatedItems";
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import { getUsersRequest } from "../../api/apiUsers";
 
 const UsersCard = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -24,10 +23,7 @@ const UsersCard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const results = await fetch(`${BACK_API}/users`, {
-          credentials: "include",
-        });
-        const data = await results.json();
+        const { data } = await getUsersRequest();
         setUsers(data.allUsers);
         setAllUsers(data.allUsers);
         setCurrentPage(1);

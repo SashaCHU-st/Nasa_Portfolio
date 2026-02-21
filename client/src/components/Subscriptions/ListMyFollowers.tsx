@@ -1,8 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import type { ListMySubscriptionProps } from "../../types/types";
 import SubAndFollow from "./SubAndFollow";
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import { getMyFollowersRequest } from "../../api/apiUsers";
 
 const ListMyFollowers = ({ users, setUsers }: ListMySubscriptionProps) => {
   const [loading, setLoading] = useState(false);
@@ -10,12 +9,9 @@ const ListMyFollowers = ({ users, setUsers }: ListMySubscriptionProps) => {
   const fetchSubscriptions = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${BACK_API}/getMyFollowers`, {
-        credentials: "include",
-      });
-      const data = await res.json();
+      const { ok, data } = await getMyFollowersRequest();
 
-      if (!res.ok) {
+      if (!ok) {
         throw new Error(data.message || "Something went wrong");
       }
 

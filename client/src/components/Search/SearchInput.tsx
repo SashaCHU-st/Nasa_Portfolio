@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigationType } from "react-router-dom";
 import type { Item } from "../../types/types";
 import Cards from "./Cards";
-
-const NASA_API = import.meta.env.VITE_NASA_IMAGES;
+import { searchNasaImagesRequest } from "../../api/apiNasa";
 const ITEMS_PER_PAGE = 4;
 
 const SearchInput = () => {
@@ -67,9 +66,8 @@ const SearchInput = () => {
     setSearchPressed(true);
 
     try {
-      const res = await fetch(`${NASA_API}${search}`);
-      const data = await res.json();
-      if (!res.ok) throw new Error("Nothing found");
+      const { ok, data } = await searchNasaImagesRequest(search);
+      if (!ok) throw new Error("Nothing found");
 
       setItems(data.collection.items);
       setCurrentPage(1);

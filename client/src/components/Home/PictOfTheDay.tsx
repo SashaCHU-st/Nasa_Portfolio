@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Spinner from "../common/Spinner";
-
-const API_KEY = import.meta.env.VITE_API_KEY;
-const NASA_API = import.meta.env.VITE_NASA_API;
+import {
+  FetchTimeoutError,
+  getPictureOfTheDayRequest,
+} from "../../api/apiNasa";
 
 const PictOfTheDay = () => {
   const [picture, setPicture] = useState<string | null>(null);
@@ -20,20 +21,15 @@ const PictOfTheDay = () => {
     const fetchPicture = async () => {
       setLoading(true);
       const start = Date.now();
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
       try {
-        const res = await fetch(`${NASA_API}${API_KEY}`, {
-          signal: controller.signal,
-        });
-        clearTimeout(timeoutId);
+        const { ok, status, data } = await getPictureOfTheDayRequest(
+          FETCH_TIMEOUT_MS,
+        );
 
-        if (!res.ok) {
-          throw new Error(`Fetch failed: ${res.status}`);
+        if (!ok) {
+          throw new Error(`Fetch failed: ${status}`);
         }
-
-        const data = await res.json();
         if (!isMounted) return;
         if (data && data.url) {
           setPicture(data.url);
@@ -44,9 +40,7 @@ const PictOfTheDay = () => {
           setPicture(null);
         }
       } catch (error) {
-        const isAbortError =
-          error instanceof DOMException && error.name === "AbortError";
-        if (!isAbortError) console.error(error);
+        if (!(error instanceof FetchTimeoutError)) console.error(error);
         if (isMounted) setPicture(null);
       } finally {
         const elapsed = Date.now() - start;

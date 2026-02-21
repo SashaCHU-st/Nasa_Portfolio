@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
+import { checkAuthRequest, logoutRequest } from "../api/apiSession";
 // import type{ AuthContextType } from '../types/types';
 
 // export const AuthContext = createContext<AuthContextType | null>(null);
@@ -9,8 +10,6 @@ import { AuthContext } from "./AuthContext";
 //   if (!context) throw new Error('AuthProvider missing');
 //   return context;
 // };
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -22,10 +21,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${BACK_API}/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
+      await logoutRequest();
       setIsAuthorized(false);
       localStorage.removeItem("searchQuery");
       localStorage.removeItem("searchResults");
@@ -42,10 +38,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // {
         //   return;
         // }
-        const res = await fetch(`${BACK_API}/me`, {
-          credentials: "include",
-        });
-        setIsAuthorized(res.ok);
+        const isAuth = await checkAuthRequest();
+        setIsAuthorized(isAuth);
       } catch (err) {
         console.error(err);
         setIsAuthorized(false);

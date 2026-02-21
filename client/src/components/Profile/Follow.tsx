@@ -2,8 +2,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import type { ProfileProps } from "../../types/types";
 import { useEffect, useState } from "react";
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import {
+  getMySubscribeRequest,
+  subscribeRequest,
+  unsubscribeRequest,
+} from "../../api/apiUsers";
 const Follow = ({ id }: ProfileProps) => {
   const [alreadySubs, setAlreadySubs] = useState(false);
   const navigate = useNavigate();
@@ -15,11 +18,8 @@ const Follow = ({ id }: ProfileProps) => {
       if (!isAuthorized) {
         return;
       }
-      const res = await fetch(`${BACK_API}/getMySubscribe`, {
-        credentials: "include",
-      });
-      const data = await res.json();
-      if (!res.ok) {
+      const { ok, data } = await getMySubscribeRequest();
+      if (!ok) {
         throw new Error(data.message || "Something went wrong");
       }
       for (let i = 0; i < data.mySubscrib.length; i++) {
@@ -37,20 +37,12 @@ const Follow = ({ id }: ProfileProps) => {
     }
 
     try {
-      const res = await fetch(`${BACK_API}/subscribe`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          follow_id: Number(id),
-        }),
-      });
-      const data = await res.json();
+      const { ok, data } = await subscribeRequest(id);
 
       // console.log("KUKU=>", data.message)
       setMessage(data.message);
 
-      if (!res.ok) {
+      if (!ok) {
         throw new Error(data.message || "Something went wrong");
       }
       setAlreadySubs(true);
@@ -67,20 +59,12 @@ const Follow = ({ id }: ProfileProps) => {
 
   const handleUnFollowButton = async (id: number) => {
     try {
-      const res = await fetch(`${BACK_API}/unsubscribe`, {
-        method: "DELETE",
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          follow_id: Number(id),
-        }),
-      });
-      const data = await res.json();
+      const { ok, data } = await unsubscribeRequest(id);
 
       // console.log("KUKU=>", data.message)
       setMessage(data.message);
 
-      if (!res.ok) {
+      if (!ok) {
         throw new Error(data.message || "Something went wrong");
       }
       setAlreadySubs(false);

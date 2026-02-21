@@ -1,4 +1,5 @@
 import type { MyFav } from "../types/types";
+import { fetchWithTimeout } from "./fetchWithTimeout";
 
 const BACK_API = import.meta.env.VITE_BACKEND_API;
 
@@ -9,7 +10,7 @@ export const addToMyFavorite = async ({
   image,
 }: MyFav) => {
   try {
-    const res = await fetch(`${BACK_API}/addFavorites`, {
+    const res = await fetchWithTimeout(`${BACK_API}/addFavorites`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-type": "application/json" },

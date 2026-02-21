@@ -2,8 +2,8 @@ import { useState } from "react";
 const cosmon = "/avatar/cosmon.png";
 import { useEffect } from "react";
 import { validateName, validatePassword } from "../../utils/InputValidation";
-
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import { editProfileRequest } from "../../api/apiProfile";
+import { getMeRequest } from "../../api/apiSession";
 
 const EditProfile = () => {
   const [name, setName] = useState<string>("");
@@ -33,10 +33,7 @@ const EditProfile = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch(`${BACK_API}/me`, {
-          credentials: "include",
-        });
-        const data = await res.json();
+        const { data } = await getMeRequest();
         setImage(data.user.image);
         setOldName(data.user.name);
       } catch (err) {
@@ -56,24 +53,18 @@ const EditProfile = () => {
       setErrorName(nameError);
     }
     try {
-      const res = await fetch(`${BACK_API}/editProfile`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          image: imageBase64,
-          password,
-          name,
-        }),
+      const { ok, data } = await editProfileRequest({
+        image: imageBase64,
+        password,
+        name,
       });
-      const data = await res.json();
       if (name !== "" && image !== "") {
         setName(data.user.name);
         setImage(data.user.image);
       }
       // console.log("data=>", data.message);
       setProfileUpdatedMessage(data.message);
-      if (!res.ok) {
+      if (!ok) {
         throw new Error(data.message || "Something went wrong");
       }
     } catch (err: unknown) {

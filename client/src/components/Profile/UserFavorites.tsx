@@ -12,7 +12,7 @@ import { useAuth } from "../../context/AuthContext";
 import { paginate } from "../../utils/paginatedItems";
 import Spinner from "../common/Spinner";
 import NotYetItems from "../common/NotYetItems";
-const BACK_API = import.meta.env.VITE_BACKEND_API;
+import { getUserFavoritesRequest } from "../../api/apiFavorites";
 
 const UserFavorites = ({ id }: ProfileProps) => {
   const { isAuthorized } = useAuth();
@@ -26,15 +26,7 @@ const UserFavorites = ({ id }: ProfileProps) => {
     const handleUserFavorites = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${BACK_API}/userFavorites`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: Number(id),
-          }),
-        });
-        const data = await res.json();
+        const { data } = await getUserFavoritesRequest(id);
         // console.log("UUUU=>", data.userFav);
         setLoading(false);
         setFav(data.userFav);
