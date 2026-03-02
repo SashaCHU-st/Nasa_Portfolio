@@ -1,7 +1,7 @@
-# NASA project is in progress now with Three.js 3D effects and exciting new features
+## Space Explorer project is in progress now with Three.js 3D effects and exciting new features
 ![Nasa (9)](https://github.com/user-attachments/assets/dfec5262-c366-4532-b14b-21cbe06eabcf)
 
-## Note not yet, ready for Mobile layout
+### Note not yet, ready for Mobile layout
 # Table of Contents
 
 - [About Project](#about-project)
